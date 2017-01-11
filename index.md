@@ -1,37 +1,75 @@
-## Welcome to GitHub Pages
+# nimna
+DNA/RNA folding in Nim
+## What is nimna?
+**nimna** is a set of bindings to ViennaRNA, a library for RNA and DNA folding applications.
+It consists of a very thin wrapper `RNA.nim`, as well as a high level interface `nimna.nim`,
+which wraps the many pointers used in the ViennaRNA into garbage collected `ref objects` to
+make the library easier to use.
+## What can I do with it?
+Currently, **nimna** is very experimental and a *work in progress*. Thus, the currently
+available functionality in the high level interface is quite limited, but will be steadily
+growing. You can find documentation [here](https://mjendrusch.github.io/nimna/api.html).
 
-You can use the [editor on GitHub](https://github.com/mjendrusch/nimna/edit/gh-pages/index.md) to maintain and preview the content for your website in Markdown files.
+Currently, the following things are available with the high level interface:
 
-Whenever you commit to this repository, GitHub Pages will run [Jekyll](https://jekyllrb.com/) to rebuild the pages in your site, from the content in your Markdown files.
+  * Folding:
+    * Partition function folding for one or more molecules.
+    * Minimum free energy folding for one or more molecules.
+  * Constraints:
+    * Hard constraints are fully supported.
+  * Model Details:
+    * Updating of model details associated with a molecule.
+    * Generating MFE and PF parameters from model details.
+    * Macro for easily generating model details.
+  * Parameters:
+    * Updating of parameters associated with a molecule.
+  * Probability Matrix:
+    * Extracting values from the probability matrix of
+      partition function folding.
+    * Generating a Density Plot of the base pairing probability
+      in a terminal emulator.
+  * Miscellaneous:
+    * Generating reasonably random DNA/RNA sequences.
+    
+## What do I need to use it?
+You need either `RNA.so` or `libRNA.a` in your `PATH`. Both come with an installation of
+ViennaRNA 2.x or later. Do not use earlier ones.
 
-### Markdown
+## A short example
+```nim
+# We want to fold a sequence at multiple temperatures,
+# and see how the base pairing probabilities change:
+import nimna
+import strutils
 
-Markdown is a lightweight and easy-to-use syntax for styling your writing. It includes conventions for
+let rna = compound"GGGGGAGGAAACCTTCCCC"
 
-```markdown
-Syntax highlighted code block
-
-# Header 1
-## Header 2
-### Header 3
-
-- Bulleted
-- List
-
-1. Numbered
-2. List
-
-**Bold** and _Italic_ and `Code` text
-
-[Link](url) and ![Image](src)
+for deltaT in 0..200:
+  let T = 20.0 + deltaT.float / 10.0
+  discard rna.update(settings(temperature = T)).pf
+  if deltaT != 0:
+    # This makes use of ANSI-escapes to move the cursor
+    # up to the beginning of the plot, to write over it
+    # again, so we can have a nice animation.
+    echo "\e[$1A" % $(rna.length + 2)
+  rna.densityPlot
 ```
 
-For more details see [GitHub Flavored Markdown](https://guides.github.com/features/mastering-markdown/).
+## Short term plans
+You can expect this to happen over the next few days or weeks, at most
+(in chronological order):
 
-### Jekyll Themes
+- [ ] Wrap the remaining ViennaRNA headers.
+- [ ] Create a high level wrapper for *parameter file IO*.
+- [ ] Create a high level wrapper for all remaining flavours
+  of constraints.
+- [ ] Create a high level wrapper for centroid structure prediction.
+- [ ] Create a high level wrapper for MEA structure prediction.
+- [ ] Create a high level wrapper for comparative structure prediction.
+- [ ] Create a high level wrapper for 2Dfold.
+- [ ] Create a high level wrapper for duplex fold.
+- [ ] Create a high level wrapper for subopt.
+- [ ] Create a high level wrapper for local fold.
+- [ ] Create a high level wrapper for structure evaluation.
+- [ ] Make this a **nimble** package.
 
-Your Pages site will use the layout and styles from the Jekyll theme you have selected in your [repository settings](https://github.com/mjendrusch/nimna/settings). The name of this theme is saved in the Jekyll `_config.yml` configuration file.
-
-### Support or Contact
-
-Having trouble with Pages? Check out our [documentation](https://help.github.com/categories/github-pages-basics/) or [contact support](https://github.com/contact) and we’ll help you sort it out.
