@@ -1,5 +1,3 @@
-# nimna
-DNA/RNA folding in Nim
 ## What is nimna?
 **nimna** is a set of bindings to ViennaRNA, a library for RNA and DNA folding applications.
 It consists of a very thin wrapper `RNA.nim`, as well as a high level interface `nimna.nim`,
