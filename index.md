@@ -1,9 +1,12 @@
-## What is nimna?
+## What is nimna? ##
+
 **nimna** is a set of bindings to ViennaRNA, a library for RNA and DNA folding applications.
 It consists of a very thin wrapper `RNA.nim`, as well as a high level interface `nimna.nim`,
 which wraps the many pointers used in the ViennaRNA into garbage collected `ref objects` to
 make the library easier to use.
-## What can I do with it?
+
+## What can I do with it? ##
+
 Currently, **nimna** is very experimental and a *work in progress*. Thus, the currently
 available functionality in the high level interface is quite limited, but will be steadily
 growing. You can find documentation [here](https://mjendrusch.github.io/nimna/api.html).
@@ -29,11 +32,12 @@ Currently, the following things are available with the high level interface:
   * Miscellaneous:
     * Generating reasonably random DNA/RNA sequences.
     
-## What do I need to use it?
+## What do I need to use it? ##
+
 You need either `RNA.so` or `libRNA.a` in your `PATH`. Both come with an installation of
 ViennaRNA 2.x or later. Do not use earlier ones.
 
-## A short example
+## A short example ##
 ```nim
 # We want to fold a sequence at multiple temperatures,
 # and see how the base pairing probabilities change:
@@ -53,7 +57,8 @@ for deltaT in 0..200:
   rna.densityPlot
 ```
 
-## Short term plans
+## Short term plans ##
+
 You can expect this to happen over the next few days or weeks, at most
 (in chronological order):
 
