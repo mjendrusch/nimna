@@ -207,8 +207,8 @@ proc pfImpl(c: Compound): tuple[E: float; struc: string] =
   result.E = pf(c.vfc, structure)
   result.struc = $structure
 
-proc pf*(c: Compound{lvalue}): tuple[E: float; struc: string] = pfImpl(c)
-  ## Partition function folding for an lvalue Compound.
+proc pf*(c: Compound): tuple[E: float; struc: string] = pfImpl(c)
+  ## Partition function folding for a Compound.
   ## Returns a tuple of ensemble energy and secondary structure.
 
 proc mfeImpl(c: Compound): tuple[E: float; struc: string] =
@@ -218,7 +218,7 @@ proc mfeImpl(c: Compound): tuple[E: float; struc: string] =
   result.struc = $structure
 
 proc mfe*(c: Compound): tuple[E: float; struc: string] = mfeImpl(c)
-  ## Minimum free energy folding for an lvalue Compound.
+  ## Minimum free energy folding for a Compound.
   ## Returns a tuple of MFE and secondary structure.
 
 proc pfDimerImpl(c: Compound): tuple[E: DimerEnergies; struc: string] =
@@ -228,7 +228,7 @@ proc pfDimerImpl(c: Compound): tuple[E: DimerEnergies; struc: string] =
   result.struc = $structure
 
 proc pfDimer*(c: Compound): tuple[E: DimerEnergies; struc: string] = pfDimerImpl(c)
-  ## Partition function folding for an lvalue Compound (dimer).
+  ## Partition function folding for a Compound (dimer).
   ## Returns a tuple of ensemble energy and secondary structure.
 
 proc mfeDimerImpl(c: Compound): tuple[E: float; struc: string] =
@@ -238,7 +238,7 @@ proc mfeDimerImpl(c: Compound): tuple[E: float; struc: string] =
   result.struc = $structure
 
 proc mfeDimer*(c: Compound): tuple[E: float; struc: string] = mfeDimerImpl(c)
-  ## Minimum free energy folding for an lvalue Compound (dimer).
+  ## Minimum free energy folding for a Compound (dimer).
   ## Returns a tuple of MFE and secondary structure.
 
 # Utilities for plotting:
