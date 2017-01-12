@@ -401,6 +401,12 @@ proc densityPlot*(c: Compound, gamma: float, scheme: ColorScheme = csGrayScale) 
         seqI.add(toColorScheme(c.prob(i, j), gamma))
     echo c.sequence[i - 1], seqI
 
+# Read and write energy parameter files:
+proc readPars*(path: string) =
+  readParameterFile(path.cstring)
+proc writePars*(path: string) =
+  writeParameterFile(path.cstring)
+
 # Utilities for DNA/RNA processing
 
 proc complement*(a: char): char =
