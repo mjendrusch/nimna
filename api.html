@@ -1228,6 +1228,12 @@ function main() {
     title="ScaledParameters = VrnaExpParamT"><wbr />Scaled<wbr />Parameters<span class="attachedType" style="visibility:hidden"></span></a></li>
   <li><a class="reference" href="#ConstraintOption"
     title="ConstraintOption = distinct cuint"><wbr />Constraint<wbr />Option<span class="attachedType" style="visibility:hidden"></span></a></li>
+  <li><a class="reference" href="#Probabilities"
+    title="Probabilities = ref object
+  parent: Compound
+  bppm: ptr Flt_Or_Dbl"><wbr />Probabilities<span class="attachedType" style="visibility:hidden"></span></a></li>
+  <li><a class="reference" href="#MotifError"
+    title="MotifError = object of Exception"><wbr />Motif<wbr />Error<span class="attachedType" style="visibility:hidden"></span></a></li>
   <li><a class="reference" href="#ColorScheme"
     title="ColorScheme = enum
   csGrayScale, csBlueRed"><wbr />Color<wbr />Scheme<span class="attachedType" style="visibility:hidden"></span></a></li>
@@ -1279,6 +1285,8 @@ function main() {
     title="vccNoRemove = 128"><wbr />vcc<wbr />No<wbr />Remove<span class="attachedType" style="visibility:hidden"></span></a></li>
   <li><a class="reference" href="#vccAllLoops"
     title="vccAllLoops = 63"><wbr />vcc<wbr />All<wbr />Loops<span class="attachedType" style="visibility:hidden"></span></a></li>
+  <li><a class="reference" href="#vcmDefault"
+    title="vcmDefault = 0"><wbr />vcm<wbr />Default<span class="attachedType" style="visibility:hidden"></span></a></li>
 
   </ul>
 </li>
@@ -1291,8 +1299,36 @@ function main() {
     title="forceUnpaired(c: Compound; position: int; option: ConstraintOption = vccAllLoops): Compound"><wbr />force<wbr />Unpaired<span class="attachedType" style="visibility:hidden">Compound</span></a></li>
   <li><a class="reference" href="#forcePaired,Compound,int,int,ConstraintOption"
     title="forcePaired(c: Compound; i, j: int; option: ConstraintOption = vccAllLoops): Compound"><wbr />force<wbr />Paired<span class="attachedType" style="visibility:hidden">Compound</span></a></li>
+  <li><a class="reference" href="#liftConstraints,Compound"
+    title="liftConstraints(c: Compound): Compound"><wbr />lift<wbr />Constraints<span class="attachedType" style="visibility:hidden">Compound</span></a></li>
+  <li><a class="reference" href="#initConstraints,Compound"
+    title="initConstraints(c: Compound): Compound"><wbr />init<wbr />Constraints<span class="attachedType" style="visibility:hidden">Compound</span></a></li>
+  <li><a class="reference" href="#preferUnpaired,Compound,int,float,ConstraintOption"
+    title="preferUnpaired(c: Compound; position: int; energy: float;
+               option: ConstraintOption = vccAllLoops): Compound"><wbr />prefer<wbr />Unpaired<span class="attachedType" style="visibility:hidden">Compound</span></a></li>
+  <li><a class="reference" href="#preferUnpaired,Compound,openArray[float],ConstraintOption"
+    title="preferUnpaired(c: Compound; energies: openArray[float];
+               option: ConstraintOption = vccAllLoops): Compound"><wbr />prefer<wbr />Unpaired<span class="attachedType" style="visibility:hidden">Compound</span></a></li>
+  <li><a class="reference" href="#preferPaired,Compound,int,int,float,ConstraintOption"
+    title="preferPaired(c: Compound; i, j: int; energy: float;
+             option: ConstraintOption = vccAllLoops): Compound"><wbr />prefer<wbr />Paired<span class="attachedType" style="visibility:hidden">Compound</span></a></li>
+  <li><a class="reference" href="#preferPaired,Compound,openArray[T],ConstraintOption"
+    title="preferPaired[T: openArray[float]](c: Compound; energies: openArray[T];
+                                 option: ConstraintOption = vccAllLoops): Compound"><wbr />prefer<wbr />Paired<span class="attachedType" style="visibility:hidden">Compound</span></a></li>
+  <li><a class="reference" href="#preferPaired,Compound,openArray[float],ConstraintOption"
+    title="preferPaired(c: Compound; energies: openArray[float];
+             option: ConstraintOption = vccAllLoops): Compound"><wbr />prefer<wbr />Paired<span class="attachedType" style="visibility:hidden">Compound</span></a></li>
+  <li><a class="reference" href="#preferMotif,Compound,string,string,float,ConstraintOption"
+    title="preferMotif(c: Compound; motifSequence, motifStructure: string; energy: float;
+            option: ConstraintOption = vcmDefault): Compound"><wbr />prefer<wbr />Motif<span class="attachedType" style="visibility:hidden">Compound</span></a></li>
+  <li><a class="reference" href="#liftPreferences,Compound"
+    title="liftPreferences(c: Compound): Compound"><wbr />lift<wbr />Preferences<span class="attachedType" style="visibility:hidden">Compound</span></a></li>
+  <li><a class="reference" href="#initPreferences,Compound"
+    title="initPreferences(c: Compound): Compound"><wbr />init<wbr />Preferences<span class="attachedType" style="visibility:hidden">Compound</span></a></li>
   <li><a class="reference" href="#lift,Compound"
     title="lift(c: Compound): Compound"><wbr />lift<span class="attachedType" style="visibility:hidden">Compound</span></a></li>
+  <li><a class="reference" href="#init,Compound"
+    title="init(c: Compound): Compound"><wbr />init<span class="attachedType" style="visibility:hidden">Compound</span></a></li>
   <li><a class="reference" href="#toParams,Settings"
     title="toParams(s: Settings): Parameters"><wbr />to<wbr />Params<span class="attachedType" style="visibility:hidden">Settings</span></a></li>
   <li><a class="reference" href="#toScaledParams,Settings"
@@ -1309,10 +1345,12 @@ function main() {
     title="compound(sequence: string): Compound"><wbr />compound<span class="attachedType" style="visibility:hidden">Compound</span></a></li>
   <li><a class="reference" href="#compound,string,Settings"
     title="compound(sequence: string; settings: Settings): Compound"><wbr />compound<span class="attachedType" style="visibility:hidden">Compound</span></a></li>
-  <li><a class="reference" href="#rawProbabilities,Compound"
-    title="rawProbabilities(c: Compound): ptr Flt_Or_Dbl"><wbr />raw<wbr />Probabilities<span class="attachedType" style="visibility:hidden">Compound</span></a></li>
+  <li><a class="reference" href="#[],Probabilities,int,int"
+    title="`[]`(p: Probabilities; i, j: int): float"><wbr />`[]`<span class="attachedType" style="visibility:hidden">Probabilities</span></a></li>
+  <li><a class="reference" href="#probabilities,Compound"
+    title="probabilities(c: Compound): Probabilities"><wbr />probabilities<span class="attachedType" style="visibility:hidden">Compound</span></a></li>
   <li><a class="reference" href="#prob,Compound,int,int"
-    title="prob(c: Compound; i, j: int): Flt_Or_Dbl"><wbr />prob<span class="attachedType" style="visibility:hidden">Compound</span></a></li>
+    title="prob(c: Compound; i, j: int): float"><wbr />prob<span class="attachedType" style="visibility:hidden">Compound</span></a></li>
   <li><a class="reference" href="#pf,Compound"
     title="pf(c: Compound): tuple[E: float, struc: string]"><wbr />pf<span class="attachedType" style="visibility:hidden">Compound</span></a></li>
   <li><a class="reference" href="#mfe,Compound"
@@ -1321,6 +1359,12 @@ function main() {
     title="pfDimer(c: Compound): tuple[E: DimerEnergies, struc: string]"><wbr />pf<wbr />Dimer<span class="attachedType" style="visibility:hidden">Compound</span></a></li>
   <li><a class="reference" href="#mfeDimer,Compound"
     title="mfeDimer(c: Compound): tuple[E: float, struc: string]"><wbr />mfe<wbr />Dimer<span class="attachedType" style="visibility:hidden">Compound</span></a></li>
+  <li><a class="reference" href="#centroid,Compound"
+    title="centroid(c: Compound): tuple[dist: float, struc: string]"><wbr />centroid<span class="attachedType" style="visibility:hidden">Compound</span></a></li>
+  <li><a class="reference" href="#centroid,Probabilities"
+    title="centroid(p: Probabilities): tuple[dist: float, struc: string]"><wbr />centroid<span class="attachedType" style="visibility:hidden">Probabilities</span></a></li>
+  <li><a class="reference" href="#sample,Compound"
+    title="sample(c: Compound): string"><wbr />sample<span class="attachedType" style="visibility:hidden">Compound</span></a></li>
   <li><a class="reference" href="#densityPlot,Compound,float,ColorScheme"
     title="densityPlot(c: Compound; gamma: float; scheme: ColorScheme = csGrayScale)"><wbr />density<wbr />Plot<span class="attachedType" style="visibility:hidden">Compound</span></a></li>
   <li><a class="reference" href="#complement,char"
@@ -1335,12 +1379,12 @@ function main() {
 <li>
   <a class="reference reference-toplevel" href="#16" id="66">Macros</a>
   <ul class="simple simple-toc-section">
-      <li><a class="reference" href="#settings.m,varargs[untyped]"
-    title="settings(xs: varargs[untyped]): Settings"><wbr />settings<span class="attachedType" style="visibility:hidden">Settings</span></a></li>
-  <li><a class="reference" href="#..m,Compound,string"
+      <li><a class="reference" href="#..m,Compound,string"
     title="`.`(c: Compound; field: string): auto"><wbr />`.`<span class="attachedType" style="visibility:hidden">Compound</span></a></li>
   <li><a class="reference" href="#.=.m,Compound,string,T"
     title="`.=`[T](c: Compound; field: string; val: T): untyped"><wbr />`.=`<span class="attachedType" style="visibility:hidden">Compound</span></a></li>
+  <li><a class="reference" href="#settings.m,varargs[untyped]"
+    title="settings(xs: varargs[untyped]): Settings"><wbr />settings<span class="attachedType" style="visibility:hidden">Settings</span></a></li>
 
   </ul>
 </li>
@@ -1373,7 +1417,7 @@ function main() {
 <dd>
 Represents a sequence of DNA or RNA together with folding parameters and results.
 &nbsp;&nbsp;<a
-href="https://www.github.com/mjendrusch/nimna/tree/master/nimna.nim#L21"
+href="/tree/master/nimna.nim#L21"
 class="link-seesrc" target="_blank">Source</a>
 <a href="/edit/devel/nimna.nim#L21" class="link-seesrc" target="_blank" >Edit</a>
 
@@ -1382,7 +1426,7 @@ class="link-seesrc" target="_blank">Source</a>
 <dd>
 Represents a set of conditions for folding, such as for example temperature.
 &nbsp;&nbsp;<a
-href="https://www.github.com/mjendrusch/nimna/tree/master/nimna.nim#L25"
+href="/tree/master/nimna.nim#L25"
 class="link-seesrc" target="_blank">Source</a>
 <a href="/edit/devel/nimna.nim#L25" class="link-seesrc" target="_blank" >Edit</a>
 
@@ -1391,7 +1435,7 @@ class="link-seesrc" target="_blank">Source</a>
 <dd>
 Represents a set of folding parameters, computed from Settings.
 &nbsp;&nbsp;<a
-href="https://www.github.com/mjendrusch/nimna/tree/master/nimna.nim#L28"
+href="/tree/master/nimna.nim#L28"
 class="link-seesrc" target="_blank">Source</a>
 <a href="/edit/devel/nimna.nim#L28" class="link-seesrc" target="_blank" >Edit</a>
 
@@ -1400,7 +1444,7 @@ class="link-seesrc" target="_blank">Source</a>
 <dd>
 Represents a set of partition function folding parameters, computed from Settings.
 &nbsp;&nbsp;<a
-href="https://www.github.com/mjendrusch/nimna/tree/master/nimna.nim#L30"
+href="/tree/master/nimna.nim#L30"
 class="link-seesrc" target="_blank">Source</a>
 <a href="/edit/devel/nimna.nim#L30" class="link-seesrc" target="_blank" >Edit</a>
 
@@ -1409,9 +1453,30 @@ class="link-seesrc" target="_blank">Source</a>
 <dd>
 Represents the way a constraint on folding is stored and interpreted.
 &nbsp;&nbsp;<a
-href="https://www.github.com/mjendrusch/nimna/tree/master/nimna.nim#L33"
+href="/tree/master/nimna.nim#L33"
 class="link-seesrc" target="_blank">Source</a>
 <a href="/edit/devel/nimna.nim#L33" class="link-seesrc" target="_blank" >Edit</a>
+
+</dd>
+<dt id="Probabilities"><a name="Probabilities"></a><pre><span class="Identifier">Probabilities</span> <span class="Other">=</span> <span class="Keyword">ref</span> <span class="Keyword">object</span>
+  <span class="Identifier">parent</span><span class="Other">:</span> <span class="Identifier">Compound</span>
+  <span class="Identifier">bppm</span><span class="Other">:</span> <span class="Keyword">ptr</span> <span class="Identifier">Flt_Or_Dbl</span>
+</pre></dt>
+<dd>
+Represents the base pair probability matrix of a Compound
+&nbsp;&nbsp;<a
+href="/tree/master/nimna.nim#L35"
+class="link-seesrc" target="_blank">Source</a>
+<a href="/edit/devel/nimna.nim#L35" class="link-seesrc" target="_blank" >Edit</a>
+
+</dd>
+<dt id="MotifError"><a name="MotifError"></a><pre><span class="Identifier">MotifError</span> <span class="Other">=</span> <span class="Keyword">object</span> <span class="Keyword">of</span> <span class="Identifier">Exception</span></pre></dt>
+<dd>
+
+&nbsp;&nbsp;<a
+href="/tree/master/nimna.nim#L39"
+class="link-seesrc" target="_blank">Source</a>
+<a href="/edit/devel/nimna.nim#L39" class="link-seesrc" target="_blank" >Edit</a>
 
 </dd>
 <dt id="ColorScheme"><a name="ColorScheme"></a><pre><span class="Identifier">ColorScheme</span> <span class="Other">=</span> <span class="Keyword">enum</span>
@@ -1419,9 +1484,9 @@ class="link-seesrc" target="_blank">Source</a>
 <dd>
 
 &nbsp;&nbsp;<a
-href="https://www.github.com/mjendrusch/nimna/tree/master/nimna.nim#L249"
+href="/tree/master/nimna.nim#L370"
 class="link-seesrc" target="_blank">Source</a>
-<a href="/edit/devel/nimna.nim#L249" class="link-seesrc" target="_blank" >Edit</a>
+<a href="/edit/devel/nimna.nim#L370" class="link-seesrc" target="_blank" >Edit</a>
 
 </dd>
 
@@ -1433,189 +1498,198 @@ class="link-seesrc" target="_blank">Source</a>
 <dd>
 
 &nbsp;&nbsp;<a
-href="https://www.github.com/mjendrusch/nimna/tree/master/nimna.nim#L37"
+href="/tree/master/nimna.nim#L42"
 class="link-seesrc" target="_blank">Source</a>
-<a href="/edit/devel/nimna.nim#L37" class="link-seesrc" target="_blank" >Edit</a>
+<a href="/edit/devel/nimna.nim#L42" class="link-seesrc" target="_blank" >Edit</a>
 
 </dd>
 <dt id="vcDb"><a name="vcDb"></a><pre><span class="Identifier">vcDb</span> <span class="Other">=</span> <span class="DecNumber">16384</span></pre></dt>
 <dd>
 
 &nbsp;&nbsp;<a
-href="https://www.github.com/mjendrusch/nimna/tree/master/nimna.nim#L38"
+href="/tree/master/nimna.nim#L43"
 class="link-seesrc" target="_blank">Source</a>
-<a href="/edit/devel/nimna.nim#L38" class="link-seesrc" target="_blank" >Edit</a>
+<a href="/edit/devel/nimna.nim#L43" class="link-seesrc" target="_blank" >Edit</a>
 
 </dd>
 <dt id="vcdbEnforceBp"><a name="vcdbEnforceBp"></a><pre><span class="Identifier">vcdbEnforceBp</span> <span class="Other">=</span> <span class="DecNumber">32768</span></pre></dt>
 <dd>
 
 &nbsp;&nbsp;<a
-href="https://www.github.com/mjendrusch/nimna/tree/master/nimna.nim#L39"
+href="/tree/master/nimna.nim#L44"
 class="link-seesrc" target="_blank">Source</a>
-<a href="/edit/devel/nimna.nim#L39" class="link-seesrc" target="_blank" >Edit</a>
+<a href="/edit/devel/nimna.nim#L44" class="link-seesrc" target="_blank" >Edit</a>
 
 </dd>
 <dt id="vcdbPipe"><a name="vcdbPipe"></a><pre><span class="Identifier">vcdbPipe</span> <span class="Other">=</span> <span class="DecNumber">65536</span></pre></dt>
 <dd>
 
 &nbsp;&nbsp;<a
-href="https://www.github.com/mjendrusch/nimna/tree/master/nimna.nim#L40"
+href="/tree/master/nimna.nim#L45"
 class="link-seesrc" target="_blank">Source</a>
-<a href="/edit/devel/nimna.nim#L40" class="link-seesrc" target="_blank" >Edit</a>
+<a href="/edit/devel/nimna.nim#L45" class="link-seesrc" target="_blank" >Edit</a>
 
 </dd>
 <dt id="vcdbDot"><a name="vcdbDot"></a><pre><span class="Identifier">vcdbDot</span> <span class="Other">=</span> <span class="DecNumber">131072</span></pre></dt>
 <dd>
 
 &nbsp;&nbsp;<a
-href="https://www.github.com/mjendrusch/nimna/tree/master/nimna.nim#L41"
+href="/tree/master/nimna.nim#L46"
 class="link-seesrc" target="_blank">Source</a>
-<a href="/edit/devel/nimna.nim#L41" class="link-seesrc" target="_blank" >Edit</a>
+<a href="/edit/devel/nimna.nim#L46" class="link-seesrc" target="_blank" >Edit</a>
 
 </dd>
 <dt id="vcdbX"><a name="vcdbX"></a><pre><span class="Identifier">vcdbX</span> <span class="Other">=</span> <span class="DecNumber">262144</span></pre></dt>
 <dd>
 
 &nbsp;&nbsp;<a
-href="https://www.github.com/mjendrusch/nimna/tree/master/nimna.nim#L42"
+href="/tree/master/nimna.nim#L47"
 class="link-seesrc" target="_blank">Source</a>
-<a href="/edit/devel/nimna.nim#L42" class="link-seesrc" target="_blank" >Edit</a>
+<a href="/edit/devel/nimna.nim#L47" class="link-seesrc" target="_blank" >Edit</a>
 
 </dd>
 <dt id="vcdbAngBrack"><a name="vcdbAngBrack"></a><pre><span class="Identifier">vcdbAngBrack</span> <span class="Other">=</span> <span class="DecNumber">524288</span></pre></dt>
 <dd>
 
 &nbsp;&nbsp;<a
-href="https://www.github.com/mjendrusch/nimna/tree/master/nimna.nim#L43"
+href="/tree/master/nimna.nim#L48"
 class="link-seesrc" target="_blank">Source</a>
-<a href="/edit/devel/nimna.nim#L43" class="link-seesrc" target="_blank" >Edit</a>
+<a href="/edit/devel/nimna.nim#L48" class="link-seesrc" target="_blank" >Edit</a>
 
 </dd>
 <dt id="vcdbRndBrack"><a name="vcdbRndBrack"></a><pre><span class="Identifier">vcdbRndBrack</span> <span class="Other">=</span> <span class="DecNumber">1048576</span></pre></dt>
 <dd>
 
 &nbsp;&nbsp;<a
-href="https://www.github.com/mjendrusch/nimna/tree/master/nimna.nim#L44"
+href="/tree/master/nimna.nim#L49"
 class="link-seesrc" target="_blank">Source</a>
-<a href="/edit/devel/nimna.nim#L44" class="link-seesrc" target="_blank" >Edit</a>
+<a href="/edit/devel/nimna.nim#L49" class="link-seesrc" target="_blank" >Edit</a>
 
 </dd>
 <dt id="vcdbIntramol"><a name="vcdbIntramol"></a><pre><span class="Identifier">vcdbIntramol</span> <span class="Other">=</span> <span class="DecNumber">2097152</span></pre></dt>
 <dd>
 
 &nbsp;&nbsp;<a
-href="https://www.github.com/mjendrusch/nimna/tree/master/nimna.nim#L45"
+href="/tree/master/nimna.nim#L50"
 class="link-seesrc" target="_blank">Source</a>
-<a href="/edit/devel/nimna.nim#L45" class="link-seesrc" target="_blank" >Edit</a>
+<a href="/edit/devel/nimna.nim#L50" class="link-seesrc" target="_blank" >Edit</a>
 
 </dd>
 <dt id="vcdbIntermol"><a name="vcdbIntermol"></a><pre><span class="Identifier">vcdbIntermol</span> <span class="Other">=</span> <span class="DecNumber">4194304</span></pre></dt>
 <dd>
 
 &nbsp;&nbsp;<a
-href="https://www.github.com/mjendrusch/nimna/tree/master/nimna.nim#L46"
+href="/tree/master/nimna.nim#L51"
 class="link-seesrc" target="_blank">Source</a>
-<a href="/edit/devel/nimna.nim#L46" class="link-seesrc" target="_blank" >Edit</a>
+<a href="/edit/devel/nimna.nim#L51" class="link-seesrc" target="_blank" >Edit</a>
 
 </dd>
 <dt id="vcdbGquad"><a name="vcdbGquad"></a><pre><span class="Identifier">vcdbGquad</span> <span class="Other">=</span> <span class="DecNumber">8388608</span></pre></dt>
 <dd>
 
 &nbsp;&nbsp;<a
-href="https://www.github.com/mjendrusch/nimna/tree/master/nimna.nim#L47"
+href="/tree/master/nimna.nim#L52"
 class="link-seesrc" target="_blank">Source</a>
-<a href="/edit/devel/nimna.nim#L47" class="link-seesrc" target="_blank" >Edit</a>
+<a href="/edit/devel/nimna.nim#L52" class="link-seesrc" target="_blank" >Edit</a>
 
 </dd>
 <dt id="vcdbDefault"><a name="vcdbDefault"></a><pre><span class="Identifier">vcdbDefault</span> <span class="Other">=</span> <span class="DecNumber">16728064</span></pre></dt>
 <dd>
 
 &nbsp;&nbsp;<a
-href="https://www.github.com/mjendrusch/nimna/tree/master/nimna.nim#L48"
+href="/tree/master/nimna.nim#L53"
 class="link-seesrc" target="_blank">Source</a>
-<a href="/edit/devel/nimna.nim#L48" class="link-seesrc" target="_blank" >Edit</a>
+<a href="/edit/devel/nimna.nim#L53" class="link-seesrc" target="_blank" >Edit</a>
 
 </dd>
 <dt id="vccExtLoop"><a name="vccExtLoop"></a><pre><span class="Identifier">vccExtLoop</span> <span class="Other">=</span> <span class="DecNumber">1</span></pre></dt>
 <dd>
 
 &nbsp;&nbsp;<a
-href="https://www.github.com/mjendrusch/nimna/tree/master/nimna.nim#L49"
+href="/tree/master/nimna.nim#L54"
 class="link-seesrc" target="_blank">Source</a>
-<a href="/edit/devel/nimna.nim#L49" class="link-seesrc" target="_blank" >Edit</a>
+<a href="/edit/devel/nimna.nim#L54" class="link-seesrc" target="_blank" >Edit</a>
 
 </dd>
 <dt id="vccHpLoop"><a name="vccHpLoop"></a><pre><span class="Identifier">vccHpLoop</span> <span class="Other">=</span> <span class="DecNumber">2</span></pre></dt>
 <dd>
 
 &nbsp;&nbsp;<a
-href="https://www.github.com/mjendrusch/nimna/tree/master/nimna.nim#L50"
+href="/tree/master/nimna.nim#L55"
 class="link-seesrc" target="_blank">Source</a>
-<a href="/edit/devel/nimna.nim#L50" class="link-seesrc" target="_blank" >Edit</a>
+<a href="/edit/devel/nimna.nim#L55" class="link-seesrc" target="_blank" >Edit</a>
 
 </dd>
 <dt id="vccIntLoop"><a name="vccIntLoop"></a><pre><span class="Identifier">vccIntLoop</span> <span class="Other">=</span> <span class="DecNumber">4</span></pre></dt>
 <dd>
 
 &nbsp;&nbsp;<a
-href="https://www.github.com/mjendrusch/nimna/tree/master/nimna.nim#L51"
+href="/tree/master/nimna.nim#L56"
 class="link-seesrc" target="_blank">Source</a>
-<a href="/edit/devel/nimna.nim#L51" class="link-seesrc" target="_blank" >Edit</a>
+<a href="/edit/devel/nimna.nim#L56" class="link-seesrc" target="_blank" >Edit</a>
 
 </dd>
 <dt id="vccIntLoopEnc"><a name="vccIntLoopEnc"></a><pre><span class="Identifier">vccIntLoopEnc</span> <span class="Other">=</span> <span class="DecNumber">8</span></pre></dt>
 <dd>
 
 &nbsp;&nbsp;<a
-href="https://www.github.com/mjendrusch/nimna/tree/master/nimna.nim#L52"
+href="/tree/master/nimna.nim#L57"
 class="link-seesrc" target="_blank">Source</a>
-<a href="/edit/devel/nimna.nim#L52" class="link-seesrc" target="_blank" >Edit</a>
+<a href="/edit/devel/nimna.nim#L57" class="link-seesrc" target="_blank" >Edit</a>
 
 </dd>
 <dt id="vccMbLoop"><a name="vccMbLoop"></a><pre><span class="Identifier">vccMbLoop</span> <span class="Other">=</span> <span class="DecNumber">16</span></pre></dt>
 <dd>
 
 &nbsp;&nbsp;<a
-href="https://www.github.com/mjendrusch/nimna/tree/master/nimna.nim#L53"
+href="/tree/master/nimna.nim#L58"
 class="link-seesrc" target="_blank">Source</a>
-<a href="/edit/devel/nimna.nim#L53" class="link-seesrc" target="_blank" >Edit</a>
+<a href="/edit/devel/nimna.nim#L58" class="link-seesrc" target="_blank" >Edit</a>
 
 </dd>
 <dt id="vccMbLoopEnc"><a name="vccMbLoopEnc"></a><pre><span class="Identifier">vccMbLoopEnc</span> <span class="Other">=</span> <span class="DecNumber">32</span></pre></dt>
 <dd>
 
 &nbsp;&nbsp;<a
-href="https://www.github.com/mjendrusch/nimna/tree/master/nimna.nim#L54"
+href="/tree/master/nimna.nim#L59"
 class="link-seesrc" target="_blank">Source</a>
-<a href="/edit/devel/nimna.nim#L54" class="link-seesrc" target="_blank" >Edit</a>
+<a href="/edit/devel/nimna.nim#L59" class="link-seesrc" target="_blank" >Edit</a>
 
 </dd>
 <dt id="vccEnforce"><a name="vccEnforce"></a><pre><span class="Identifier">vccEnforce</span> <span class="Other">=</span> <span class="DecNumber">64</span></pre></dt>
 <dd>
 
 &nbsp;&nbsp;<a
-href="https://www.github.com/mjendrusch/nimna/tree/master/nimna.nim#L55"
+href="/tree/master/nimna.nim#L60"
 class="link-seesrc" target="_blank">Source</a>
-<a href="/edit/devel/nimna.nim#L55" class="link-seesrc" target="_blank" >Edit</a>
+<a href="/edit/devel/nimna.nim#L60" class="link-seesrc" target="_blank" >Edit</a>
 
 </dd>
 <dt id="vccNoRemove"><a name="vccNoRemove"></a><pre><span class="Identifier">vccNoRemove</span> <span class="Other">=</span> <span class="DecNumber">128</span></pre></dt>
 <dd>
 
 &nbsp;&nbsp;<a
-href="https://www.github.com/mjendrusch/nimna/tree/master/nimna.nim#L56"
+href="/tree/master/nimna.nim#L61"
 class="link-seesrc" target="_blank">Source</a>
-<a href="/edit/devel/nimna.nim#L56" class="link-seesrc" target="_blank" >Edit</a>
+<a href="/edit/devel/nimna.nim#L61" class="link-seesrc" target="_blank" >Edit</a>
 
 </dd>
 <dt id="vccAllLoops"><a name="vccAllLoops"></a><pre><span class="Identifier">vccAllLoops</span> <span class="Other">=</span> <span class="DecNumber">63</span></pre></dt>
 <dd>
 
 &nbsp;&nbsp;<a
-href="https://www.github.com/mjendrusch/nimna/tree/master/nimna.nim#L57"
+href="/tree/master/nimna.nim#L62"
 class="link-seesrc" target="_blank">Source</a>
-<a href="/edit/devel/nimna.nim#L57" class="link-seesrc" target="_blank" >Edit</a>
+<a href="/edit/devel/nimna.nim#L62" class="link-seesrc" target="_blank" >Edit</a>
+
+</dd>
+<dt id="vcmDefault"><a name="vcmDefault"></a><pre><span class="Identifier">vcmDefault</span> <span class="Other">=</span> <span class="DecNumber">0</span></pre></dt>
+<dd>
+
+&nbsp;&nbsp;<a
+href="/tree/master/nimna.nim#L63"
+class="link-seesrc" target="_blank">Source</a>
+<a href="/edit/devel/nimna.nim#L63" class="link-seesrc" target="_blank" >Edit</a>
 
 </dd>
 
@@ -1629,9 +1703,9 @@ class="link-seesrc" target="_blank">Source</a>
 <dd>
 Add a secondary structure &lt;constraint&gt; in &quot;((((...))))&quot; format to a Compound. Returns the compound for further processing.
 &nbsp;&nbsp;<a
-href="https://www.github.com/mjendrusch/nimna/tree/master/nimna.nim#L70"
+href="/tree/master/nimna.nim#L96"
 class="link-seesrc" target="_blank">Source</a>
-<a href="/edit/devel/nimna.nim#L70" class="link-seesrc" target="_blank" >Edit</a>
+<a href="/edit/devel/nimna.nim#L96" class="link-seesrc" target="_blank" >Edit</a>
 
 </dd>
 <dt id="forceUnpaired"><a name="forceUnpaired,Compound,int,ConstraintOption"></a><pre><span class="Keyword">proc</span> <span class="Identifier">forceUnpaired</span><span class="Other">(</span><span class="Identifier">c</span><span class="Other">:</span> <span class="Identifier">Compound</span><span class="Other">;</span> <span class="Identifier">position</span><span class="Other">:</span> <span class="Identifier">int</span><span class="Other">;</span> <span class="Identifier">option</span><span class="Other">:</span> <span class="Identifier">ConstraintOption</span> <span class="Other">=</span> <span class="Identifier">vccAllLoops</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">Compound</span> <span class="Other pragmabegin">{.</span><div class="pragma">
@@ -1639,9 +1713,9 @@ class="link-seesrc" target="_blank">Source</a>
 <dd>
 Add an <tt class="docutils literal"><span class="pre">unpaired</span></tt> constraint to the base at a position in the Compound.
 &nbsp;&nbsp;<a
-href="https://www.github.com/mjendrusch/nimna/tree/master/nimna.nim#L77"
+href="/tree/master/nimna.nim#L104"
 class="link-seesrc" target="_blank">Source</a>
-<a href="/edit/devel/nimna.nim#L77" class="link-seesrc" target="_blank" >Edit</a>
+<a href="/edit/devel/nimna.nim#L104" class="link-seesrc" target="_blank" >Edit</a>
 
 </dd>
 <dt id="forcePaired"><a name="forcePaired,Compound,int,int,ConstraintOption"></a><pre><span class="Keyword">proc</span> <span class="Identifier">forcePaired</span><span class="Other">(</span><span class="Identifier">c</span><span class="Other">:</span> <span class="Identifier">Compound</span><span class="Other">;</span> <span class="Identifier">i</span><span class="Other">,</span> <span class="Identifier">j</span><span class="Other">:</span> <span class="Identifier">int</span><span class="Other">;</span> <span class="Identifier">option</span><span class="Other">:</span> <span class="Identifier">ConstraintOption</span> <span class="Other">=</span> <span class="Identifier">vccAllLoops</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">Compound</span> <span class="Other pragmabegin">{.</span><div class="pragma">
@@ -1649,36 +1723,151 @@ class="link-seesrc" target="_blank">Source</a>
 <dd>
 Add a <tt class="docutils literal"><span class="pre">paired</span></tt> constraint to the bases at a positions i and j in the Compound.
 &nbsp;&nbsp;<a
-href="https://www.github.com/mjendrusch/nimna/tree/master/nimna.nim#L83"
+href="/tree/master/nimna.nim#L111"
 class="link-seesrc" target="_blank">Source</a>
-<a href="/edit/devel/nimna.nim#L83" class="link-seesrc" target="_blank" >Edit</a>
+<a href="/edit/devel/nimna.nim#L111" class="link-seesrc" target="_blank" >Edit</a>
 
 </dd>
-<dt id="lift"><a name="lift,Compound"></a><pre><span class="Keyword">proc</span> <span class="Identifier">lift</span><span class="Other">(</span><span class="Identifier">c</span><span class="Other">:</span> <span class="Identifier">Compound</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">Compound</span> <span class="Other pragmabegin">{.</span><div class="pragma"><span class="Identifier">discardable</span><span class="Other">,</span> <span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">escapes</span><span class="Other">:</span> <span class="Other">[</span><span class="Identifier">c</span><span class="Other">]</span></div><span class="Other pragmaend">.}</span></pre></dt>
+<dt id="liftConstraints"><a name="liftConstraints,Compound"></a><pre><span class="Keyword">proc</span> <span class="Identifier">liftConstraints</span><span class="Other">(</span><span class="Identifier">c</span><span class="Other">:</span> <span class="Identifier">Compound</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">Compound</span> <span class="Other pragmabegin">{.</span><div class="pragma"><span class="Identifier">discardable</span><span class="Other">,</span> <span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span>
+    <span class="Identifier">escapes</span><span class="Other">:</span> <span class="Other">[</span><span class="Identifier">c</span><span class="Other">]</span></div><span class="Other pragmaend">.}</span></pre></dt>
 <dd>
 Lift all constraints from a Compound. Returns the Compound for further processing.
 &nbsp;&nbsp;<a
-href="https://www.github.com/mjendrusch/nimna/tree/master/nimna.nim#L90"
+href="/tree/master/nimna.nim#L119"
 class="link-seesrc" target="_blank">Source</a>
-<a href="/edit/devel/nimna.nim#L90" class="link-seesrc" target="_blank" >Edit</a>
+<a href="/edit/devel/nimna.nim#L119" class="link-seesrc" target="_blank" >Edit</a>
+
+</dd>
+<dt id="initConstraints"><a name="initConstraints,Compound"></a><pre><span class="Keyword">proc</span> <span class="Identifier">initConstraints</span><span class="Other">(</span><span class="Identifier">c</span><span class="Other">:</span> <span class="Identifier">Compound</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">Compound</span> <span class="Other pragmabegin">{.</span><div class="pragma"><span class="Identifier">discardable</span><span class="Other">,</span> <span class="Identifier">inline</span><span class="Other">,</span> <span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span>
+    <span class="Identifier">escapes</span><span class="Other">:</span> <span class="Other">[</span><span class="Identifier">c</span><span class="Other">]</span></div><span class="Other pragmaend">.}</span></pre></dt>
+<dd>
+
+&nbsp;&nbsp;<a
+href="/tree/master/nimna.nim#L126"
+class="link-seesrc" target="_blank">Source</a>
+<a href="/edit/devel/nimna.nim#L126" class="link-seesrc" target="_blank" >Edit</a>
+
+</dd>
+<dt id="preferUnpaired"><a name="preferUnpaired,Compound,int,float,ConstraintOption"></a><pre><span class="Keyword">proc</span> <span class="Identifier">preferUnpaired</span><span class="Other">(</span><span class="Identifier">c</span><span class="Other">:</span> <span class="Identifier">Compound</span><span class="Other">;</span> <span class="Identifier">position</span><span class="Other">:</span> <span class="Identifier">int</span><span class="Other">;</span> <span class="Identifier">energy</span><span class="Other">:</span> <span class="Identifier">float</span><span class="Other">;</span>
+                   <span class="Identifier">option</span><span class="Other">:</span> <span class="Identifier">ConstraintOption</span> <span class="Other">=</span> <span class="Identifier">vccAllLoops</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">Compound</span> <span class="Other pragmabegin">{.</span><div class="pragma"><span class="Identifier">discardable</span><span class="Other">,</span>
+    <span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">escapes</span><span class="Other">:</span> <span class="Other">[</span><span class="Identifier">c</span><span class="Other">]</span></div><span class="Other pragmaend">.}</span></pre></dt>
+<dd>
+Adds a soft constraint leaving a base at position unpaired with pseudo free energy (energy) to a Compound.
+&nbsp;&nbsp;<a
+href="/tree/master/nimna.nim#L130"
+class="link-seesrc" target="_blank">Source</a>
+<a href="/edit/devel/nimna.nim#L130" class="link-seesrc" target="_blank" >Edit</a>
+
+</dd>
+<dt id="preferUnpaired"><a name="preferUnpaired,Compound,openArray[float],ConstraintOption"></a><pre><span class="Keyword">proc</span> <span class="Identifier">preferUnpaired</span><span class="Other">(</span><span class="Identifier">c</span><span class="Other">:</span> <span class="Identifier">Compound</span><span class="Other">;</span> <span class="Identifier">energies</span><span class="Other">:</span> <span class="Identifier">openArray</span><span class="Other">[</span><span class="Identifier">float</span><span class="Other">]</span><span class="Other">;</span>
+                   <span class="Identifier">option</span><span class="Other">:</span> <span class="Identifier">ConstraintOption</span> <span class="Other">=</span> <span class="Identifier">vccAllLoops</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">Compound</span> <span class="Other pragmabegin">{.</span><div class="pragma"><span class="Identifier">discardable</span><span class="Other">,</span>
+    <span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">escapes</span><span class="Other">:</span> <span class="Other">[</span><span class="Identifier">c</span><span class="Other">]</span></div><span class="Other pragmaend">.}</span></pre></dt>
+<dd>
+Sets unpaired constraint energies. Overrides all previous unpaired soft constraints.
+&nbsp;&nbsp;<a
+href="/tree/master/nimna.nim#L138"
+class="link-seesrc" target="_blank">Source</a>
+<a href="/edit/devel/nimna.nim#L138" class="link-seesrc" target="_blank" >Edit</a>
+
+</dd>
+<dt id="preferPaired"><a name="preferPaired,Compound,int,int,float,ConstraintOption"></a><pre><span class="Keyword">proc</span> <span class="Identifier">preferPaired</span><span class="Other">(</span><span class="Identifier">c</span><span class="Other">:</span> <span class="Identifier">Compound</span><span class="Other">;</span> <span class="Identifier">i</span><span class="Other">,</span> <span class="Identifier">j</span><span class="Other">:</span> <span class="Identifier">int</span><span class="Other">;</span> <span class="Identifier">energy</span><span class="Other">:</span> <span class="Identifier">float</span><span class="Other">;</span>
+                 <span class="Identifier">option</span><span class="Other">:</span> <span class="Identifier">ConstraintOption</span> <span class="Other">=</span> <span class="Identifier">vccAllLoops</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">Compound</span> <span class="Other pragmabegin">{.</span><div class="pragma"><span class="Identifier">discardable</span><span class="Other">,</span>
+    <span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">escapes</span><span class="Other">:</span> <span class="Other">[</span><span class="Identifier">c</span><span class="Other">]</span></div><span class="Other pragmaend">.}</span></pre></dt>
+<dd>
+Adds a soft constraint leaving bases at positions i, j paired with each other with pseudo free energs (energy) to a Compound.
+&nbsp;&nbsp;<a
+href="/tree/master/nimna.nim#L146"
+class="link-seesrc" target="_blank">Source</a>
+<a href="/edit/devel/nimna.nim#L146" class="link-seesrc" target="_blank" >Edit</a>
+
+</dd>
+<dt id="preferPaired"><a name="preferPaired,Compound,openArray[T],ConstraintOption"></a><pre><span class="Keyword">proc</span> <span class="Identifier">preferPaired</span><span class="Other">[</span><span class="Identifier">T</span><span class="Other">:</span> <span class="Identifier">openArray</span><span class="Other">[</span><span class="Identifier">float</span><span class="Other">]</span><span class="Other">]</span><span class="Other">(</span><span class="Identifier">c</span><span class="Other">:</span> <span class="Identifier">Compound</span><span class="Other">;</span> <span class="Identifier">energies</span><span class="Other">:</span> <span class="Identifier">openArray</span><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span><span class="Other">;</span>
+                                     <span class="Identifier">option</span><span class="Other">:</span> <span class="Identifier">ConstraintOption</span> <span class="Other">=</span> <span class="Identifier">vccAllLoops</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">Compound</span> <span class="Other pragmabegin">{.</span><div class="pragma">
+    <span class="Identifier">discardable</span></div><span class="Other pragmaend">.}</span></pre></dt>
+<dd>
+Sets paired constraint energies. Overrides all previous paired soft constraints.
+&nbsp;&nbsp;<a
+href="/tree/master/nimna.nim#L154"
+class="link-seesrc" target="_blank">Source</a>
+<a href="/edit/devel/nimna.nim#L154" class="link-seesrc" target="_blank" >Edit</a>
+
+</dd>
+<dt id="preferPaired"><a name="preferPaired,Compound,openArray[float],ConstraintOption"></a><pre><span class="Keyword">proc</span> <span class="Identifier">preferPaired</span><span class="Other">(</span><span class="Identifier">c</span><span class="Other">:</span> <span class="Identifier">Compound</span><span class="Other">;</span> <span class="Identifier">energies</span><span class="Other">:</span> <span class="Identifier">openArray</span><span class="Other">[</span><span class="Identifier">float</span><span class="Other">]</span><span class="Other">;</span>
+                 <span class="Identifier">option</span><span class="Other">:</span> <span class="Identifier">ConstraintOption</span> <span class="Other">=</span> <span class="Identifier">vccAllLoops</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">Compound</span> <span class="Other pragmabegin">{.</span><div class="pragma"><span class="Identifier">discardable</span><span class="Other">,</span>
+    <span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">escapes</span><span class="Other">:</span> <span class="Other">[</span><span class="Identifier">c</span><span class="Other">]</span></div><span class="Other pragmaend">.}</span></pre></dt>
+<dd>
+Sets paired constraint energies. Overrides all previous paired soft constraints.
+&nbsp;&nbsp;<a
+href="/tree/master/nimna.nim#L163"
+class="link-seesrc" target="_blank">Source</a>
+<a href="/edit/devel/nimna.nim#L163" class="link-seesrc" target="_blank" >Edit</a>
+
+</dd>
+<dt id="preferMotif"><a name="preferMotif,Compound,string,string,float,ConstraintOption"></a><pre><span class="Keyword">proc</span> <span class="Identifier">preferMotif</span><span class="Other">(</span><span class="Identifier">c</span><span class="Other">:</span> <span class="Identifier">Compound</span><span class="Other">;</span> <span class="Identifier">motifSequence</span><span class="Other">,</span> <span class="Identifier">motifStructure</span><span class="Other">:</span> <span class="Identifier">string</span><span class="Other">;</span> <span class="Identifier">energy</span><span class="Other">:</span> <span class="Identifier">float</span><span class="Other">;</span>
+                <span class="Identifier">option</span><span class="Other">:</span> <span class="Identifier">ConstraintOption</span> <span class="Other">=</span> <span class="Identifier">vcmDefault</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">Compound</span> <span class="Other pragmabegin">{.</span><div class="pragma"><span class="Identifier">discardable</span><span class="Other">,</span>
+    <span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Identifier">MotifError</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">escapes</span><span class="Other">:</span> <span class="Other">[</span><span class="Identifier">c</span><span class="Other">]</span></div><span class="Other pragmaend">.}</span></pre></dt>
+<dd>
+Adds a ligand binding motif of energy, sequence (motifSequence) and secondary structure (motifStructure) as a soft constraint to a Compound.
+&nbsp;&nbsp;<a
+href="/tree/master/nimna.nim#L176"
+class="link-seesrc" target="_blank">Source</a>
+<a href="/edit/devel/nimna.nim#L176" class="link-seesrc" target="_blank" >Edit</a>
+
+</dd>
+<dt id="liftPreferences"><a name="liftPreferences,Compound"></a><pre><span class="Keyword">proc</span> <span class="Identifier">liftPreferences</span><span class="Other">(</span><span class="Identifier">c</span><span class="Other">:</span> <span class="Identifier">Compound</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">Compound</span> <span class="Other pragmabegin">{.</span><div class="pragma"><span class="Identifier">discardable</span><span class="Other">,</span> <span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span>
+    <span class="Identifier">escapes</span><span class="Other">:</span> <span class="Other">[</span><span class="Identifier">c</span><span class="Other">]</span></div><span class="Other pragmaend">.}</span></pre></dt>
+<dd>
+Resets all soft constraints on a Compound to their default value.
+&nbsp;&nbsp;<a
+href="/tree/master/nimna.nim#L188"
+class="link-seesrc" target="_blank">Source</a>
+<a href="/edit/devel/nimna.nim#L188" class="link-seesrc" target="_blank" >Edit</a>
+
+</dd>
+<dt id="initPreferences"><a name="initPreferences,Compound"></a><pre><span class="Keyword">proc</span> <span class="Identifier">initPreferences</span><span class="Other">(</span><span class="Identifier">c</span><span class="Other">:</span> <span class="Identifier">Compound</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">Compound</span> <span class="Other pragmabegin">{.</span><div class="pragma"><span class="Identifier">discardable</span><span class="Other">,</span> <span class="Identifier">inline</span><span class="Other">,</span> <span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span>
+    <span class="Identifier">escapes</span><span class="Other">:</span> <span class="Other">[</span><span class="Identifier">c</span><span class="Other">]</span></div><span class="Other pragmaend">.}</span></pre></dt>
+<dd>
+Initializes the soft constraint data structure in a Compound.
+&nbsp;&nbsp;<a
+href="/tree/master/nimna.nim#L194"
+class="link-seesrc" target="_blank">Source</a>
+<a href="/edit/devel/nimna.nim#L194" class="link-seesrc" target="_blank" >Edit</a>
+
+</dd>
+<dt id="lift"><a name="lift,Compound"></a><pre><span class="Keyword">proc</span> <span class="Identifier">lift</span><span class="Other">(</span><span class="Identifier">c</span><span class="Other">:</span> <span class="Identifier">Compound</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">Compound</span> <span class="Other pragmabegin">{.</span><div class="pragma"><span class="Identifier">discardable</span><span class="Other">,</span> <span class="Identifier">inline</span><span class="Other">,</span> <span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">escapes</span><span class="Other">:</span> <span class="Other">[</span><span class="Identifier">c</span><span class="Other">]</span></div><span class="Other pragmaend">.}</span></pre></dt>
+<dd>
+Resets all constraints in a Compound.
+&nbsp;&nbsp;<a
+href="/tree/master/nimna.nim#L198"
+class="link-seesrc" target="_blank">Source</a>
+<a href="/edit/devel/nimna.nim#L198" class="link-seesrc" target="_blank" >Edit</a>
+
+</dd>
+<dt id="init"><a name="init,Compound"></a><pre><span class="Keyword">proc</span> <span class="Identifier">init</span><span class="Other">(</span><span class="Identifier">c</span><span class="Other">:</span> <span class="Identifier">Compound</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">Compound</span> <span class="Other pragmabegin">{.</span><div class="pragma"><span class="Identifier">discardable</span><span class="Other">,</span> <span class="Identifier">inline</span><span class="Other">,</span> <span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">escapes</span><span class="Other">:</span> <span class="Other">[</span><span class="Identifier">c</span><span class="Other">]</span></div><span class="Other pragmaend">.}</span></pre></dt>
+<dd>
+Initializes all constraint data structure in a Compound.
+&nbsp;&nbsp;<a
+href="/tree/master/nimna.nim#L203"
+class="link-seesrc" target="_blank">Source</a>
+<a href="/edit/devel/nimna.nim#L203" class="link-seesrc" target="_blank" >Edit</a>
 
 </dd>
 <dt id="toParams"><a name="toParams,Settings"></a><pre><span class="Keyword">proc</span> <span class="Identifier">toParams</span><span class="Other">(</span><span class="Identifier">s</span><span class="Other">:</span> <span class="Identifier">Settings</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">Parameters</span> <span class="Other pragmabegin">{.</span><div class="pragma"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></div><span class="Other pragmaend">.}</span></pre></dt>
 <dd>
 Convert Settings to Parameters
 &nbsp;&nbsp;<a
-href="https://www.github.com/mjendrusch/nimna/tree/master/nimna.nim#L116"
+href="/tree/master/nimna.nim#L227"
 class="link-seesrc" target="_blank">Source</a>
-<a href="/edit/devel/nimna.nim#L116" class="link-seesrc" target="_blank" >Edit</a>
+<a href="/edit/devel/nimna.nim#L227" class="link-seesrc" target="_blank" >Edit</a>
 
 </dd>
 <dt id="toScaledParams"><a name="toScaledParams,Settings"></a><pre><span class="Keyword">proc</span> <span class="Identifier">toScaledParams</span><span class="Other">(</span><span class="Identifier">s</span><span class="Other">:</span> <span class="Identifier">Settings</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">ScaledParameters</span> <span class="Other pragmabegin">{.</span><div class="pragma"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></div><span class="Other pragmaend">.}</span></pre></dt>
 <dd>
 Converts Settings to ScaledParameters for partition function folding.
 &nbsp;&nbsp;<a
-href="https://www.github.com/mjendrusch/nimna/tree/master/nimna.nim#L122"
+href="/tree/master/nimna.nim#L233"
 class="link-seesrc" target="_blank">Source</a>
-<a href="/edit/devel/nimna.nim#L122" class="link-seesrc" target="_blank" >Edit</a>
+<a href="/edit/devel/nimna.nim#L233" class="link-seesrc" target="_blank" >Edit</a>
 
 </dd>
 <dt id="update"><a name="update,Compound,Parameters"></a><pre><span class="Keyword">proc</span> <span class="Identifier">update</span><span class="Other">(</span><span class="Identifier">c</span><span class="Other">:</span> <span class="Identifier">Compound</span><span class="Other">;</span> <span class="Identifier">p</span><span class="Other">:</span> <span class="Identifier">Parameters</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">Compound</span> <span class="Other pragmabegin">{.</span><div class="pragma"><span class="Identifier">discardable</span><span class="Other">,</span> <span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span>
@@ -1686,9 +1875,9 @@ class="link-seesrc" target="_blank">Source</a>
 <dd>
 Updates Parameters of a Compound. Returns the Compound for further processing.
 &nbsp;&nbsp;<a
-href="https://www.github.com/mjendrusch/nimna/tree/master/nimna.nim#L128"
+href="/tree/master/nimna.nim#L239"
 class="link-seesrc" target="_blank">Source</a>
-<a href="/edit/devel/nimna.nim#L128" class="link-seesrc" target="_blank" >Edit</a>
+<a href="/edit/devel/nimna.nim#L239" class="link-seesrc" target="_blank" >Edit</a>
 
 </dd>
 <dt id="update"><a name="update,Compound,ScaledParameters"></a><pre><span class="Keyword">proc</span> <span class="Identifier">update</span><span class="Other">(</span><span class="Identifier">c</span><span class="Other">:</span> <span class="Identifier">Compound</span><span class="Other">;</span> <span class="Identifier">p</span><span class="Other">:</span> <span class="Identifier">ScaledParameters</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">Compound</span> <span class="Other pragmabegin">{.</span><div class="pragma"><span class="Identifier">discardable</span><span class="Other">,</span> <span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span>
@@ -1696,9 +1885,9 @@ class="link-seesrc" target="_blank">Source</a>
 <dd>
 Updates ScaledParameters of a Compound. Returns the Compound for further processing.
 &nbsp;&nbsp;<a
-href="https://www.github.com/mjendrusch/nimna/tree/master/nimna.nim#L134"
+href="/tree/master/nimna.nim#L246"
 class="link-seesrc" target="_blank">Source</a>
-<a href="/edit/devel/nimna.nim#L134" class="link-seesrc" target="_blank" >Edit</a>
+<a href="/edit/devel/nimna.nim#L246" class="link-seesrc" target="_blank" >Edit</a>
 
 </dd>
 <dt id="update"><a name="update,Compound,Settings"></a><pre><span class="Keyword">proc</span> <span class="Identifier">update</span><span class="Other">(</span><span class="Identifier">c</span><span class="Other">:</span> <span class="Identifier">Compound</span><span class="Other">;</span> <span class="Identifier">s</span><span class="Other">:</span> <span class="Identifier">Settings</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">Compound</span> <span class="Other pragmabegin">{.</span><div class="pragma"><span class="Identifier">inline</span><span class="Other">,</span> <span class="Identifier">discardable</span><span class="Other">,</span> <span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span>
@@ -1706,92 +1895,133 @@ class="link-seesrc" target="_blank">Source</a>
 <dd>
 Updates Parameters and ScaledParameters of a Compound from Settings. Returns the Compound for further processing.
 &nbsp;&nbsp;<a
-href="https://www.github.com/mjendrusch/nimna/tree/master/nimna.nim#L140"
+href="/tree/master/nimna.nim#L253"
 class="link-seesrc" target="_blank">Source</a>
-<a href="/edit/devel/nimna.nim#L140" class="link-seesrc" target="_blank" >Edit</a>
+<a href="/edit/devel/nimna.nim#L253" class="link-seesrc" target="_blank" >Edit</a>
 
 </dd>
 <dt id="freeCompound"><a name="freeCompound,Compound"></a><pre><span class="Keyword">proc</span> <span class="Identifier">freeCompound</span><span class="Other">(</span><span class="Identifier">c</span><span class="Other">:</span> <span class="Identifier">Compound</span><span class="Other">)</span> <span class="Other pragmabegin">{.</span><div class="pragma"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></div><span class="Other pragmaend">.}</span></pre></dt>
 <dd>
 
 &nbsp;&nbsp;<a
-href="https://www.github.com/mjendrusch/nimna/tree/master/nimna.nim#L147"
+href="/tree/master/nimna.nim#L260"
 class="link-seesrc" target="_blank">Source</a>
-<a href="/edit/devel/nimna.nim#L147" class="link-seesrc" target="_blank" >Edit</a>
+<a href="/edit/devel/nimna.nim#L260" class="link-seesrc" target="_blank" >Edit</a>
 
 </dd>
 <dt id="compound"><a name="compound,string"></a><pre><span class="Keyword">proc</span> <span class="Identifier">compound</span><span class="Other">(</span><span class="Identifier">sequence</span><span class="Other">:</span> <span class="Identifier">string</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">Compound</span> <span class="Other pragmabegin">{.</span><div class="pragma"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">new</span></div><span class="Other pragmaend">.}</span></pre></dt>
 <dd>
 Creates a Compound from a sequence string.
 &nbsp;&nbsp;<a
-href="https://www.github.com/mjendrusch/nimna/tree/master/nimna.nim#L150"
+href="/tree/master/nimna.nim#L263"
 class="link-seesrc" target="_blank">Source</a>
-<a href="/edit/devel/nimna.nim#L150" class="link-seesrc" target="_blank" >Edit</a>
+<a href="/edit/devel/nimna.nim#L263" class="link-seesrc" target="_blank" >Edit</a>
 
 </dd>
 <dt id="compound"><a name="compound,string,Settings"></a><pre><span class="Keyword">proc</span> <span class="Identifier">compound</span><span class="Other">(</span><span class="Identifier">sequence</span><span class="Other">:</span> <span class="Identifier">string</span><span class="Other">;</span> <span class="Identifier">settings</span><span class="Other">:</span> <span class="Identifier">Settings</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">Compound</span> <span class="Other pragmabegin">{.</span><div class="pragma"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">new</span></div><span class="Other pragmaend">.}</span></pre></dt>
 <dd>
 Creates a Compound from a sequence string with Settings.
 &nbsp;&nbsp;<a
-href="https://www.github.com/mjendrusch/nimna/tree/master/nimna.nim#L159"
+href="/tree/master/nimna.nim#L272"
 class="link-seesrc" target="_blank">Source</a>
-<a href="/edit/devel/nimna.nim#L159" class="link-seesrc" target="_blank" >Edit</a>
+<a href="/edit/devel/nimna.nim#L272" class="link-seesrc" target="_blank" >Edit</a>
 
 </dd>
-<dt id="rawProbabilities"><a name="rawProbabilities,Compound"></a><pre><span class="Keyword">proc</span> <span class="Identifier">rawProbabilities</span><span class="Other">(</span><span class="Identifier">c</span><span class="Other">:</span> <span class="Identifier">Compound</span><span class="Other">)</span><span class="Other">:</span> <span class="Keyword">ptr</span> <span class="Identifier">Flt_Or_Dbl</span> <span class="Other pragmabegin">{.</span><div class="pragma"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">escapes</span><span class="Other">:</span> <span class="Other">[</span><span class="Identifier">c</span><span class="Other">]</span></div><span class="Other pragmaend">.}</span></pre></dt>
+<dt id="[]"><a name="[],Probabilities,int,int"></a><pre><span class="Keyword">proc</span> <span class="Identifier">`[]`</span><span class="Other">(</span><span class="Identifier">p</span><span class="Other">:</span> <span class="Identifier">Probabilities</span><span class="Other">;</span> <span class="Identifier">i</span><span class="Other">,</span> <span class="Identifier">j</span><span class="Other">:</span> <span class="Identifier">int</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">float</span> <span class="Other pragmabegin">{.</span><div class="pragma"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Identifier">IndexError</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></div><span class="Other pragmaend">.}</span></pre></dt>
 <dd>
-Returns a pointer to the base pair probability array of a Compound.
+
 &nbsp;&nbsp;<a
-href="https://www.github.com/mjendrusch/nimna/tree/master/nimna.nim#L178"
+href="/tree/master/nimna.nim#L281"
 class="link-seesrc" target="_blank">Source</a>
-<a href="/edit/devel/nimna.nim#L178" class="link-seesrc" target="_blank" >Edit</a>
+<a href="/edit/devel/nimna.nim#L281" class="link-seesrc" target="_blank" >Edit</a>
 
 </dd>
-<dt id="prob"><a name="prob,Compound,int,int"></a><pre><span class="Keyword">proc</span> <span class="Identifier">prob</span><span class="Other">(</span><span class="Identifier">c</span><span class="Other">:</span> <span class="Identifier">Compound</span><span class="Other">;</span> <span class="Identifier">i</span><span class="Other">,</span> <span class="Identifier">j</span><span class="Other">:</span> <span class="Identifier">int</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">Flt_Or_Dbl</span> <span class="Other pragmabegin">{.</span><div class="pragma"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Identifier">IndexError</span><span class="Other">,</span> <span class="Identifier">FieldError</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></div><span class="Other pragmaend">.}</span></pre></dt>
+<dt id="probabilities"><a name="probabilities,Compound"></a><pre><span class="Keyword">proc</span> <span class="Identifier">probabilities</span><span class="Other">(</span><span class="Identifier">c</span><span class="Other">:</span> <span class="Identifier">Compound</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">Probabilities</span> <span class="Other pragmabegin">{.</span><div class="pragma"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Identifier">FieldError</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">new</span><span class="Other">,</span>
+    <span class="Identifier">escapes</span><span class="Other">:</span> <span class="Other">[</span><span class="Identifier">c</span><span class="Other">]</span></div><span class="Other pragmaend">.}</span></pre></dt>
+<dd>
+Returns a Probabilities object for monitoring the base pair probabilities inside the Compound.
+&nbsp;&nbsp;<a
+href="/tree/master/nimna.nim#L289"
+class="link-seesrc" target="_blank">Source</a>
+<a href="/edit/devel/nimna.nim#L289" class="link-seesrc" target="_blank" >Edit</a>
+
+</dd>
+<dt id="prob"><a name="prob,Compound,int,int"></a><pre><span class="Keyword">proc</span> <span class="Identifier">prob</span><span class="Other">(</span><span class="Identifier">c</span><span class="Other">:</span> <span class="Identifier">Compound</span><span class="Other">;</span> <span class="Identifier">i</span><span class="Other">,</span> <span class="Identifier">j</span><span class="Other">:</span> <span class="Identifier">int</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">float</span> <span class="Other pragmabegin">{.</span><div class="pragma"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Identifier">IndexError</span><span class="Other">,</span> <span class="Identifier">FieldError</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></div><span class="Other pragmaend">.}</span></pre></dt>
 <dd>
 Returns the probability of base-pairing at positions i and j in a Compound.
 &nbsp;&nbsp;<a
-href="https://www.github.com/mjendrusch/nimna/tree/master/nimna.nim#L186"
+href="/tree/master/nimna.nim#L301"
 class="link-seesrc" target="_blank">Source</a>
-<a href="/edit/devel/nimna.nim#L186" class="link-seesrc" target="_blank" >Edit</a>
+<a href="/edit/devel/nimna.nim#L301" class="link-seesrc" target="_blank" >Edit</a>
 
 </dd>
-<dt id="pf"><a name="pf,Compound"></a><pre><span class="Keyword">proc</span> <span class="Identifier">pf</span><span class="Other">(</span><span class="Identifier">c</span><span class="Other">:</span> <span class="Identifier">Compound</span><span class="Other">)</span><span class="Other">:</span> <span class="Keyword">tuple</span><span class="Other">[</span><span class="Identifier">E</span><span class="Other">:</span> <span class="Identifier">float</span><span class="Other">,</span> <span class="Identifier">struc</span><span class="Other">:</span> <span class="Identifier">string</span><span class="Other">]</span> <span class="Other pragmabegin">{.</span><div class="pragma"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Identifier">Exception</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">new</span></div><span class="Other pragmaend">.}</span></pre></dt>
+<dt id="pf"><a name="pf,Compound"></a><pre><span class="Keyword">proc</span> <span class="Identifier">pf</span><span class="Other">(</span><span class="Identifier">c</span><span class="Other">:</span> <span class="Identifier">Compound</span><span class="Other">)</span><span class="Other">:</span> <span class="Keyword">tuple</span><span class="Other">[</span><span class="Identifier">E</span><span class="Other">:</span> <span class="Identifier">float</span><span class="Other">,</span> <span class="Identifier">struc</span><span class="Other">:</span> <span class="Identifier">string</span><span class="Other">]</span> <span class="Other pragmabegin">{.</span><div class="pragma"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Identifier">Exception</span><span class="Other">,</span> <span class="Identifier">Exception</span><span class="Other">]</span><span class="Other">,</span>
+    <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">new</span></div><span class="Other pragmaend">.}</span></pre></dt>
 <dd>
 Partition function folding for a Compound. Returns a tuple of ensemble energy and secondary structure.
 &nbsp;&nbsp;<a
-href="https://www.github.com/mjendrusch/nimna/tree/master/nimna.nim#L210"
+href="/tree/master/nimna.nim#L314"
 class="link-seesrc" target="_blank">Source</a>
-<a href="/edit/devel/nimna.nim#L210" class="link-seesrc" target="_blank" >Edit</a>
+<a href="/edit/devel/nimna.nim#L314" class="link-seesrc" target="_blank" >Edit</a>
 
 </dd>
-<dt id="mfe"><a name="mfe,Compound"></a><pre><span class="Keyword">proc</span> <span class="Identifier">mfe</span><span class="Other">(</span><span class="Identifier">c</span><span class="Other">:</span> <span class="Identifier">Compound</span><span class="Other">)</span><span class="Other">:</span> <span class="Keyword">tuple</span><span class="Other">[</span><span class="Identifier">E</span><span class="Other">:</span> <span class="Identifier">float</span><span class="Other">,</span> <span class="Identifier">struc</span><span class="Other">:</span> <span class="Identifier">string</span><span class="Other">]</span> <span class="Other pragmabegin">{.</span><div class="pragma"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Identifier">Exception</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">new</span></div><span class="Other pragmaend">.}</span></pre></dt>
+<dt id="mfe"><a name="mfe,Compound"></a><pre><span class="Keyword">proc</span> <span class="Identifier">mfe</span><span class="Other">(</span><span class="Identifier">c</span><span class="Other">:</span> <span class="Identifier">Compound</span><span class="Other">)</span><span class="Other">:</span> <span class="Keyword">tuple</span><span class="Other">[</span><span class="Identifier">E</span><span class="Other">:</span> <span class="Identifier">float</span><span class="Other">,</span> <span class="Identifier">struc</span><span class="Other">:</span> <span class="Identifier">string</span><span class="Other">]</span> <span class="Other pragmabegin">{.</span><div class="pragma"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Identifier">Exception</span><span class="Other">,</span> <span class="Identifier">Exception</span><span class="Other">]</span><span class="Other">,</span>
+    <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">new</span></div><span class="Other pragmaend">.}</span></pre></dt>
 <dd>
 Minimum free energy folding for a Compound. Returns a tuple of MFE and secondary structure.
 &nbsp;&nbsp;<a
-href="https://www.github.com/mjendrusch/nimna/tree/master/nimna.nim#L220"
+href="/tree/master/nimna.nim#L319"
 class="link-seesrc" target="_blank">Source</a>
-<a href="/edit/devel/nimna.nim#L220" class="link-seesrc" target="_blank" >Edit</a>
+<a href="/edit/devel/nimna.nim#L319" class="link-seesrc" target="_blank" >Edit</a>
 
 </dd>
 <dt id="pfDimer"><a name="pfDimer,Compound"></a><pre><span class="Keyword">proc</span> <span class="Identifier">pfDimer</span><span class="Other">(</span><span class="Identifier">c</span><span class="Other">:</span> <span class="Identifier">Compound</span><span class="Other">)</span><span class="Other">:</span> <span class="Keyword">tuple</span><span class="Other">[</span><span class="Identifier">E</span><span class="Other">:</span> <span class="Identifier">DimerEnergies</span><span class="Other">,</span> <span class="Identifier">struc</span><span class="Other">:</span> <span class="Identifier">string</span><span class="Other">]</span> <span class="Other pragmabegin">{.</span><div class="pragma">
-    <span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Identifier">Exception</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">new</span></div><span class="Other pragmaend">.}</span></pre></dt>
+    <span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Identifier">Exception</span><span class="Other">,</span> <span class="Identifier">Exception</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">new</span></div><span class="Other pragmaend">.}</span></pre></dt>
 <dd>
 Partition function folding for a Compound (dimer). Returns a tuple of ensemble energy and secondary structure.
 &nbsp;&nbsp;<a
-href="https://www.github.com/mjendrusch/nimna/tree/master/nimna.nim#L230"
+href="/tree/master/nimna.nim#L324"
 class="link-seesrc" target="_blank">Source</a>
-<a href="/edit/devel/nimna.nim#L230" class="link-seesrc" target="_blank" >Edit</a>
+<a href="/edit/devel/nimna.nim#L324" class="link-seesrc" target="_blank" >Edit</a>
 
 </dd>
-<dt id="mfeDimer"><a name="mfeDimer,Compound"></a><pre><span class="Keyword">proc</span> <span class="Identifier">mfeDimer</span><span class="Other">(</span><span class="Identifier">c</span><span class="Other">:</span> <span class="Identifier">Compound</span><span class="Other">)</span><span class="Other">:</span> <span class="Keyword">tuple</span><span class="Other">[</span><span class="Identifier">E</span><span class="Other">:</span> <span class="Identifier">float</span><span class="Other">,</span> <span class="Identifier">struc</span><span class="Other">:</span> <span class="Identifier">string</span><span class="Other">]</span> <span class="Other pragmabegin">{.</span><div class="pragma"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Identifier">Exception</span><span class="Other">]</span><span class="Other">,</span>
-    <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">new</span></div><span class="Other pragmaend">.}</span></pre></dt>
+<dt id="mfeDimer"><a name="mfeDimer,Compound"></a><pre><span class="Keyword">proc</span> <span class="Identifier">mfeDimer</span><span class="Other">(</span><span class="Identifier">c</span><span class="Other">:</span> <span class="Identifier">Compound</span><span class="Other">)</span><span class="Other">:</span> <span class="Keyword">tuple</span><span class="Other">[</span><span class="Identifier">E</span><span class="Other">:</span> <span class="Identifier">float</span><span class="Other">,</span> <span class="Identifier">struc</span><span class="Other">:</span> <span class="Identifier">string</span><span class="Other">]</span> <span class="Other pragmabegin">{.</span><div class="pragma">
+    <span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Identifier">Exception</span><span class="Other">,</span> <span class="Identifier">Exception</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">new</span></div><span class="Other pragmaend">.}</span></pre></dt>
 <dd>
 Minimum free energy folding for a Compound (dimer). Returns a tuple of MFE and secondary structure.
 &nbsp;&nbsp;<a
-href="https://www.github.com/mjendrusch/nimna/tree/master/nimna.nim#L240"
+href="/tree/master/nimna.nim#L329"
 class="link-seesrc" target="_blank">Source</a>
-<a href="/edit/devel/nimna.nim#L240" class="link-seesrc" target="_blank" >Edit</a>
+<a href="/edit/devel/nimna.nim#L329" class="link-seesrc" target="_blank" >Edit</a>
+
+</dd>
+<dt id="centroid"><a name="centroid,Compound"></a><pre><span class="Keyword">proc</span> <span class="Identifier">centroid</span><span class="Other">(</span><span class="Identifier">c</span><span class="Other">:</span> <span class="Identifier">Compound</span><span class="Other">)</span><span class="Other">:</span> <span class="Keyword">tuple</span><span class="Other">[</span><span class="Identifier">dist</span><span class="Other">:</span> <span class="Identifier">float</span><span class="Other">,</span> <span class="Identifier">struc</span><span class="Other">:</span> <span class="Identifier">string</span><span class="Other">]</span> <span class="Other pragmabegin">{.</span><div class="pragma"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Identifier">Exception</span><span class="Other">]</span><span class="Other">,</span>
+    <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">new</span></div><span class="Other pragmaend">.}</span></pre></dt>
+<dd>
+Computes the centroid structure of an ensemble stored in a Compound, returning a tuple of the mean distance from that structure in the ensemble and the centroid structure itself. A computation of the partition function has to be done before calling this.
+&nbsp;&nbsp;<a
+href="/tree/master/nimna.nim#L343"
+class="link-seesrc" target="_blank">Source</a>
+<a href="/edit/devel/nimna.nim#L343" class="link-seesrc" target="_blank" >Edit</a>
+
+</dd>
+<dt id="centroid"><a name="centroid,Probabilities"></a><pre><span class="Keyword">proc</span> <span class="Identifier">centroid</span><span class="Other">(</span><span class="Identifier">p</span><span class="Other">:</span> <span class="Identifier">Probabilities</span><span class="Other">)</span><span class="Other">:</span> <span class="Keyword">tuple</span><span class="Other">[</span><span class="Identifier">dist</span><span class="Other">:</span> <span class="Identifier">float</span><span class="Other">,</span> <span class="Identifier">struc</span><span class="Other">:</span> <span class="Identifier">string</span><span class="Other">]</span> <span class="Other pragmabegin">{.</span><div class="pragma">
+    <span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Identifier">Exception</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">new</span></div><span class="Other pragmaend">.}</span></pre></dt>
+<dd>
+Computes the centroid structure of an ensemble stored in a Probabilities object.
+&nbsp;&nbsp;<a
+href="/tree/master/nimna.nim#L350"
+class="link-seesrc" target="_blank">Source</a>
+<a href="/edit/devel/nimna.nim#L350" class="link-seesrc" target="_blank" >Edit</a>
+
+</dd>
+<dt id="sample"><a name="sample,Compound"></a><pre><span class="Keyword">proc</span> <span class="Identifier">sample</span><span class="Other">(</span><span class="Identifier">c</span><span class="Other">:</span> <span class="Identifier">Compound</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">string</span> <span class="Other pragmabegin">{.</span><div class="pragma"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Identifier">Exception</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></div><span class="Other pragmaend">.}</span></pre></dt>
+<dd>
+Samples a secondary structure from an ensemble according to its probability.
+&nbsp;&nbsp;<a
+href="/tree/master/nimna.nim#L358"
+class="link-seesrc" target="_blank">Source</a>
+<a href="/edit/devel/nimna.nim#L358" class="link-seesrc" target="_blank" >Edit</a>
 
 </dd>
 <dt id="densityPlot"><a name="densityPlot,Compound,float,ColorScheme"></a><pre><span class="Keyword">proc</span> <span class="Identifier">densityPlot</span><span class="Other">(</span><span class="Identifier">c</span><span class="Other">:</span> <span class="Identifier">Compound</span><span class="Other">;</span> <span class="Identifier">gamma</span><span class="Other">:</span> <span class="Identifier">float</span><span class="Other">;</span> <span class="Identifier">scheme</span><span class="Other">:</span> <span class="Identifier">ColorScheme</span> <span class="Other">=</span> <span class="Identifier">csGrayScale</span><span class="Other">)</span> <span class="Other pragmabegin">{.</span><div class="pragma">
@@ -1799,36 +2029,36 @@ class="link-seesrc" target="_blank">Source</a>
 <dd>
 Create a colored density plot of the base pairing probabilities in the Compound, in a terminal emulator compatible with ANSI-escapes.
 &nbsp;&nbsp;<a
-href="https://www.github.com/mjendrusch/nimna/tree/master/nimna.nim#L265"
+href="/tree/master/nimna.nim#L386"
 class="link-seesrc" target="_blank">Source</a>
-<a href="/edit/devel/nimna.nim#L265" class="link-seesrc" target="_blank" >Edit</a>
+<a href="/edit/devel/nimna.nim#L386" class="link-seesrc" target="_blank" >Edit</a>
 
 </dd>
 <dt id="complement"><a name="complement,char"></a><pre><span class="Keyword">proc</span> <span class="Identifier">complement</span><span class="Other">(</span><span class="Identifier">a</span><span class="Other">:</span> <span class="Identifier">char</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">char</span> <span class="Other pragmabegin">{.</span><div class="pragma"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">escapes</span><span class="Other">:</span> <span class="Other">[</span><span class="Identifier">a</span><span class="Other">]</span></div><span class="Other pragmaend">.}</span></pre></dt>
 <dd>
 Returns the complement of a DNA base.
 &nbsp;&nbsp;<a
-href="https://www.github.com/mjendrusch/nimna/tree/master/nimna.nim#L285"
+href="/tree/master/nimna.nim#L406"
 class="link-seesrc" target="_blank">Source</a>
-<a href="/edit/devel/nimna.nim#L285" class="link-seesrc" target="_blank" >Edit</a>
+<a href="/edit/devel/nimna.nim#L406" class="link-seesrc" target="_blank" >Edit</a>
 
 </dd>
 <dt id="randomDNA"><a name="randomDNA,int"></a><pre><span class="Keyword">proc</span> <span class="Identifier">randomDNA</span><span class="Other">(</span><span class="Identifier">length</span><span class="Other">:</span> <span class="Identifier">int</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">string</span> <span class="Other pragmabegin">{.</span><div class="pragma"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></div><span class="Other pragmaend">.}</span></pre></dt>
 <dd>
 Returns a random DNA of a given length.
 &nbsp;&nbsp;<a
-href="https://www.github.com/mjendrusch/nimna/tree/master/nimna.nim#L299"
+href="/tree/master/nimna.nim#L420"
 class="link-seesrc" target="_blank">Source</a>
-<a href="/edit/devel/nimna.nim#L299" class="link-seesrc" target="_blank" >Edit</a>
+<a href="/edit/devel/nimna.nim#L420" class="link-seesrc" target="_blank" >Edit</a>
 
 </dd>
 <dt id="randomDNAofStructure"><a name="randomDNAofStructure,string"></a><pre><span class="Keyword">proc</span> <span class="Identifier">randomDNAofStructure</span><span class="Other">(</span><span class="Identifier">struc</span><span class="Other">:</span> <span class="Identifier">string</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">string</span> <span class="Other pragmabegin">{.</span><div class="pragma"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></div><span class="Other pragmaend">.}</span></pre></dt>
 <dd>
 Returns a random DNA with a certain projected secondary structure.
 &nbsp;&nbsp;<a
-href="https://www.github.com/mjendrusch/nimna/tree/master/nimna.nim#L305"
+href="/tree/master/nimna.nim#L426"
 class="link-seesrc" target="_blank">Source</a>
-<a href="/edit/devel/nimna.nim#L305" class="link-seesrc" target="_blank" >Edit</a>
+<a href="/edit/devel/nimna.nim#L426" class="link-seesrc" target="_blank" >Edit</a>
 
 </dd>
 
@@ -1836,33 +2066,33 @@ class="link-seesrc" target="_blank">Source</a>
 <div class="section" id="16">
 <h1><a class="toc-backref" href="#16">Macros</a></h1>
 <dl class="item">
-<dt id="settings"><a name="settings.m,varargs[untyped]"></a><pre><span class="Keyword">macro</span> <span class="Identifier">settings</span><span class="Other">(</span><span class="Identifier">xs</span><span class="Other">:</span> <span class="Identifier">varargs</span><span class="Other">[</span><span class="Identifier">untyped</span><span class="Other">]</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">Settings</span></pre></dt>
-<dd>
-<p>Creates Settings from a set of directives. e.g.:</p>
-<p><cite>temperature = 20.0</cite></p>
-
-&nbsp;&nbsp;<a
-href="https://www.github.com/mjendrusch/nimna/tree/master/nimna.nim#L98"
-class="link-seesrc" target="_blank">Source</a>
-<a href="/edit/devel/nimna.nim#L98" class="link-seesrc" target="_blank" >Edit</a>
-
-</dd>
 <dt id="."><a name="..m,Compound,string"></a><pre><span class="Keyword">macro</span> <span class="Identifier">`.`</span><span class="Other">(</span><span class="Identifier">c</span><span class="Other">:</span> <span class="Identifier">Compound</span><span class="Other">;</span> <span class="Identifier">field</span><span class="Other">:</span> <span class="Identifier">string</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">auto</span></pre></dt>
 <dd>
 
 &nbsp;&nbsp;<a
-href="https://www.github.com/mjendrusch/nimna/tree/master/nimna.nim#L168"
+href="/tree/master/nimna.nim#L77"
 class="link-seesrc" target="_blank">Source</a>
-<a href="/edit/devel/nimna.nim#L168" class="link-seesrc" target="_blank" >Edit</a>
+<a href="/edit/devel/nimna.nim#L77" class="link-seesrc" target="_blank" >Edit</a>
 
 </dd>
 <dt id=".="><a name=".=.m,Compound,string,T"></a><pre><span class="Keyword">macro</span> <span class="Identifier">`.=`</span><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span><span class="Other">(</span><span class="Identifier">c</span><span class="Other">:</span> <span class="Identifier">Compound</span><span class="Other">;</span> <span class="Identifier">field</span><span class="Other">:</span> <span class="Identifier">string</span><span class="Other">;</span> <span class="Identifier">val</span><span class="Other">:</span> <span class="Identifier">T</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">untyped</span></pre></dt>
 <dd>
 
 &nbsp;&nbsp;<a
-href="https://www.github.com/mjendrusch/nimna/tree/master/nimna.nim#L173"
+href="/tree/master/nimna.nim#L82"
 class="link-seesrc" target="_blank">Source</a>
-<a href="/edit/devel/nimna.nim#L173" class="link-seesrc" target="_blank" >Edit</a>
+<a href="/edit/devel/nimna.nim#L82" class="link-seesrc" target="_blank" >Edit</a>
+
+</dd>
+<dt id="settings"><a name="settings.m,varargs[untyped]"></a><pre><span class="Keyword">macro</span> <span class="Identifier">settings</span><span class="Other">(</span><span class="Identifier">xs</span><span class="Other">:</span> <span class="Identifier">varargs</span><span class="Other">[</span><span class="Identifier">untyped</span><span class="Other">]</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">Settings</span></pre></dt>
+<dd>
+<p>Creates Settings from a set of directives. e.g.:</p>
+<p><cite>temperature = 20.0</cite></p>
+
+&nbsp;&nbsp;<a
+href="/tree/master/nimna.nim#L209"
+class="link-seesrc" target="_blank">Source</a>
+<a href="/edit/devel/nimna.nim#L209" class="link-seesrc" target="_blank" >Edit</a>
 
 </dd>
 
@@ -1874,9 +2104,9 @@ class="link-seesrc" target="_blank">Source</a>
 <dd>
 Merges a list of <tt class="docutils literal"><span class="pre">ConstraintOptions</span></tt> into a single <tt class="docutils literal"><span class="pre">ConstraintOption</span></tt>
 &nbsp;&nbsp;<a
-href="https://www.github.com/mjendrusch/nimna/tree/master/nimna.nim#L63"
+href="/tree/master/nimna.nim#L89"
 class="link-seesrc" target="_blank">Source</a>
-<a href="/edit/devel/nimna.nim#L63" class="link-seesrc" target="_blank" >Edit</a>
+<a href="/edit/devel/nimna.nim#L89" class="link-seesrc" target="_blank" >Edit</a>
 
 </dd>
 
@@ -1889,7 +2119,7 @@ class="link-seesrc" target="_blank">Source</a>
       <div class="twelve-columns footer">
         <span class="nim-sprite"></span>
         <br/>
-        <small>Made with Nim. Generated: 2017-01-11 20:01:28 UTC</small>
+        <small>Made with Nim. Generated: 2017-01-12 17:55:37 UTC</small>
       </div>
     </div>
   </div>
