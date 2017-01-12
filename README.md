@@ -66,7 +66,7 @@ You can expect this to happen over the next few days or weeks, at most
 (in chronological order):
 
 - [ ] Wrap the remaining ViennaRNA headers.
-- [ ] Create a high level wrapper for *parameter file IO*.
+- [x] Create a high level wrapper for *parameter file IO*.
 - [x] Create a high level wrapper for all remaining flavours
   of constraints.
 - [x] Create a high level wrapper for centroid structure prediction.
