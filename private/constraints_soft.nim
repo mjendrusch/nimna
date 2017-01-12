@@ -5,43 +5,6 @@
 # This library is licensed under the MIT license.
 # For more information see LICENSE.
 
-
-
-type
-  VrnaScT* = vrnaScS
-
-
-type
-  VrnaCallbackScEnergy* = proc (i: cint; j: cint; k: cint; l: cint; d: char; data: pointer): cint {.
-      cdecl.}
-
-
-type
-  VrnaCallbackScExpEnergy* = proc (i: cint; j: cint; k: cint; l: cint; d: char; data: pointer): Flt_Or_Dbl {.
-      cdecl.}
-
-
-type
-  VrnaCallbackScBacktrack* = proc (i: cint; j: cint; k: cint; l: cint; d: char; data: pointer): ptr VrnaBasepairT {.
-      cdecl.}
-
-
-type
-  VrnaScS* = object
-    energyUp*: ptr ptr cint
-    energyBp*: ptr cint
-    expEnergyUp*: ptr ptr Flt_Or_Dbl
-    expEnergyBp*: ptr Flt_Or_Dbl
-    energyStack*: ptr cint
-    expEnergyStack*: ptr Flt_Or_Dbl
-    f*: ptr VrnaCallbackScEnergy
-    bt*: ptr VrnaCallbackScBacktrack
-    expF*: ptr VrnaCallbackScExpEnergy
-    data*: pointer
-    freeData*: ptr VrnaCallbackFreeAuxdata
-
-
-
 proc vrnaScInit*(vc: ptr VrnaFoldCompoundT) {.cdecl, importc: "vrna_sc_init",
     dynlib: rnaLib.}
 

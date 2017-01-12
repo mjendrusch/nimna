@@ -36,42 +36,6 @@ const
   VRNA_MODEL_DEFAULT_ALI_CV_FACT* = 1.0
   VRNA_MODEL_DEFAULT_ALI_NC_FACT* = 1.0
 
-const MAXALPHA* = 20
-
-type
-  VrnaMdS* = object
-    temperature*: cdouble
-    betaScale*: cdouble
-    dangles*: cint
-    specialHp*: cint
-    noLP*: cint
-    noGU*: cint
-    noGUclosure*: cint
-    logML*: cint
-    circ*: cint
-    gquad*: cint
-    canonicalBPonly*: cint
-    uniqML*: cint
-    energySet*: cint
-    backtrack*: cint
-    backtrackType*: char
-    computeBpp*: cint
-    nonstandards*: array[64, char]
-    maxBpSpan*: cint
-    minLoopSize*: cint
-    windowSize*: cint
-    oldAliEn*: cint
-    ribo*: cint
-    cvFact*: cdouble
-    ncFact*: cdouble
-    sfact*: cdouble
-    rtype*: array[8, cint]
-    alias*: array[MAXALPHA + 1, cshort]
-    pair*: array[MAXALPHA + 1, array[MAXALPHA + 1, cint]]
-
-type
-  VrnaMdT* = VrnaMdS
-
 proc vrnaMdSetDefault*(md: ptr VrnaMdT) {.cdecl, importc: "vrna_md_set_default",
                                       dynlib: rnaLib.}
 

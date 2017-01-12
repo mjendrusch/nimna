@@ -5,19 +5,6 @@
 # This library is licensed under the MIT license.
 # For more information see LICENSE.
 
-
-
-type
-  VrnaScMotifT* = vrnaScMotifS
-  VrnaScMotifS* = object
-    i*: cint
-    j*: cint
-    k*: cint
-    l*: cint
-    number*: cint
-
-
-
 proc vrnaScAddHiMotif*(vc: ptr VrnaFoldCompoundT; seq: cstring; structure: cstring;
                       energy: Flt_Or_Dbl; options: cuint): cint {.cdecl,
     importc: "vrna_sc_add_hi_motif", dynlib: rnaLib.}

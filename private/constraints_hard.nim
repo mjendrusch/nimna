@@ -5,28 +5,6 @@
 # This library is licensed under the MIT license.
 # For more information see LICENSE.
 
-
-
-#
-# type
-#   VrnaHcT* = VrnaHcS
-#   VrnaHcUpT* = VrnaHcUpS
-#   VrnaCallbackHcEvaluate* = proc (i: cint; j: cint; k: cint; l: cint; d: char; data: pointer): char {.
-#       cdecl.}
-#   VrnaHcS* = object
-#     matrix*: cstring
-#     upExt*: ptr cint
-#     upHp*: ptr cint
-#     upInt*: ptr cint
-#     upMl*: ptr cint
-#     f*: ptr VrnaCallbackHcEvaluate
-#     data*: pointer
-#     freeData*: pointer#ptr VrnaCallbackFreeAuxdata
-#   VrnaHcUpS* = object
-#     position*: cint
-#     options*: char
-
-
 const
   VRNA_CONSTRAINT_NO_HEADER* = 0
   VRNA_CONSTRAINT_DB* = 16384

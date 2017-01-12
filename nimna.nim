@@ -32,6 +32,11 @@ type
     ## computed from Settings.
   ConstraintOption* = distinct cuint
     ## Represents the way a constraint on folding is stored and interpreted.
+  Probabilities* = ref object
+    ## Represents the base pair probability matrix of a Compound
+    parent: Compound
+    bppm: ptr FltOrDbl
+  MotifError* = object of Exception
 
 const
   vcNoHeader* = VRNA_CONSTRAINT_NO_HEADER.ConstraintOption
@@ -55,8 +60,29 @@ const
   vccEnforce* = VRNA_CONSTRAINT_CONTEXT_ENFORCE.ConstraintOption
   vccNoRemove* = VRNA_CONSTRAINT_CONTEXT_NO_REMOVE.ConstraintOption
   vccAllLoops* = VRNA_CONSTRAINT_CONTEXT_ALL_LOOPS.ConstraintOption
+  vcmDefault* = VRNA_OPTION_DEFAULT.ConstraintOption
+
+# Utilities for interfacing with C
 
 proc free(p: pointer) {. importc: "free", nodecl .}
+template withRef(x, y: untyped) =
+  GcRef(x)
+  y
+  GcUnref(x)
+template `+`[T](p: ptr T, off: int): ptr T =
+  cast[ptr type(p[])](cast[ByteAddress](p) +% off * sizeof(p[]))
+template `[]`[T](p: ptr T, off: int): T =
+  (p + off)[]
+
+macro `.`*(c: Compound, field: string): auto =
+  let ident = newIdentNode(!field.strVal)
+  result = quote do:
+    `c`.vfc[].`ident`
+
+macro `.=`*[T](c: Compound, field: string, val: T): untyped =
+  let ident = newIdentNode(!field.strVal)
+  result = quote do:
+    `c`.vfc[].`ident` = `val`
 
 # Hard constraint handling:
 
@@ -71,27 +97,112 @@ proc constrain*(c: Compound, constraint: cstring,
   option: ConstraintOption = vcdbDefault): Compound {. discardable .} =
   ## Add a secondary structure <constraint> in "((((...))))" format to a
   ## Compound. Returns the compound for further processing.
-  discard vrnaHcAddFromDb(c.vfc, constraint, option.cuint)
+  withRef c:
+    discard vrnaHcAddFromDb(c.vfc, constraint, option.cuint)
   result = c
 
 proc forceUnpaired*(c: Compound, position: int,
     option: ConstraintOption = vccAllLoops): Compound {. discardable .} =
   ## Add an ``unpaired`` constraint to the base at a position in the Compound.
-  vrnaHcAddUp(c.vfc, position.cint, option.char)
+  withRef c:
+    vrnaHcAddUp(c.vfc, position.cint, option.char)
   result = c
 
 proc forcePaired*(c: Compound; i, j: int;
     option: ConstraintOption = vccAllLoops): Compound {. discardable .} =
   ## Add a ``paired`` constraint to the bases at a positions i and j
   ## in the Compound.
-  vrnaHcAddBp(c.vfc, i.cint, j.cint, option.char)
+  withRef c:
+    vrnaHcAddBp(c.vfc, i.cint, j.cint, option.char)
   result = c
 
-proc lift*(c: Compound): Compound {. discardable .} =
+proc liftConstraints*(c: Compound): Compound {. discardable .} =
   ## Lift all constraints from a Compound. Returns the Compound for further
   ## processing.
-  vrnaHcInit(c.vfc)
+  withRef c:
+    vrnaHcInit(c.vfc)
   result = c
+
+proc initConstraints*(c: Compound): Compound {. discardable, inline .} =
+  liftConstraints(c)
+
+# Soft constraint handling:
+proc preferUnpaired*(c: Compound; position: int; energy: float;
+    option: ConstraintOption = vccAllLoops): Compound {. discardable .} =
+  ## Adds a soft constraint leaving a base at position unpaired
+  ## with pseudo free energy (energy) to a Compound.
+  withRef c:
+    vrnaScAddUp(c.vfc, position.cint, energy.FltOrDbl, option.cuint)
+  result = c
+
+proc preferUnpaired*(c: Compound; energies: openarray[float],
+    option: ConstraintOption = vccAllLoops): Compound {. discardable .} =
+  ## Sets unpaired constraint energies. Overrides all previous unpaired soft
+  ## constraints.
+  withRef c:
+    vrnaScSetUp(c.vfc, energies[0].unsafeAddr, option.cuint)
+  result = c
+
+proc preferPaired*(c: Compound; i, j: int; energy: float;
+    option: ConstraintOption = vccAllLoops): Compound {. discardable .} =
+  ## Adds a soft constraint leaving bases at positions i, j paired with
+  ## each other with pseudo free energs (energy) to a Compound.
+  withRef c:
+    vrnaScAddBp(c.vfc, i.cint, j.cint, energy.FltOrDbl, option.cuint)
+  result = c
+
+proc preferPaired*[T: openarray[float]](c: Compound; energies: openarray[T],
+    option: ConstraintOption = vccAllLoops): Compound {. discardable .} =
+  ## Sets paired constraint energies. Overrides all previous paired soft
+  ## constraints.
+  withRef c:
+    vrnaScSetBp(c.vfc, cast[ptr ptr float](energies[0][0].unsafeAddr),
+      option.cuint)
+  result = c
+
+proc preferPaired*(c: Compound; energies: openarray[float],
+    option: ConstraintOption = vccAllLoops): Compound {. discardable .} =
+  ## Sets paired constraint energies. Overrides all previous paired soft
+  ## constraints.
+  var pointers = newSeq[ptr float](c.length.int)
+  for idx in 0 ..< c.length.int:
+    pointers.add energies[idx * c.length.int].unsafeAddr
+  withRef c:
+    vrnaScSetBp(c.vfc, pointers[0].addr, option.cuint)
+  result = c
+
+# Ligand binding motifs
+
+proc preferMotif*(c: Compound; motifSequence, motifStructure: string;
+    energy: float, option: ConstraintOption = vcmDefault): Compound {. discardable .} =
+  ## Adds a ligand binding motif of energy, sequence (motifSequence) and
+  ## secondary structure (motifStructure) as a soft constraint to a Compound.
+  withRef c:
+    let success = vrnaScAddHiMotif(c.vfc, motifSequence.cstring,
+      motifStructure.cstring, energy, option.cuint)
+  if success == 0:
+    raise newException(MotifError,
+      "Motif " & motifSequence & " not found in " & $c.sequence & "!")
+  result = c
+
+proc liftPreferences*(c: Compound): Compound {. discardable .} =
+  ## Resets all soft constraints on a Compound to their default value.
+  withRef c:
+    vrnaScInit(c.vfc)
+  result = c
+
+proc initPreferences*(c: Compound): Compound {. discardable, inline .} =
+  ## Initializes the soft constraint data structure in a Compound.
+  liftPreferences(c)
+
+proc lift*(c: Compound): Compound {. discardable, inline .} =
+  ## Resets all constraints in a Compound.
+  liftConstraints(c)
+  liftPreferences(c)
+
+proc init*(c: Compound): Compound {. discardable, inline .} =
+  ## Initializes all constraint data structure in a Compound.
+  lift(c)
 
 # Model Details handling:
 
@@ -128,13 +239,15 @@ proc toScaledParams*(s: Settings): ScaledParameters =
 proc update*(c: Compound, p: Parameters): Compound {. discardable .} =
   ## Updates Parameters of a Compound. Returns the Compound for further
   ## processing.
-  vrnaParamsSubst(c.vfc, p.unsafeAddr)
+  withRef c:
+    vrnaParamsSubst(c.vfc, p.unsafeAddr)
   result = c
 
 proc update*(c: Compound, p: ScaledParameters): Compound {. discardable .} =
   ## Updates ScaledParameters of a Compound. Returns the Compound for further
   ## processing.
-  vrnaExpParamsSubst(c.vfc, p.unsafeAddr)
+  withRef c:
+    vrnaExpParamsSubst(c.vfc, p.unsafeAddr)
   result = c
 
 proc update*(c: Compound, s: Settings): Compound {. inline, discardable .} =
@@ -165,81 +278,89 @@ proc compound*(sequence: string, settings: Settings): Compound =
     VrnaOptionDefault
   )
 
-macro `.`*(c: Compound, field: string): auto =
-  let ident = newIdentNode(!field.strVal)
-  result = quote do:
-    `c`.vfc[].`ident`
-
-macro `.=`*[T](c: Compound, field: string, val: T): untyped =
-  let ident = newIdentNode(!field.strVal)
-  result = quote do:
-    `c`.vfc[].`ident` = `val`
-
-proc rawProbabilities*(c: Compound): ptr FltOrDbl =
-  ## Returns a pointer to the base pair probability array of a Compound.
-  let partFunc = c.expMatrices
-  if partFunc[].`type` == VrnaMxDefault:
-    result = partFunc[].union.default.probs
-  else:
-    result = nil
-
-proc prob*(c: Compound; i, j: int): FltOrDbl =
-  ## Returns the probability of base-pairing at positions i and j in a Compound.
-  template `+`[T](p: ptr T, off: int): ptr T =
-    cast[ptr type(p[])](cast[ByteAddress](p) +% off * sizeof(p[]))
-  template `[]`[T](p: ptr T, off: int): T =
-    (p + off)[]
-  if i > type(i)(c.length) or j > type(j)(c.length):
+proc `[]`*(p: Probabilities; i, j: int): float =
+  if i > p.parent.length.int or j > p.parent.length.int:
     raise newException(IndexError, "index out of bounds!")
+  elif i < j:
+    result = p.bppm[p.parent.iindx[i] - j]
+  else:
+    result = p.bppm[p.parent.iindx[j] - i]
+
+proc probabilities*(c: Compound): Probabilities =
+  ## Returns a Probabilities object for monitoring the base pair probabilities
+  ## inside the Compound.
+  new result
   let partFunc = c.expMatrices
   if partFunc[].`type` == VrnaMxDefault:
-    if i < j:
-      result = partFunc[].union.default.probs[c.iindx[i] - j]
-    else:
-      result = partFunc[].union.default.probs[c.iindx[j] - i]
+    result.bppm = partFunc[].union.default.probs
+    result.parent = c
   else:
     raise newException(FieldError,
-      "The provided Compound is not of `type` VrnaMxDefault!")
+      "Compound does not contain the field `probs`")
 
-proc pfImpl(c: Compound): tuple[E: float; struc: string] =
-  let sq = cast[cstring](c.sequence)
-  let structure = cast[ptr char](alloc0(sq.len * sizeOf(char)))
-  result.E = pf(c.vfc, structure)
+proc prob*(c: Compound; i, j: int): float =
+  ## Returns the probability of base-pairing at positions i and j in a Compound.
+  c.probabilities[i, j]
+
+template foldImpl(c, name: untyped): untyped =
+  let
+    sq = cast[cstring](c.sequence)
+    structure = cast[ptr char](alloc0(sq.len * sizeOf(char)))
+  defer: dealloc structure
+  withRef c:
+    result.E = name(c.vfc, structure)
   result.struc = $structure
 
-proc pf*(c: Compound): tuple[E: float; struc: string] = pfImpl(c)
+proc pf*(c: Compound): tuple[E: float; struc: string] =
   ## Partition function folding for a Compound.
   ## Returns a tuple of ensemble energy and secondary structure.
+  foldImpl(c, pf)
 
-proc mfeImpl(c: Compound): tuple[E: float; struc: string] =
-  let sq = cast[cstring](c.sequence)
-  let structure = cast[ptr char](alloc0(sq.len * sizeOf(char)))
-  result.E = mfe(c.vfc, structure)
-  result.struc = $structure
-
-proc mfe*(c: Compound): tuple[E: float; struc: string] = mfeImpl(c)
+proc mfe*(c: Compound): tuple[E: float; struc: string] =
   ## Minimum free energy folding for a Compound.
   ## Returns a tuple of MFE and secondary structure.
+  foldImpl(c, mfe)
 
-proc pfDimerImpl(c: Compound): tuple[E: DimerEnergies; struc: string] =
-  let sq = cast[cstring](c.sequence)
-  let structure = cast[ptr char](alloc0(sq.len * sizeOf(char)))
-  result.E = pfDimer(c.vfc, structure)
-  result.struc = $structure
-
-proc pfDimer*(c: Compound): tuple[E: DimerEnergies; struc: string] = pfDimerImpl(c)
+proc pfDimer*(c: Compound): tuple[E: DimerEnergies; struc: string] =
   ## Partition function folding for a Compound (dimer).
   ## Returns a tuple of ensemble energy and secondary structure.
+  foldImpl(c, pfDimer)
 
-proc mfeDimerImpl(c: Compound): tuple[E: float; struc: string] =
-  let sq = cast[cstring](c.sequence)
-  let structure = cast[ptr char](alloc0(sq.len * sizeOf(char)))
-  result.E = mfeDimer(c.vfc, structure)
-  result.struc = $structure
-
-proc mfeDimer*(c: Compound): tuple[E: float; struc: string] = mfeDimerImpl(c)
+proc mfeDimer*(c: Compound): tuple[E: float; struc: string] =
   ## Minimum free energy folding for a Compound (dimer).
   ## Returns a tuple of MFE and secondary structure.
+  foldImpl(c, mfeDimer)
+
+# Centroid folding
+
+template centroidImpl(x, sqAcc, call: untyped): untyped =
+  let sq = cast[cstring](sqAcc)
+  withRef x:
+    let structure = call
+    result.struc = $structure
+  dealloc structure
+
+proc centroid*(c: Compound): tuple[dist: float; struc: string] =
+  ## Computes the centroid structure of an ensemble stored in a Compound,
+  ## returning a tuple of the mean distance from that structure in the
+  ## ensemble and the centroid structure itself.
+  ## A computation of the partition function has to be done before calling this.
+  centroidImpl(c, c.sequence, vrnaCentroid(c.vfc, result.dist.unsafeAddr))
+
+proc centroid*(p: Probabilities): tuple[dist: float; struc: string] =
+  ## Computes the centroid structure of an ensemble stored in a Probabilities
+  ## object.
+  centroidImpl(p, p.parent.sequence,
+    vrnaCentroidFromProbs(p.parent.length.cint, result.dist.unsafeAddr, p.bppm))
+
+# Structure sampling from an ensemble
+
+proc sample*(c: Compound): string =
+  ## Samples a secondary structure from an ensemble according to its probability.
+  withRef c:
+    let structure = vrnaPBacktrack(c.vfc)
+    result = $structure
+  dealloc structure
 
 # Utilities for plotting:
 

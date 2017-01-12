@@ -5,8 +5,6 @@
 # This library is licensed under the MIT license.
 # For more information see LICENSE.
 
-
-
 proc vrnaConstraintsAddSHAPE*(vc: ptr VrnaFoldCompoundT; shapeFile: cstring;
                              shapeMethod: cstring; shapeConversion: cstring;
                              verbose: cint; constraintType: cuint) {.cdecl,

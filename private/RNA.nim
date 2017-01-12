@@ -7,11 +7,21 @@
 
 const rnaLib = "RNA.so"
 
-include model
 include data_structures
+include model
 include dp_matrices
 include params
 include constraints_hard
+include constraints_soft
+include constraints_ligand
+include constraints_SHAPE
+include read_epars
+include unstructured_domains
 include part_func
 include part_func_co
 include mfe
+include centroid
+include duplex
+include perturbation_fold
+include equilibrium_probs
+include boltzmann_sampling

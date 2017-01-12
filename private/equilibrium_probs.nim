@@ -5,12 +5,6 @@
 # This library is licensed under the MIT license.
 # For more information see LICENSE.
 
-
-
-const
-  VRNA_BACKWARD_COMPAT* = true
-
-
 proc vrnaPairingProbs*(vc: ptr VrnaFoldCompoundT; structure: cstring) {.cdecl,
     importc: "vrna_pairing_probs", dynlib: rnaLib.}
 

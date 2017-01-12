@@ -5,8 +5,6 @@
 # This library is licensed under the MIT license.
 # For more information see LICENSE.
 
-
-
 proc duplexfold*(s1: cstring; s2: cstring): DuplexT {.cdecl, importc: "duplexfold",
     dynlib: rnaLib.}
 proc duplexSubopt*(s1: cstring; s2: cstring; delta: cint; w: cint): ptr DuplexT {.cdecl,

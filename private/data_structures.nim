@@ -42,6 +42,8 @@ const
 const
   nbpairs: int = 7
   maxLoop: int = 30
+
+const MAXALPHA = 20
 # import
 #   viennaRNA/structuredDomains, viennaRNA/unstructuredDomains
 
@@ -520,6 +522,111 @@ type
   VrnaSectT* = VrnaSectS
   VrnaDataLinT* = VrnaDataLinearS
   VrnaColorT* = VrnaColorS
+  VrnaUdT* = VrnaUnstructuredDomainS
+  VrnaUdMotifT* = VrnaUnstructuredDomainMotifS
+  VrnaCallbackUdEnergy* = proc (vc: ptr VrnaFoldCompoundT; i: cint; j: cint;
+                             loopType: cuint; data: pointer): cint {.cdecl.}
+  VrnaCallbackUdExpEnergy* = proc (vc: ptr VrnaFoldCompoundT; i: cint; j: cint;
+                                loopType: cuint; data: pointer): Flt_Or_Dbl {.cdecl.}
+  VrnaCallbackUdProduction* = proc (vc: ptr VrnaFoldCompoundT; data: pointer) {.cdecl.}
+  VrnaCallbackUdExpProduction* = proc (vc: ptr VrnaFoldCompoundT; data: pointer) {.cdecl.}
+  VrnaCallbackUdProbsAdd* = proc (vc: ptr VrnaFoldCompoundT; i: cint; j: cint;
+                               loopType: cuint; expEnergy: Flt_Or_Dbl; data: pointer) {.
+      cdecl.}
+  VrnaCallbackUdProbsGet* = proc (vc: ptr VrnaFoldCompoundT; i: cint; j: cint;
+                               loopType: cuint; motif: cint; data: pointer): Flt_Or_Dbl {.
+      cdecl.}
+  VrnaUnstructuredDomainS* = object
+    uniqMotifCount*: cint
+    uniqMotifSize*: ptr cuint
+    motifCount*: cint
+    motif*: cstringArray
+    motifSize*: ptr cuint
+    motifEn*: ptr cdouble
+    motifType*: ptr cuint
+    prodCb*: ptr VrnaCallbackUdProduction
+    expProdCb*: ptr VrnaCallbackUdExpProduction
+    energyCb*: ptr VrnaCallbackUdEnergy
+    expEnergyCb*: ptr VrnaCallbackUdExpEnergy
+    data*: pointer
+    freeData*: ptr VrnaCallbackFreeAuxdata
+    probsAdd*: ptr VrnaCallbackUdProbsAdd
+    probsGet*: ptr VrnaCallbackUdProbsGet
+
+  VrnaUnstructuredDomainMotifS* = object
+    start*: cint
+    number*: cint
+
+  # soft constraints
+  VrnaScT* = VrnaScS
+  VrnaCallbackScEnergy* = proc (i: cint; j: cint; k: cint; l: cint; d: char; data: pointer): cint {.
+      cdecl.}
+  VrnaCallbackScExpEnergy* = proc (i: cint; j: cint; k: cint; l: cint; d: char; data: pointer): Flt_Or_Dbl {.
+      cdecl.}
+  VrnaCallbackScBacktrack* = proc (i: cint; j: cint; k: cint; l: cint; d: char; data: pointer): ptr VrnaBasepairT {.
+      cdecl.}
+  VrnaScS* = object
+    energyUp*: ptr ptr cint
+    energyBp*: ptr cint
+    expEnergyUp*: ptr ptr Flt_Or_Dbl
+    expEnergyBp*: ptr Flt_Or_Dbl
+    energyStack*: ptr cint
+    expEnergyStack*: ptr Flt_Or_Dbl
+    f*: ptr VrnaCallbackScEnergy
+    bt*: ptr VrnaCallbackScBacktrack
+    expF*: ptr VrnaCallbackScExpEnergy
+    data*: pointer
+    freeData*: ptr VrnaCallbackFreeAuxdata
+
+  # ligand constraints
+  VrnaScMotifT* = VrnaScMotifS
+  VrnaScMotifS* = object
+    i*: cint
+    j*: cint
+    k*: cint
+    l*: cint
+    number*: cint
+
+  # read epars
+  Parset* {.size: sizeof(cint).} = enum
+    UNKNOWN = - 1, QUIT, S, S_H, HP, HP_H, B, B_H, IL, IL_H, MMH, MMH_H, MMI, MMI_H, MMI1N,
+    MMI1N_H, MMI23, MMI23_H, MMM, MMM_H, MME, MME_H, D5, D5_H, D3, D3_H, INT11, INT11_H,
+    INT21, INT21_H, INT22, INT22_H, ML, TL, TRI, HEX, NIN, MISC
+
+  # perturbation
+  ProgressCallback* = proc (iteration: cint; score: cdouble; epsilon: ptr cdouble) {.cdecl.}
+
+  # model details
+  VrnaMdS* = object
+    temperature*: cdouble
+    betaScale*: cdouble
+    dangles*: cint
+    specialHp*: cint
+    noLP*: cint
+    noGU*: cint
+    noGUclosure*: cint
+    logML*: cint
+    circ*: cint
+    gquad*: cint
+    canonicalBPonly*: cint
+    uniqML*: cint
+    energySet*: cint
+    backtrack*: cint
+    backtrackType*: char
+    computeBpp*: cint
+    nonstandards*: array[64, char]
+    maxBpSpan*: cint
+    minLoopSize*: cint
+    windowSize*: cint
+    oldAliEn*: cint
+    ribo*: cint
+    cvFact*: cdouble
+    ncFact*: cdouble
+    sfact*: cdouble
+    rtype*: array[8, cint]
+    alias*: array[MAXALPHA + 1, cshort]
+    pair*: array[MAXALPHA + 1, array[MAXALPHA + 1, cint]]
+  VrnaMdT* = VrnaMdS
 
 const
   VRNA_OPTION_DEFAULT* = 0
