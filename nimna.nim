@@ -554,15 +554,29 @@ proc complement*(a: char): char =
   ## Returns the complement of a DNA base.
   case a
   of 'a', 'A':
-    'T'
+    result = 'T'
+  of 'b', 'B':
+    result = 'V'
   of 't', 'T', 'u', 'U':
-    'A'
+    result = 'A'
+  of 'v', 'V':
+    result = 'B'
   of 'c', 'C':
-    'G'
+    result = 'G'
+  of 'd', 'D':
+    result = 'H'
   of 'g', 'G':
-    'C'
+    result = 'C'
+  of 'h', 'H':
+    result = 'D'
+  of 'r', 'R':
+    result = 'Y'
+  of 'y', 'Y':
+    result = 'R'
+  of 'w', 'W', 's', 'S':
+    result = a
   else:
-    'N'
+    result = 'N'
 
 proc randomDNA*(length: int): string =
   ## Returns a random DNA of a given length.
