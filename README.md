@@ -16,6 +16,7 @@ Currently, the following things are available with the high level interface:
     * Partition function folding for one or more molecules.
     * Minimum free energy folding for one or more molecules.
     * Centroid structure folding for one or more molecules.
+    * 2DFold (MFE and partition function).
   * Constraints:
     * Hard constraints are fully supported.
     * Soft constraints are fully supported.
@@ -35,7 +36,9 @@ Currently, the following things are available with the high level interface:
   * Miscellaneous:
     * Generating reasonably random DNA/RNA sequences.
     * Sampling secondary structures from ensembles computed with
-      `pf`.
+      `pf` and `pf2D`.
+    * Iterators for all types which can be iterated over.
+    * Reading and writing parameter files.
     
 ## What do I need to use it?
 You need either `RNA.so` or `libRNA.a` in your `PATH`. Both come with an installation of
@@ -63,7 +66,7 @@ for deltaT in 0..200:
 
 ## Short term plans
 You can expect this to happen over the next few days or weeks, at most
-(in chronological order):
+(in more or less chronological order):
 
 - [ ] Wrap the remaining ViennaRNA headers.
 - [x] Create a high level wrapper for *parameter file IO*.
@@ -72,7 +75,7 @@ You can expect this to happen over the next few days or weeks, at most
 - [x] Create a high level wrapper for centroid structure prediction.
 - [ ] Create a high level wrapper for MEA structure prediction.
 - [ ] Create a high level wrapper for comparative structure prediction.
-- [ ] Create a high level wrapper for 2Dfold.
+- [x] Create a high level wrapper for 2Dfold.
 - [ ] Create a high level wrapper for duplex fold.
 - [ ] Create a high level wrapper for subopt.
 - [ ] Create a high level wrapper for local fold.
