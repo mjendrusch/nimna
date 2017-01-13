@@ -272,9 +272,9 @@ proc update*(c: Compound, s: Settings): Compound {. inline, discardable .} =
 
 # Solutions handling
 
-proc freeMfeSolutions*(s: MfeSolutions) =
+proc freeMfeSolutions(s: MfeSolutions) =
   free(s.mfe)
-proc freePfSolutions*(s: PfSolutions) =
+proc freePfSolutions(s: PfSolutions) =
   free(s.pf)
 
 template makeIterators(name, lc, pairType: untyped): untyped =
@@ -315,7 +315,7 @@ makeIterators(Pf, pf, float)
 
 # Compound handling
 
-proc freeCompound*(c: Compound) =
+proc freeCompound(c: Compound) =
   foldCompoundFree(c.vfc)
 
 proc compound*(sequence: string): Compound =
