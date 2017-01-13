@@ -628,6 +628,19 @@ type
     pair*: array[MAXALPHA + 1, array[MAXALPHA + 1, cint]]
   VrnaMdT* = VrnaMdS
 
+  # 2Dfold
+  VrnaSolTwoDt* = object
+    kappa*: cint
+    lambda*: cint
+    energy*: cfloat
+    structure*: cstring
+
+  # 2Dpffold
+  VrnaSolTwoD_pfT* = object
+    kappa*: cint
+    lambda*: cint
+    partitionFunction*: float
+
 const
   VRNA_OPTION_DEFAULT* = 0
   VRNA_OPTION_MFE* = 1

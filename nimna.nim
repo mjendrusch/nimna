@@ -18,10 +18,23 @@ export RNA
 ## High level garbage collected interface to ViennaRNA. *Work in progress*.
 
 type
-  Compound* = ref object
+  Compound* = ref object of RootObj
     ## Represents a sequence of DNA or RNA together with folding parameters
     ## and results.
     vfc: ptr VrnaFoldCompoundT
+  Compound2D* = ref object of Compound
+    ## Represents a sequence of DNA or RNA together with folding parameters
+    ## fold ing results, and a pair of reference structures.
+  MfeSolution* = VrnaSolTwoDT
+    ## Represents a secondary structure and energy at a single position in
+    ## secondary structure space.
+  PfSolution* = VrnaSolTwoDPfT
+    ## Represents a partition function at a single position in
+    ## secondary structure space.
+  MfeSolutions* = ref object
+    mfe: ptr MfeSolution
+  PfSolutions* = ref object
+    pf: ptr PfSolution
   Settings* {. byref .} = VrnaMdT
     ## Represents a set of conditions for folding, such as for example
     ## temperature.
@@ -257,6 +270,51 @@ proc update*(c: Compound, s: Settings): Compound {. inline, discardable .} =
   c.update(s.toScaledParams)
   result = c
 
+# Solutions handling
+
+proc freeMfeSolutions*(s: MfeSolutions) =
+  free(s.mfe)
+proc freePfSolutions*(s: PfSolutions) =
+  free(s.pf)
+
+template makeIterators(name, lc, pairType: untyped): untyped =
+  const solutionTerminator = 10000000
+  iterator items*(s: `name Solutions`): `name Solution` =
+    ## Iterate over Solution obects in a set of Solutions.
+    var idx = 0
+    while s.`lc`[idx].kappa.int != solutionTerminator:
+      yield s.`lc`[idx]
+  iterator pairs*(s: `name Solutions`):
+      tuple[pos: tuple[kappa: int, lambda: int], val: pairType] =
+    ## Iterate over pairs of distances (kappa, lambda) and Solution
+    ## values.
+    var idx = 0
+    while s.`lc`[idx].kappa.int != solutionTerminator:
+      let sol = s.`lc`[idx]
+      when pairType is float:
+        yield (pos: (kappa: sol.kappa.int, lambda: sol.lambda.int),
+          val: sol.partitionFunction.float)
+      else:
+        yield (pos: (kappa: sol.kappa.int, lambda: sol.lambda.int),
+          val: (E: sol.energy.float, struc: $sol.structure))
+  iterator triples*(s: `name Solutions`):
+      tuple[kappa: int, lambda: int, val: pairType] =
+    ## Iterate over triples of kappa, lambda, values.
+    var idx = 0
+    while s.`lc`[idx].kappa.int != solutionTerminator:
+      let sol = s.`lc`[idx]
+      when pairType is float:
+        yield (kappa: sol.kappa.int, lambda: sol.lambda.int,
+          val: sol.partitionFunction.float)
+      else:
+        yield (kappa: sol.kappa.int, lambda: sol.lambda.int,
+          val: (E: sol.energy.float, struc: $sol.structure))
+
+makeIterators(Mfe, mfe, tuple[E: float, struc: string])
+makeIterators(Pf, pf, float)
+
+# Compound handling
+
 proc freeCompound*(c: Compound) =
   foldCompoundFree(c.vfc)
 
@@ -265,6 +323,18 @@ proc compound*(sequence: string): Compound =
   new result, freeCompound
   result.vfc = foldCompound(
     cstring(sequence),
+    cast[ptr VrnaMdT](nil),
+    VrnaOptionDefault
+  )
+
+proc compound2D*(sequence, reference1, reference2: string): Compound2D =
+  ## Creates a Compound for 2DFold from a sequence string,
+  ## together with two reference structures.
+  new result.Compound, freeCompound
+  result.vfc = foldCompoundTwoD(
+    cstring(sequence),
+    cstring(reference1),
+    cstring(reference2),
     cast[ptr VrnaMdT](nil),
     VrnaOptionDefault
   )
@@ -278,13 +348,27 @@ proc compound*(sequence: string, settings: Settings): Compound =
     VrnaOptionDefault
   )
 
+proc compound2D*(sequence, reference1, reference2: string,
+    settings: Settings): Compound2D =
+  ## Creates a Compound from a sequence string with Settings.
+  new result.Compound, freeCompound
+  result.vfc = foldCompoundTwoD(
+    cstring(sequence),
+    cstring(reference1),
+    cstring(reference2),
+    settings.unsafeAddr,
+    VrnaOptionDefault
+  )
+
+# Probabilities handling
+
 proc `[]`*(p: Probabilities; i, j: int): float =
-  if i > p.parent.length.int or j > p.parent.length.int:
+  if i + 1 > p.parent.length.int or j + 1 > p.parent.length.int:
     raise newException(IndexError, "index out of bounds!")
   elif i < j:
-    result = p.bppm[p.parent.iindx[i] - j]
+    result = p.bppm[p.parent.iindx[i + 1] - (j + 1)]
   else:
-    result = p.bppm[p.parent.iindx[j] - i]
+    result = p.bppm[p.parent.iindx[j + 1] - (i + 1)]
 
 proc probabilities*(c: Compound): Probabilities =
   ## Returns a Probabilities object for monitoring the base pair probabilities
@@ -302,6 +386,37 @@ proc prob*(c: Compound; i, j: int): float =
   ## Returns the probability of base-pairing at positions i and j in a Compound.
   c.probabilities[i, j]
 
+iterator items*(p: Probabilities): float =
+  ## Iterates over all entries in the probability matrix.
+  for idx in 0 ..< p.parent.length.int:
+    for idy in 0 ..< p.parent.length.int:
+      yield p[idx, idy]
+
+iterator pairs*(p: Probabilities): tuple[pos: tuple[i, j: int], val: float] =
+  ## Iterates over all pairs of indices (i, j) and their corresponding
+  ## base pairing probabilities val.
+  for idx in 0 ..< p.parent.length.int:
+    for idy in 0 ..< p.parent.length.int:
+      yield (pos: (i: idx, j: idy), val: p[idx, idy])
+
+iterator triples*(p: Probabilities): tuple[i, j: int, val: float] =
+  ## Iterates over all triples of indices i, j and their corresponding
+  ## base pairing probabilities val.
+  for idx in 0 ..< p.parent.length.int:
+    for idy in 0 ..< p.parent.length.int:
+      yield (i: idx, j: idy, val: p[idx, idy])
+
+iterator positions*(p: Probabilities): seq[float] =
+  ## Iterates over all positions in the sequence corresponding
+  ## to the Probabilities, returning a seq of their base pairing
+  ## probabilities.
+  for idx in 0 ..< p.parent.length.int:
+    var sq = newSeq[float](p.parent.length.int)
+    for idy in 0 ..< p.parent.length.int:
+      sq[idy] = p[idx, idy]
+
+# Folding handling
+
 template foldImpl(c, name: untyped): untyped =
   let
     sq = cast[cstring](c.sequence)
@@ -310,6 +425,11 @@ template foldImpl(c, name: untyped): untyped =
   withRef c:
     result.E = name(c.vfc, structure)
   result.struc = $structure
+
+template fold2DImpl(c, name: untyped): untyped =
+  new result, `free name Solutions`
+  withRef c:
+    result.name = `vrna name TwoD`(c.vfc, distance1.cint, distance2.cint)
 
 proc pf*(c: Compound): tuple[E: float; struc: string] =
   ## Partition function folding for a Compound.
@@ -320,6 +440,18 @@ proc mfe*(c: Compound): tuple[E: float; struc: string] =
   ## Minimum free energy folding for a Compound.
   ## Returns a tuple of MFE and secondary structure.
   foldImpl(c, mfe)
+
+proc pf2D*(c: Compound2D; distance1, distance2: int): PfSolutions =
+  ## Computes the partition function at all points in secondary
+  ## structure space with maximum distance1 to one reference
+  ## structure and maximum distance2 to another.
+  fold2DImpl(c, pf)
+
+proc mfe2D*(c: Compound2D; distance1, distance2: int): MfeSolutions =
+  ## Computes the Mfe structure, as well as its free energy at
+  ## all points in secondary structure space with maximum distance1
+  ## to one reference structure and maximum distance2 to another.
+  fold2DImpl(c, mfe)
 
 proc pfDimer*(c: Compound): tuple[E: DimerEnergies; struc: string] =
   ## Partition function folding for a Compound (dimer).
@@ -362,6 +494,15 @@ proc sample*(c: Compound): string =
     result = $structure
   dealloc structure
 
+proc sample2D*(c: Compound2D; distance1, distance2: int): string =
+  ## Samples a secondary structure at a position in secondary structure
+  ## space with distance1 from one reference structure and distance2 from
+  ## the other.
+  withRef c:
+    let structure = vrnaPBacktrackTwoD(c.vfc, distance1.cint, distance2.cint)
+    result = $structure
+  dealloc structure
+
 # Utilities for plotting:
 
 proc colorize(s: string, color: uint8): string =
@@ -392,14 +533,14 @@ proc densityPlot*(c: Compound, gamma: float, scheme: ColorScheme = csGrayScale) 
     of csBlueRed:
       toBlueRed
   echo "  ", ($c.sequence).join" "
-  for i in 1 .. c.length.int:
+  for i in 0 ..< c.length.int:
     var seqI = " "
-    for j in 1 .. c.length.int:
+    for j in 0 ..< c.length.int:
       if i == j:
         seqI.add(colorize("  ", 255))
       else:
         seqI.add(toColorScheme(c.prob(i, j), gamma))
-    echo c.sequence[i - 1], seqI
+    echo c.sequence[i], seqI
 
 # Read and write energy parameter files:
 proc readPars*(path: string) =

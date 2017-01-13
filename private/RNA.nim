@@ -19,6 +19,8 @@ include read_epars
 include unstructured_domains
 include part_func
 include part_func_co
+include "2Dfold"
+include "2Dpfold"
 include mfe
 include centroid
 include duplex
