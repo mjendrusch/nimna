@@ -22,6 +22,8 @@ type
     ## Represents a sequence of DNA or RNA together with folding parameters
     ## and results.
     vfc: ptr VrnaFoldCompoundT
+    hasPf: bool
+    isD: bool
   Compound2D* = ref object of Compound
     ## Represents a sequence of DNA or RNA together with folding parameters
     ## fold ing results, and a pair of reference structures.
@@ -35,6 +37,15 @@ type
     mfe: ptr MfeSolution
   PfSolutions* = ref object
     pf: ptr PfSolution
+  InteractionList* = ref object of RootObj
+    ## Represents a list of base interactions.
+    pl: ptr VrnaPlistT
+    len: int
+  PairList* = ref object of InteractionList
+    ## Represents a list of base pairing interactions
+  GQuadList* = ref object of InteractionList
+    ## Represents a list of G-quadruplex interactions.
+  PairListItem* = VrnaPlistT
   Settings* {. byref .} = VrnaMdT
     ## Represents a set of conditions for folding, such as for example
     ## temperature.
@@ -254,6 +265,7 @@ proc update*(c: Compound, p: Parameters): Compound {. discardable .} =
   ## processing.
   withRef c:
     vrnaParamsSubst(c.vfc, p.unsafeAddr)
+  c.hasPf = false
   result = c
 
 proc update*(c: Compound, p: ScaledParameters): Compound {. discardable .} =
@@ -261,6 +273,7 @@ proc update*(c: Compound, p: ScaledParameters): Compound {. discardable .} =
   ## processing.
   withRef c:
     vrnaExpParamsSubst(c.vfc, p.unsafeAddr)
+  c.hasPf = false
   result = c
 
 proc update*(c: Compound, s: Settings): Compound {. inline, discardable .} =
@@ -318,19 +331,32 @@ makeIterators(Pf, pf, float)
 proc freeCompound(c: Compound) =
   foldCompoundFree(c.vfc)
 
+proc isDimer*(c: Compound): bool =
+  c.isD or find($c.sequence, "&") != -1
+
 proc compound*(sequence: string): Compound =
   ## Creates a Compound from a sequence string.
   new result, freeCompound
+  result.hasPf = false
   result.vfc = foldCompound(
     cstring(sequence),
     cast[ptr VrnaMdT](nil),
     VrnaOptionDefault
   )
 
+proc dimer*(sequence1, sequence2: string): Compound =
+  ## Creates a Compound containing a dimer.
+  var sequence = sequence1
+  sequence &= "&"
+  sequence &= sequence2
+  result = compound(sequence)
+  result.isD = true
+
 proc compound2D*(sequence, reference1, reference2: string): Compound2D =
   ## Creates a Compound for 2DFold from a sequence string,
   ## together with two reference structures.
   new result.Compound, freeCompound
+  result.hasPf = false
   result.vfc = foldCompoundTwoD(
     cstring(sequence),
     cstring(reference1),
@@ -342,16 +368,26 @@ proc compound2D*(sequence, reference1, reference2: string): Compound2D =
 proc compound*(sequence: string, settings: Settings): Compound =
   ## Creates a Compound from a sequence string with Settings.
   new result, freeCompound
+  result.hasPf = false
   result.vfc = foldCompound(
     cstring(sequence),
     settings.unsafeAddr,
     VrnaOptionDefault
   )
 
+proc dimer*(sequence1, sequence2: string, settings: Settings): Compound =
+  ## Creates a Compound containing a dimer.
+  var sequence = sequence1
+  sequence &= "&"
+  sequence &= sequence2
+  result = compound(sequence, settings)
+  result.isD = true
+
 proc compound2D*(sequence, reference1, reference2: string,
     settings: Settings): Compound2D =
   ## Creates a Compound from a sequence string with Settings.
   new result.Compound, freeCompound
+  result.hasPf = false
   result.vfc = foldCompoundTwoD(
     cstring(sequence),
     cstring(reference1),
@@ -360,7 +396,21 @@ proc compound2D*(sequence, reference1, reference2: string,
     VrnaOptionDefault
   )
 
+template len*(c: Compound): int =
+  c.length.int
+
 # Probabilities handling
+
+proc pf*(c: Compound): tuple[E: float; struc: string]
+proc pfDimer*(c: Compound): tuple[E: DimerEnergies; struc: string]
+template len*(p: Probabilities): int =
+  p.parent.len
+template recomputePfImpl(c: untyped): untyped =
+  if not c.hasPf:
+    if c.isDimer:
+      discard c.pfDimer
+    else:
+      discard c.pf
 
 proc `[]`*(p: Probabilities; i, j: int): float =
   if i + 1 > p.parent.length.int or j + 1 > p.parent.length.int:
@@ -372,7 +422,8 @@ proc `[]`*(p: Probabilities; i, j: int): float =
 
 proc probabilities*(c: Compound): Probabilities =
   ## Returns a Probabilities object for monitoring the base pair probabilities
-  ## inside the Compound.
+  ## inside the Compound. If no probabilities exist, they will be computed.
+  c.recomputePfImpl
   new result
   let partFunc = c.expMatrices
   if partFunc[].`type` == VrnaMxDefault:
@@ -415,6 +466,66 @@ iterator positions*(p: Probabilities): seq[float] =
     for idy in 0 ..< p.parent.length.int:
       sq[idy] = p[idx, idy]
 
+# InteractionList handling:
+
+proc freePairList(pl: PairList) =
+  free(pl.pl)
+template newPairList(pl: untyped): untyped =
+  new pl, freePairList
+
+template `[]`*(pl: PairList, idx: int): PairListItem =
+  ## Bracket accessot for the PairList.
+  pl.pl[idx]
+
+proc pairList*(structure: string, probability: float): PairList =
+  ## Creates a PairList from a dot-bracket secondary structure string
+  ## together with a weighting probability.
+  result.newPairList
+  result.len = structure.len
+  result.pl = vrnaPList(structure.cstring, probability.cfloat)
+
+proc pairList*(c: Compound, cutoff: float = 1E-6): PairList =
+  ## Creates a PairList from a Compound, taking into account all base pairs
+  ## with probability greater than a cutoff. If no probabilities exist, they
+  ## will be computed.
+  c.recomputePfImpl
+  result.newPairList
+  result.len = c.len
+  result.pl = vrnaPlistFromProbs(c.vfc, cutoff.cdouble)
+
+proc pairList*(p: Probabilities, cutoff: float = 1E-6): PairList =
+  ## Creates a PairList from a set of Probabilities, taking into account all
+  ## base pairs with probability greater than cutoff.
+  result.newPairList
+  result.len = p.parent.len
+  result.pl = vrnaPlistFromProbs(p.parent.vfc, cutoff.cdouble)
+
+iterator items*(pl: PairList): PairListItem =
+  ## Iterates over PairListItems in a PairList.
+  for idx in 0 ..< pl.len:
+    yield pl[idx]
+
+iterator probabilities*(pl: PairList): float =
+  ## Iterates over probabilities in a PairList.
+  for val in pl.items:
+    yield val.p.float
+
+iterator basePairs*(pl: PairList): tuple[i, j: int] =
+  ## Iterates over base pairs contained in a PairList.
+  for val in pl.items:
+    yield (i: val.i.int, j: val.j.int)
+
+iterator pairs*(pl: PairList): tuple[bp: tuple[i, j: int], prob: float] =
+  ## Iterates over pairs of base pairs and probabilities.
+  for val in pl.items:
+    yield (bp: (i: val.i.int, j: val.j.int), prob: val.p.float)
+
+iterator triples*(pl: PairList): tuple[i, j: int, prob: float] =
+  ## Iterates over triples of base positions i, j and their pairing
+  ## probabilities.
+  for val in pl.items:
+    yield (i: val.i.int, j: val.j.int, prob: val.p.float)
+
 # Folding handling
 
 template foldImpl(c, name: untyped): untyped =
@@ -435,6 +546,7 @@ proc pf*(c: Compound): tuple[E: float; struc: string] =
   ## Partition function folding for a Compound.
   ## Returns a tuple of ensemble energy and secondary structure.
   foldImpl(c, pf)
+  c.hasPf = true
 
 proc mfe*(c: Compound): tuple[E: float; struc: string] =
   ## Minimum free energy folding for a Compound.
@@ -446,6 +558,7 @@ proc pf2D*(c: Compound2D; distance1, distance2: int): PfSolutions =
   ## structure space with maximum distance1 to one reference
   ## structure and maximum distance2 to another.
   fold2DImpl(c, pf)
+  c.hasPf = true
 
 proc mfe2D*(c: Compound2D; distance1, distance2: int): MfeSolutions =
   ## Computes the Mfe structure, as well as its free energy at
@@ -457,6 +570,7 @@ proc pfDimer*(c: Compound): tuple[E: DimerEnergies; struc: string] =
   ## Partition function folding for a Compound (dimer).
   ## Returns a tuple of ensemble energy and secondary structure.
   foldImpl(c, pfDimer)
+  c.hasPf = true
 
 proc mfeDimer*(c: Compound): tuple[E: float; struc: string] =
   ## Minimum free energy folding for a Compound (dimer).
@@ -476,7 +590,9 @@ proc centroid*(c: Compound): tuple[dist: float; struc: string] =
   ## Computes the centroid structure of an ensemble stored in a Compound,
   ## returning a tuple of the mean distance from that structure in the
   ## ensemble and the centroid structure itself.
-  ## A computation of the partition function has to be done before calling this.
+  ## A computation of the partition function will be done, if no base pairing
+  ## probabilities exist.
+  c.recomputePfImpl
   centroidImpl(c, c.sequence, vrnaCentroid(c.vfc, result.dist.unsafeAddr))
 
 proc centroid*(p: Probabilities): tuple[dist: float; struc: string] =
@@ -484,6 +600,27 @@ proc centroid*(p: Probabilities): tuple[dist: float; struc: string] =
   ## object.
   centroidImpl(p, p.parent.sequence,
     vrnaCentroidFromProbs(p.parent.length.cint, result.dist.unsafeAddr, p.bppm))
+
+# Maximum expected accuracy folding
+
+proc mea*(pl: PairList, gamma: float = 1.0'f64): tuple[E: float; struc: string] =
+  ## Computes the maximum accuracy structure of an Ensemble stored in a PairList.
+  let struc = cast[cstring](alloc0(pl.len * sizeOf(char)))
+  defer: dealloc struc
+  withRef pl:
+    result.E = mea(pl.pl, struc, gamma.cdouble)
+
+proc mea*(c: Compound, gamma: float = 1.0'f64): tuple[E: float; struc: string] =
+  ## Computes the maximum accuracy structure of an Ensemble stored in a Compound.
+  ## A computation of the partition function will be done, if no ensemble is
+  ## available.
+  c.recomputePfImpl
+  result = c.pairList.mea(gamma)
+
+proc mea*(p: Probabilities, gamma: float = 1.0'f64): tuple[E: float; struc: string] =
+  ## Computes the maximum accuracy structure of an Ensemble stored in
+  ## a set of Probabilities.
+  result = p.pairList.mea(gamma)
 
 # Structure sampling from an ensemble
 

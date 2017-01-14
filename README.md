@@ -17,6 +17,7 @@ Currently, the following things are available with the high level interface:
     * Minimum free energy folding for one or more molecules.
     * Centroid structure folding for one or more molecules.
     * 2DFold (MFE and partition function).
+    * Maximum expected accuracy folding.
   * Constraints:
     * Hard constraints are fully supported.
     * Soft constraints are fully supported.
@@ -73,7 +74,7 @@ You can expect this to happen over the next few days or weeks, at most
 - [x] Create a high level wrapper for all remaining flavours
   of constraints.
 - [x] Create a high level wrapper for centroid structure prediction.
-- [ ] Create a high level wrapper for MEA structure prediction.
+- [x] Create a high level wrapper for MEA structure prediction.
 - [ ] Create a high level wrapper for comparative structure prediction.
 - [x] Create a high level wrapper for 2Dfold.
 - [ ] Create a high level wrapper for duplex fold.

@@ -22,8 +22,10 @@ include part_func_co
 include "2Dfold"
 include "2Dpfold"
 include mfe
+include mea
 include centroid
 include duplex
 include perturbation_fold
 include equilibrium_probs
 include boltzmann_sampling
+include structure_utils

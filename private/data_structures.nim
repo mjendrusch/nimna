@@ -160,7 +160,7 @@ type
     i*: cint
     j*: cint
     p*: cfloat
-    `type`*: cint
+    typ*: cint
 
   VrnaCpairS* = object
     i*: cint
@@ -640,6 +640,15 @@ type
     kappa*: cint
     lambda*: cint
     partitionFunction*: float
+
+  # structure utils
+  VrnaHxT* = VrnaHxS
+  VrnaHxS* = object
+    start*: cuint
+    `end`*: cuint
+    length*: cuint
+    up5*: cuint
+    up3*: cuint
 
 const
   VRNA_OPTION_DEFAULT* = 0
