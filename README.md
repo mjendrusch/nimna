@@ -36,6 +36,7 @@ Currently, the following things are available with the high level interface:
       in a terminal emulator.
   * Miscellaneous:
     * Generating reasonably random DNA/RNA sequences.
+    * Evaluating energies of secondary structures.
     * Sampling secondary structures from ensembles computed with
       `pf` and `pf2D`.
     * Iterators for all types which can be iterated over.
@@ -84,5 +85,5 @@ You can expect this to happen over the next few days or weeks, at most
 - [ ] Create a high level wrapper for duplex fold.
 - [ ] Create a high level wrapper for subopt.
 - [ ] Create a high level wrapper for local fold.
-- [ ] Create a high level wrapper for structure evaluation.
+- [x] Create a high level wrapper for structure evaluation.
 - [ ] Make this a **nimble** package.
