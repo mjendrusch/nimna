@@ -53,6 +53,8 @@ type
     ## computed from Settings.
   ConstraintOption* = distinct cuint
     ## Represents the way a constraint on folding is stored and interpreted.
+  UnstructuredOption* = distinct cuint
+    ## Represents the kinds of motifs a ligand can bind to,
   Probabilities* = ref object
     ## Represents the base pair probability matrix of a Compound
     parent: Compound

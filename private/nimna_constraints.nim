@@ -13,6 +13,7 @@ proc lift*(c: Compound): Compound {. discardable, inline .} =
   ## Resets all constraints in a Compound.
   liftConstraints(c)
   liftPreferences(c)
+  liftMotifs(c)
 
 proc init*(c: Compound): Compound {. discardable, inline .} =
   ## Initializes all constraint data structure in a Compound.
