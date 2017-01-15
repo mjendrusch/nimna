@@ -45,6 +45,10 @@ Currently, the following things are available with the high level interface:
 You need either `RNA.so` or `libRNA.a` in your `PATH`. Both come with an installation of
 ViennaRNA 2.x or later. Do not use earlier ones.
 
+If you do not have `RNA.so` in your `PATH`, but __do__ have `libRNA.a`, you need to use
+the compiler options `--dynlibOverride:RNA` and `--passL:"PATH-TO-libRNA.a -fopenmp"`, to
+successfully statically link ViennaRNA. 
+
 ## A short example
 ```nim
 # We want to fold a sequence at multiple temperatures,
