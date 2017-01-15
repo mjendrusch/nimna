@@ -16,6 +16,7 @@ export RNA
 include private/nimna_cutils
 include private/nimna_types
 include private/nimna_compound
+include private/nimna_alignment
 include private/nimna_constraints
 include private/nimna_model
 include private/nimna_2dfold

@@ -8,7 +8,7 @@
 template foldImpl(c, name: untyped): untyped =
   let
     sq = cast[cstring](c.sequence)
-    structure = cast[ptr char](alloc0(sq.len * sizeOf(char)))
+    structure = cast[ptr char](alloc0((sq.len + 1) * sizeOf(char)))
   defer: dealloc structure
   withRef c:
     result.E = name(c.vfc, structure)
@@ -82,7 +82,7 @@ proc centroid*(p: Probabilities): tuple[dist: float; struc: string] =
 
 proc mea*(pl: PairList, gamma: float = 1.0'f64): tuple[E: float; struc: string] =
   ## Computes the maximum accuracy structure of an Ensemble stored in a PairList.
-  let struc = cast[cstring](alloc0(pl.len * sizeOf(char)))
+  let struc = cast[cstring](alloc0((pl.len + 1) * sizeOf(char)))
   defer: dealloc struc
   withRef pl:
     result.E = mea(pl.pl, struc, gamma.cdouble)

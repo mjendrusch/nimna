@@ -6,6 +6,7 @@
 # For more information see LICENSE.
 
 proc free(p: pointer) {. importc: "free", nodecl .}
+proc calloc(size: cuint): pointer {. importc: "calloc", nodecl .}
 template withRef(x, y: untyped) =
   GcRef(x)
   y

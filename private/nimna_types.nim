@@ -14,7 +14,16 @@ type
     isD: bool
   Compound2D* = ref object of Compound
     ## Represents a sequence of DNA or RNA together with folding parameters
-    ## fold ing results, and a pair of reference structures.
+    ## folding results, and a pair of reference structures.
+  CompoundComparative* = ref object of Compound
+    ## Represents a sequence alignment of DNAs or RNAs with folding parameters
+    ## and results.
+  Alignment* = ref object
+    algn: cStringArray
+    names: cStringArray
+    id: cstring
+    structure: cstring
+    nSeqs: int
   MfeSolution* = VrnaSolTwoDT
     ## Represents a secondary structure and energy at a single position in
     ## secondary structure space.

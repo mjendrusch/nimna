@@ -13,8 +13,8 @@ growing.
 Currently, the following things are available with the high level interface:
 
   * Folding:
-    * Partition function folding for one or more molecules.
-    * Minimum free energy folding for one or more molecules.
+    * Partition function folding for one or more molecules, as well as alignments.
+    * Minimum free energy folding for one or more molecules, as well as alignments..
     * Centroid structure folding for one or more molecules.
     * 2DFold (MFE and partition function).
     * Maximum expected accuracy folding.
@@ -40,7 +40,7 @@ Currently, the following things are available with the high level interface:
       `pf` and `pf2D`.
     * Iterators for all types which can be iterated over.
     * Reading and writing parameter files.
-    
+
 ## What do I need to use it?
 You need either `RNA.so` or `libRNA.a` in your `PATH`. Both come with an installation of
 ViennaRNA 2.x or later. Do not use earlier ones.
@@ -75,7 +75,7 @@ You can expect this to happen over the next few days or weeks, at most
   of constraints.
 - [x] Create a high level wrapper for centroid structure prediction.
 - [x] Create a high level wrapper for MEA structure prediction.
-- [ ] Create a high level wrapper for comparative structure prediction.
+- [x] Create a high level wrapper for comparative structure prediction.
 - [x] Create a high level wrapper for 2Dfold.
 - [ ] Create a high level wrapper for duplex fold.
 - [ ] Create a high level wrapper for subopt.

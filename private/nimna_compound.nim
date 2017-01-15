@@ -46,6 +46,28 @@ proc compound*(sequence: string): Compound =
     VrnaOptionDefault
   )
 
+proc compound*(sequences: openarray[string]): CompoundComparative =
+  ## Creates a Compound from a sequence alignment stored as a set of sequences.
+  new result.Compound, freeCompound
+  result.hasPf = false
+  let alignment = allocCStringArray(sequences)
+  defer: deallocCStringArray(alignment)
+  result.vfc = foldCompoundComparative(
+    alignment,
+    cast[ptr VrnaMdT](nil),
+    VrnaOptionDefault
+  )
+
+proc compound*(al: Alignment): CompoundComparative =
+  ## Creates a Compound from an Alignment.
+  new result.Compound, freeCompound
+  result.hasPf = false
+  result.vfc = foldCompoundComparative(
+    al.algn,
+    cast[ptr VrnaMdT](nil),
+    VrnaOptionDefault
+  )
+
 proc dimer*(sequence1, sequence2: string): Compound =
   ## Creates a Compound containing a dimer.
   var sequence = sequence1

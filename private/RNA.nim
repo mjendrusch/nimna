@@ -29,3 +29,4 @@ include base/perturbation_fold
 include base/equilibrium_probs
 include base/boltzmann_sampling
 include base/structure_utils
+include base/file_formats_msa
