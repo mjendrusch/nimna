@@ -42,14 +42,14 @@ proc alignment*(sequences, names: openarray[string]): Alignment =
     "Arrays or seqs of equal length need to be passed."
   result.nSeqs = sequences.len
   result.algn = cast[cstringArray](
-    calloc(((sequences.len + 1) * sizeof(cstring)).cuint))
+    calloc((sequences.len + 1).cuint,  sizeof(cstring).cuint))
   result.names = cast[cstringArray](
-    calloc(((names.len + 1) * sizeof(cstring)).cuint))
+    calloc((names.len + 1).cuint, sizeof(cstring).cuint))
   for idx in 0 ..< sequences.len:
     result.algn[idx] = cast[cstring](
-      calloc(((sequences[idx].len + 1) * sizeof(char)).cuint))
+      calloc((sequences[idx].len + 1).cuint, sizeof(char).cuint))
     result.names[idx] = cast[cstring](
-      calloc(((names[idx].len + 1) * sizeof(char)).cuint))
+      calloc((names[idx].len + 1).cuint, sizeof(char).cuint))
     result.algn[idx].copyMem(sequences[idx].unsafeAddr,
       (sequences[idx].len + 1) * sizeof(char))
     result.names[idx].copyMem(names[idx].unsafeAddr,
