@@ -650,6 +650,13 @@ type
     up5*: cuint
     up3*: cuint
 
+  # Subopt
+  VrnaSuboptSolutionT* = VrnaSuboptSolS
+  VrnaSuboptCallback* = proc (stucture: cstring; energy: cfloat; data: pointer) {.cdecl.}
+  VrnaSuboptSolS* = object
+    energy*: cfloat
+    structure*: cstring
+
 const
   VRNA_OPTION_DEFAULT* = 0
   VRNA_OPTION_MFE* = 1

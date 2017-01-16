@@ -26,6 +26,7 @@ include base/mea
 include base/centroid
 include base/duplex
 include base/eval
+include base/subopt
 include base/perturbation_fold
 include base/equilibrium_probs
 include base/boltzmann_sampling

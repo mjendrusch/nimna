@@ -24,6 +24,10 @@ type
     id: cstring
     structure: cstring
     nSeqs: int
+  Fold* = VrnaSuboptSolutionT
+  Suboptimals* = ref object
+    len: int
+    so: ptr Fold
   MfeSolution* = VrnaSolTwoDT
     ## Represents a secondary structure and energy at a single position in
     ## secondary structure space.
@@ -54,7 +58,7 @@ type
   ConstraintOption* = distinct cuint
     ## Represents the way a constraint on folding is stored and interpreted.
   UnstructuredOption* = distinct cuint
-    ## Represents the kinds of motifs a ligand can bind to,
+    ## Represents the kinds of motifs a ligand can bind to.
   Probabilities* = ref object
     ## Represents the base pair probability matrix of a Compound
     parent: Compound

@@ -23,5 +23,6 @@ include private/nimna_2dfold
 include private/nimna_probabilities
 include private/nimna_interactionlist
 include private/nimna_fold
+include private/nimna_subopt
 include private/nimna_eval
 include private/nimna_misc

@@ -18,6 +18,7 @@ Currently, the following things are available with the high level interface:
     * Centroid structure folding for one or more molecules.
     * 2DFold (MFE and partition function).
     * Maximum expected accuracy folding.
+    * Generation of suboptimal structures and energies.
   * Constraints:
     * Hard constraints are fully supported.
     * Soft constraints are fully supported.
@@ -48,7 +49,7 @@ ViennaRNA 2.x or later. Do not use earlier ones.
 
 If you do not have `RNA.so` in your `PATH`, but __do__ have `libRNA.a`, you need to use
 the compiler options `--dynlibOverride:RNA` and `--passL:"PATH-TO-libRNA.a -fopenmp"`, to
-successfully statically link ViennaRNA. 
+successfully statically link ViennaRNA.
 
 ## A short example
 ```nim
@@ -83,7 +84,7 @@ You can expect this to happen over the next few days or weeks, at most
 - [x] Create a high level wrapper for comparative structure prediction.
 - [x] Create a high level wrapper for 2Dfold.
 - [ ] Create a high level wrapper for duplex fold.
-- [ ] Create a high level wrapper for subopt.
+- [x] Create a high level wrapper for subopt.
 - [ ] Create a high level wrapper for local fold.
 - [x] Create a high level wrapper for structure evaluation.
 - [ ] Make this a **nimble** package.
