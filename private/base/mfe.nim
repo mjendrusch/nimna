@@ -11,7 +11,7 @@ proc mfe*(vc: ptr VrnaFoldCompoundT; structure: cstring): cfloat {.cdecl,
 proc mfeDimer*(vc: ptr VrnaFoldCompoundT; structure: cstring): cfloat {.cdecl,
     importc: "vrna_mfe_dimer", dynlib: rnaLib.}
 
-proc mfeWindow*(vc: ptr VrnaFoldCompoundT; file: ptr File): cfloat {.cdecl,
+proc mfeWindow*(vc: ptr VrnaFoldCompoundT; file: File): cfloat {.cdecl,
     importc: "vrna_mfe_window", dynlib: rnaLib.}
 
 #proc vrnaBacktrackFromIntervals*(vc: ptr VrnaFoldCompoundT;

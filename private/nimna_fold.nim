@@ -30,6 +30,13 @@ proc mfe*(c: Compound): tuple[E: float; struc: string] =
   ## Returns a tuple of MFE and secondary structure.
   foldImpl(c, mfe)
 
+proc mfeWindow*(c: Compound, f: File): float =
+  ## Computes the structure of a compound using a sliding
+  ## window. The structure is written to a File on the fly.
+  withRef c:
+    result = mfeWindow(c.vfc, f)
+
+
 proc pf2D*(c: Compound2D; distance1, distance2: int): PfSolutions =
   ## Computes the partition function at all points in secondary
   ## structure space with maximum distance1 to one reference

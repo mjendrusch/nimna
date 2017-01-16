@@ -83,8 +83,10 @@ You can expect this to happen over the next few days or weeks, at most
 - [x] Create a high level wrapper for MEA structure prediction.
 - [x] Create a high level wrapper for comparative structure prediction.
 - [x] Create a high level wrapper for 2Dfold.
-- [ ] Create a high level wrapper for duplex fold.
+- [x] ~~Create a high level wrapper for duplex fold.~~
+      This functionality is given by using a dimer Compound,
+      as already available.
 - [x] Create a high level wrapper for subopt.
-- [ ] Create a high level wrapper for local fold.
+- [x] Create a high level wrapper for local fold.
 - [x] Create a high level wrapper for structure evaluation.
 - [ ] Make this a **nimble** package.
