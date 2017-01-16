@@ -14,13 +14,17 @@ growing. You can find documentation [here](https://mjendrusch.github.io/nimna/ap
 Currently, the following things are available with the high level interface:
 
   * Folding:
-    * Partition function folding for one or more molecules.
-    * Minimum free energy folding for one or more molecules.
+    * Partition function folding for one or more molecules, as well as alignments.
+    * Minimum free energy folding for one or more molecules, as well as alignments.
+    * Minimum free energy folding with a sliding window.
     * Centroid structure folding for one or more molecules.
+    * 2DFold (MFE and partition function).
+    * Maximum expected accuracy folding.
+    * Generation of suboptimal structures and energies.
   * Constraints:
     * Hard constraints are fully supported.
     * Soft constraints are fully supported.
-    * Structured ligand binding constraints are fully supported.
+    * Structured and unstructured ligand binding constraints are fully supported.
   * Model Details:
     * Updating of model details associated with a molecule.
     * Generating MFE and PF parameters from model details.
@@ -35,12 +39,19 @@ Currently, the following things are available with the high level interface:
       in a terminal emulator.
   * Miscellaneous:
     * Generating reasonably random DNA/RNA sequences.
+    * Evaluating energies of secondary structures.
     * Sampling secondary structures from ensembles computed with
-      `pf`.
-    
+      `pf` and `pf2D`.
+    * Iterators for all types which can be iterated over.
+    * Reading and writing parameter files.
+
 ## What do I need to use it?
 You need either `RNA.so` or `libRNA.a` in your `PATH`. Both come with an installation of
 ViennaRNA 2.x or later. Do not use earlier ones.
+
+If you do not have `RNA.so` in your `PATH`, but __do__ have `libRNA.a`, you need to use
+the compiler options `--dynlibOverride:RNA` and `--passL:"PATH-TO-libRNA.a -fopenmp"`, to
+successfully statically link ViennaRNA.
 
 ## A short example
 ```nim
@@ -64,18 +75,20 @@ for deltaT in 0..200:
 
 ## Short term plans
 You can expect this to happen over the next few days or weeks, at most
-(in chronological order):
+(in more or less chronological order):
 
 - [ ] Wrap the remaining ViennaRNA headers.
-- [ ] Create a high level wrapper for *parameter file IO*.
+- [x] Create a high level wrapper for *parameter file IO*.
 - [x] Create a high level wrapper for all remaining flavours
   of constraints.
 - [x] Create a high level wrapper for centroid structure prediction.
-- [ ] Create a high level wrapper for MEA structure prediction.
-- [ ] Create a high level wrapper for comparative structure prediction.
-- [ ] Create a high level wrapper for 2Dfold.
-- [ ] Create a high level wrapper for duplex fold.
-- [ ] Create a high level wrapper for subopt.
-- [ ] Create a high level wrapper for local fold.
-- [ ] Create a high level wrapper for structure evaluation.
+- [x] Create a high level wrapper for MEA structure prediction.
+- [x] Create a high level wrapper for comparative structure prediction.
+- [x] Create a high level wrapper for 2Dfold.
+- [x] ~~Create a high level wrapper for duplex fold.~~
+      This functionality is given by using a dimer Compound,
+      as already available.
+- [x] Create a high level wrapper for subopt.
+- [x] Create a high level wrapper for local fold.
+- [x] Create a high level wrapper for structure evaluation.
 - [ ] Make this a **nimble** package.
