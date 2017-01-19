@@ -5,40 +5,10 @@
 # This library is licensed under the MIT license.
 # For more information see LICENSE.
 
-#include data_structures
-#import params
-
-#const rnaLib = "./RNA.so"
-
 var mirnatog* {.importc: "mirnatog", dynlib: rnaLib.}: cint
 
 
 var f_monomer* {.importc: "F_monomer", dynlib: rnaLib.}: array[2, cdouble]
-
-
-type
-  VrnaDimerPfS* = object
-    f0ab*: cdouble
-    fab*: cdouble
-    fcAB*: cdouble
-    fa*: cdouble
-    fb*: cdouble
-  VrnaDimerPfT* = VrnaDimerPfS
-  DimerEnergies* = VrnaDimerPfS
-
-
-
-type
-  VrnaDimerConcS* = object
-    a0*: cdouble
-    b0*: cdouble
-    aBc*: cdouble
-    aAc*: cdouble
-    bBc*: cdouble
-    ac*: cdouble
-    bc*: cdouble
-  VrnaDimerConcT* = VrnaDimerConcS
-
 
 proc pfDimer*(vc: ptr VrnaFoldCompoundT; structure: ptr char): VrnaDimerPfT {.cdecl,
     importc: "vrna_pf_dimer", dynlib: rnaLib.}

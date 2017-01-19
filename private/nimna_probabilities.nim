@@ -24,7 +24,7 @@ proc probabilities*(c: Compound): Probabilities =
   c.recomputePfImpl
   new result
   let partFunc = c.expMatrices
-  if partFunc[].`type` == VrnaMxDefault:
+  if partFunc[].typ == VrnaMxDefault:
     result.bppm = partFunc[].union.default.probs
     result.parent = c
   else:

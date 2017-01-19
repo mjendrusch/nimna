@@ -24,6 +24,7 @@ type
     id: cstring
     structure: cstring
     nSeqs: int
+  DimerEnergies* = VrnaDimerPfS
   Fold* = VrnaSuboptSolutionT
   Suboptimals* = ref object
     len: int

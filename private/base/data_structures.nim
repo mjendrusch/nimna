@@ -282,7 +282,7 @@ type
     VRNA_FC_TYPE_SINGLE, VRNA_FC_TYPE_COMPARATIVE
 
   VrnaFcS* = object
-    `type`*: VrnaFcTypeE
+    typ*: VrnaFcTypeE
     length*: cuint
     cutpoint*: cint
     hc*: ptr VrnaHcT
@@ -428,7 +428,7 @@ type
     fold2d*: Mfe2DFoldInner
 
   MxMfeS* = object
-    `type`*: MxTypeE
+    typ*: MxTypeE
     length*: cuint
     union*: MfeUnion
 
@@ -437,7 +437,7 @@ type
     fold2d*: Pf2DFoldInner
 
   MxPfS* = object
-    `type`*: MxTypeE
+    typ*: MxTypeE
     length*: cuint
     scale*: ptr Flt_Or_Dbl
     expMLbase*: ptr Flt_Or_Dbl
@@ -656,6 +656,24 @@ type
   VrnaSuboptSolS* = object
     energy*: cfloat
     structure*: cstring
+
+  # Pf Cofold
+  VrnaDimerPfS* = object
+    f0ab*: cdouble
+    fab*: cdouble
+    fcAB*: cdouble
+    fa*: cdouble
+    fb*: cdouble
+  VrnaDimerPfT* = VrnaDimerPfS
+  VrnaDimerConcS* = object
+    a0*: cdouble
+    b0*: cdouble
+    aBc*: cdouble
+    aAc*: cdouble
+    bBc*: cdouble
+    ac*: cdouble
+    bc*: cdouble
+  VrnaDimerConcT* = VrnaDimerConcS
 
 const
   VRNA_OPTION_DEFAULT* = 0
