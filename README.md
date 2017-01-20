@@ -8,7 +8,7 @@ make the library easier to use.
 ## What can I do with it?
 Currently, **nimna** is very experimental and a *work in progress*. Thus, the currently
 available functionality in the high level interface is quite limited, but will be steadily
-growing.
+growing. You can find more documentation [here](https://mjendrusch.github.io/nimna)
 
 Currently, the following things are available with the high level interface:
 
