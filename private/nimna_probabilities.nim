@@ -11,7 +11,8 @@ template len*(p: Probabilities): int =
   p.parent.len
 
 proc `[]`*(p: Probabilities; i, j: int): float =
-  if i + 1 > p.parent.length.int or j + 1 > p.parent.length.int:
+  if i + 1 > p.parent.length.int or j + 1 > p.parent.length.int or
+    i < 0 or j < 0:
     raise newException(IndexError, "index out of bounds!")
   elif i < j:
     result = p.bppm[p.parent.iindx[i + 1] - (j + 1)]

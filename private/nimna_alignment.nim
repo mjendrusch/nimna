@@ -59,12 +59,16 @@ proc sequence*(al: Alignment, idx: int): string =
   ## Returns the sequence at the idx'th position in an Alignment.
   doAssert idx < al.len,
     "The index of a sequence may not be greater or equal to the number of sequences present."
+  doAssert idx >= 0,
+    "The index of a sequence may not be less than zero."
   $al.algn[idx]
 
 proc name*(al: Alignment, idx: int): string =
   ## Returns the name at the idx'th position in an Alignment.
   doAssert idx < al.len,
     "The index of a name may not be greater or equal to the number of names present."
+  doAssert idx >= 0,
+    "The index of a name may not be less than zero."
   $al.names[idx]
 
 iterator sequences*(al: Alignment): string =
@@ -80,4 +84,4 @@ iterator names*(al: Alignment): string =
 iterator pairs*(al: Alignment): tuple[name, sequence: string] =
   ## Iterates over pairs of sequences and sequence names in an Alignment.
   for idx in 0 ..< al.len:
-    yield (name: $al.algn[idx], sequence: $al.algn[idx])
+    yield (name: $al.names[idx], sequence: $al.algn[idx])
