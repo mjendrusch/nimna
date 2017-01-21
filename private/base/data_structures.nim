@@ -675,6 +675,44 @@ type
     bc*: cdouble
   VrnaDimerConcT* = VrnaDimerConcS
 
+  # aln_util
+  VrnaPinfoS* = object
+    i*: cuint
+    j*: cuint
+    p*: cfloat
+    ent*: cfloat
+    bp*: array[8, cshort]
+    comp*: char
+
+  # commands
+  VrnaCmdT* = VrnaCommandS
+  VrnaCommandE* {.size: sizeof(cint).} = enum
+    VRNA_CMD_ERROR = - 1, VRNA_CMD_LAST = 0, VRNA_CMD_HC, VRNA_CMD_SC, VRNA_CMD_MOTIF,
+    VRNA_CMD_UD, VRNA_CMD_SD
+  VrnaCommandS* = object
+    `type`*: VrnaCommandE
+    data*: pointer
+
+  # find path
+  VrnaPathT* = VrnaPathS
+  VrnaPathS* = object
+    en*: cdouble
+    s*: cstring
+
+  # Grammar
+  VrnaCallbackGrRuleAux* = proc (vc: ptr VrnaFoldCompoundT; i: cint; j: cint;
+                              data: pointer) {.cdecl.}
+  VrnaCallbackGrFreeAuxdata* = proc (data: pointer) {.cdecl.}
+  VrnaGrAuxT* = VrnaGrAuxS
+  VrnaGrAuxS* = object
+    cbAuxF*: ptr VrnaCallbackGrRuleAux
+    cbAuxC*: ptr VrnaCallbackGrRuleAux
+    cbAuxM*: ptr VrnaCallbackGrRuleAux
+    cbAuxM1*: ptr VrnaCallbackGrRuleAux
+    cbAux*: ptr VrnaCallbackGrRuleAux
+    auxdata*: pointer
+    freeAuxdata*: ptr VrnaCallbackGrFreeAuxdata
+
 const
   VRNA_OPTION_DEFAULT* = 0
   VRNA_OPTION_MFE* = 1

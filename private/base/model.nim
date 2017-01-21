@@ -5,12 +5,6 @@
 # This library is licensed under the MIT license.
 # For more information see LICENSE.
 
-
-#const rnaLib = "./RNA.so"
-
-const
-  VRNA_BACKWARD_COMPAT* = true
-
 const
   VRNA_MODEL_DEFAULT_TEMPERATURE* = 37.0
   VRNA_MODEL_DEFAULT_PF_SCALE* = - 1
@@ -195,30 +189,3 @@ proc vrnaMdDefaultsSfact*(factor: cdouble) {.cdecl,
 proc vrnaMdDefaultsSfactGet*(): cdouble {.cdecl,
                                        importc: "vrna_md_defaults_sfact_get",
                                        dynlib: rnaLib.}
-when defined(VRNA_BACKWARD_COMPAT):
-  const
-    modelDetailsT* = vrnaMdT
-  var temperature* {.importc: "temperature", dynlib: rnaLib.}: cdouble
-  var pfScale* {.importc: "pf_scale", dynlib: rnaLib.}: cdouble
-  var dangles* {.importc: "dangles", dynlib: rnaLib.}: cint
-  var tetraLoop* {.importc: "tetra_loop", dynlib: rnaLib.}: cint
-  var noLonelyPairs* {.importc: "noLonelyPairs", dynlib: rnaLib.}: cint
-  var noGU* {.importc: "noGU", dynlib: rnaLib.}: cint
-  var noClosingGU* {.importc: "no_closingGU", dynlib: rnaLib.}: cint
-  var circ* {.importc: "circ", dynlib: rnaLib.}: cint
-  var gquad* {.importc: "gquad", dynlib: rnaLib.}: cint
-  var canonicalBPonly* {.importc: "canonicalBPonly", dynlib: rnaLib.}: cint
-  var uniqML* {.importc: "uniq_ML", dynlib: rnaLib.}: cint
-  var energySet* {.importc: "energy_set", dynlib: rnaLib.}: cint
-  var doBacktrack* {.importc: "do_backtrack", dynlib: rnaLib.}: cint
-  var backtrackType* {.importc: "backtrack_type", dynlib: rnaLib.}: char
-  var nonstandards* {.importc: "nonstandards", dynlib: rnaLib.}: cstring
-  var maxBpSpan* {.importc: "max_bp_span", dynlib: rnaLib.}: cint
-  var oldAliEn* {.importc: "oldAliEn", dynlib: rnaLib.}: cint
-  var ribo* {.importc: "ribo", dynlib: rnaLib.}: cint
-  var cvFact* {.importc: "cv_fact", dynlib: rnaLib.}: cdouble
-  var ncFact* {.importc: "nc_fact", dynlib: rnaLib.}: cdouble
-  var logML* {.importc: "logML", dynlib: rnaLib.}: cint
-  proc setModelDetails*(md: ptr VrnaMdT) {.cdecl, importc: "set_model_details",
-                                       dynlib: rnaLib.}
-  proc optionString*(): cstring {.cdecl, importc: "option_string", dynlib: rnaLib.}

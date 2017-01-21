@@ -5,11 +5,8 @@
 # This library is licensed under the MIT license.
 # For more information see LICENSE.
 
-
-
 const
   STRUC* = 2000
-
 
 proc b2HIT*(structure: cstring): cstring {.cdecl, importc: "b2HIT", dynlib: rnaLib.}
 
@@ -53,4 +50,3 @@ var unpaired* {.importc: "unpaired", dynlib: rnaLib.}: cint
 
 
 var pairs* {.importc: "pairs", dynlib: rnaLib.}: cint
-

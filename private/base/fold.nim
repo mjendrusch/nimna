@@ -5,8 +5,6 @@
 # This library is licensed under the MIT license.
 # For more information see LICENSE.
 
-
-
 proc vrnaFold*(sequence: cstring; structure: cstring): cfloat {.cdecl,
     importc: "vrna_fold", dynlib: rnaLib.}
 

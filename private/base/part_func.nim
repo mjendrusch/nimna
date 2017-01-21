@@ -5,8 +5,6 @@
 # This library is licensed under the MIT license.
 # For more information see LICENSE.
 
-#include data_structures
-
 proc pf*(vc: ptr VrnaFoldCompoundT; structure: ptr char): cfloat {.cdecl,
     importc: "vrna_pf", dynlib: rnaLib.}
 

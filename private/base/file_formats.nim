@@ -5,8 +5,9 @@
 # This library is licensed under the MIT license.
 # For more information see LICENSE.
 
-
-
+const
+  VRNA_OPTION_MULTILINE* = 32
+  VRNA_CONSTRAINT_MULTILINE* = 32
 
 proc vrnaFileHelixlist*(seq: cstring; db: cstring; energy: cfloat; file: ptr File) {.
     cdecl, importc: "vrna_file_helixlist", dynlib: rnaLib.}
@@ -17,14 +18,6 @@ proc vrnaFileConnect*(seq: cstring; db: cstring; energy: cfloat; identifier: cst
 
 proc vrnaFileBpseq*(seq: cstring; db: cstring; file: ptr File) {.cdecl,
     importc: "vrna_file_bpseq", dynlib: rnaLib.}
-
-const
-  VRNA_OPTION_MULTILINE* = 32
-
-
-const
-  VRNA_CONSTRAINT_MULTILINE* = 32
-
 
 proc vrnaFileFastaReadRecord*(header: cstringArray; sequence: cstringArray;
                              rest: ptr cstringArray; file: ptr File; options: cuint): cuint {.

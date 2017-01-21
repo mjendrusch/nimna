@@ -5,14 +5,9 @@
 # This library is licensed under the MIT license.
 # For more information see LICENSE.
 
-
-
-
-var cutPoint* {.importc: "cut_point", dynlib: rnaLib.}: cint
-
-
-var eosDebug* {.importc: "eos_debug", dynlib: rnaLib.}: cint
-
+var
+  cutPoint* {.importc: "cut_point", dynlib: rnaLib.}: cint
+  eosDebug* {.importc: "eos_debug", dynlib: rnaLib.}: cint
 
 proc vrnaEvalStructure*(vc: ptr VrnaFoldCompoundT; structure: cstring): cfloat {.cdecl,
     importc: "vrna_eval_structure", dynlib: rnaLib.}

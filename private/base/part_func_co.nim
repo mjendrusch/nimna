@@ -5,10 +5,9 @@
 # This library is licensed under the MIT license.
 # For more information see LICENSE.
 
-var mirnatog* {.importc: "mirnatog", dynlib: rnaLib.}: cint
-
-
-var f_monomer* {.importc: "F_monomer", dynlib: rnaLib.}: array[2, cdouble]
+var
+  mirnatog* {.importc: "mirnatog", dynlib: rnaLib.}: cint
+  f_monomer* {.importc: "F_monomer", dynlib: rnaLib.}: array[2, cdouble]
 
 proc pfDimer*(vc: ptr VrnaFoldCompoundT; structure: ptr char): VrnaDimerPfT {.cdecl,
     importc: "vrna_pf_dimer", dynlib: rnaLib.}

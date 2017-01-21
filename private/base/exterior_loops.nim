@@ -5,8 +5,6 @@
 # This library is licensed under the MIT license.
 # For more information see LICENSE.
 
-
-
 proc e_ExtLoop*(`type`: cint; si1: cint; sj1: cint; p: ptr VrnaParamT): cint {.cdecl,
     importc: "E_ExtLoop", dynlib: rnaLib.}
 

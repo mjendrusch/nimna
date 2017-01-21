@@ -15,7 +15,6 @@ const
       Vrna_Unstructured_Domain_Hp_Loop or Vrna_Unstructured_Domain_Int_Loop or
       Vrna_Unstructured_Domain_Mb_Loop)
 
-
 proc vrnaUdAddMotif*(vc: ptr VrnaFoldCompoundT; motif: cstring; motifEn: cdouble;
                     loopType: cuint) {.cdecl, importc: "vrna_ud_add_motif",
                                      dynlib: rnaLib.}

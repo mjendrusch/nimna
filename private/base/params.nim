@@ -5,10 +5,6 @@
 # This library is licensed under the MIT license.
 # For more information see LICENSE.
 
-# import data_structures
-#
-# const rnaLib = "./RNA.so"
-
 proc vrnaParams*(md: ptr VrnaMdT): ptr VrnaParamT {.cdecl, importc: "vrna_params",
     dynlib: rnaLib.}
 

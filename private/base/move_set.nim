@@ -5,14 +5,10 @@
 # This library is licensed under the MIT license.
 # For more information see LICENSE.
 
-
-
 type
   StructEn* = object
     energy*: cint
     structure*: ptr cshort
-
-
 
 proc printStren*(`out`: ptr File; str: ptr StructEn) {.cdecl, importc: "print_stren",
     dynlib: rnaLib.}

@@ -1,35 +1,20 @@
-
-
+#
+# nimna - *NA folding for Nim
+#
+# (c) Copyright 2017 Michael Jendrusch. All rights reserved.
+# This library is licensed under the MIT license.
+# For more information see LICENSE.
 
 const
   VRNA_FILE_FORMAT_MSA_CLUSTAL* = 1
-
-
-const
   VRNA_FILE_FORMAT_MSA_STOCKHOLM* = 2
-
-
-const
   VRNA_FILE_FORMAT_MSA_FASTA* = 4
-
-
-const
   VRNA_FILE_FORMAT_MSA_MAF* = 8
-
-
-const
   VRNA_FILE_FORMAT_MSA_DEFAULT* = (Vrna_File_Format_Msa_Clustal or
       Vrna_File_Format_Msa_Stockholm or Vrna_File_Format_Msa_Fasta or
       Vrna_File_Format_Msa_Maf)
-
-
-const
   VRNA_FILE_FORMAT_MSA_NOCHECK* = 4096
-
-
-const
   VRNA_FILE_FORMAT_MSA_UNKNOWN* = 8192
-
 
 proc vrnaFileMsaRead*(filename: cstring; names: ptr cstringArray;
                      aln: ptr cstringArray; id: ptr cstring;
