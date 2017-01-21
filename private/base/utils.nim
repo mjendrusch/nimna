@@ -29,20 +29,20 @@ proc vrnaMessageError*(format: cstring) {.varargs, cdecl,
                                        importc: "vrna_message_error",
                                        dynlib: rnaLib.}
 
-proc vrnaMessageVerror*(format: cstring; args: VaList) {.cdecl,
-    importc: "vrna_message_verror", dynlib: rnaLib.}
+# proc vrnaMessageVerror*(format: cstring; args: VaList) {.cdecl,
+#     importc: "vrna_message_verror", dynlib: rnaLib.}
 
 proc vrnaMessageWarning*(format: cstring) {.varargs, cdecl,
     importc: "vrna_message_warning", dynlib: rnaLib.}
 
-proc vrnaMessageVwarning*(format: cstring; args: VaList) {.cdecl,
-    importc: "vrna_message_vwarning", dynlib: rnaLib.}
+# proc vrnaMessageVwarning*(format: cstring; args: VaList) {.cdecl,
+#     importc: "vrna_message_vwarning", dynlib: rnaLib.}
 
 proc vrnaMessageInfo*(fp: ptr File; format: cstring) {.varargs, cdecl,
     importc: "vrna_message_info", dynlib: rnaLib.}
 
-proc vrnaMessageVinfo*(fp: ptr File; format: cstring; args: VaList) {.cdecl,
-    importc: "vrna_message_vinfo", dynlib: rnaLib.}
+# proc vrnaMessageVinfo*(fp: ptr File; format: cstring; args: VaList) {.cdecl,
+#     importc: "vrna_message_vinfo", dynlib: rnaLib.}
 
 proc vrnaInitRand*() {.cdecl, importc: "vrna_init_rand", dynlib: rnaLib.}
 

@@ -39,13 +39,13 @@ proc getGquadPatternPf*(s: ptr cshort; i: cint; j: cint; pf: ptr VrnaExpParamT;
     importc: "get_gquad_pattern_pf", dynlib: rnaLib.}
 proc getPlistGquadFromPr*(s: ptr cshort; gi: cint; gj: cint; g: ptr Flt_Or_Dbl;
                          probs: ptr Flt_Or_Dbl; scale: ptr Flt_Or_Dbl;
-                         pf: ptr VrnaExpParamT): ptr Plist {.cdecl,
+                         pf: ptr VrnaExpParamT): ptr VrnaPlistT {.cdecl,
     importc: "get_plist_gquad_from_pr", dynlib: rnaLib.}
 proc getPlistGquadFromPrMax*(s: ptr cshort; gi: cint; gj: cint; g: ptr Flt_Or_Dbl;
                             probs: ptr Flt_Or_Dbl; scale: ptr Flt_Or_Dbl; L: ptr cint;
-                            l: array[3, cint]; pf: ptr VrnaExpParamT): ptr Plist {.
+                            l: array[3, cint]; pf: ptr VrnaExpParamT): ptr VrnaPlistT {.
     cdecl, importc: "get_plist_gquad_from_pr_max", dynlib: rnaLib.}
-proc getPlistGquadFromDb*(structure: cstring; pr: cfloat): ptr Plist {.cdecl,
+proc getPlistGquadFromDb*(structure: cstring; pr: cfloat): ptr VrnaPlistT {.cdecl,
     importc: "get_plist_gquad_from_db", dynlib: rnaLib.}
 proc getGquadCount*(s: ptr cshort; i: cint; j: cint): cint {.cdecl,
     importc: "get_gquad_count", dynlib: rnaLib.}

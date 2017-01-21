@@ -12,12 +12,12 @@ proc updatePfParamsLP_par*(length: cint; parameters: ptr VrnaExpParamT) {.cdecl,
     importc: "update_pf_paramsLP_par", dynlib: rnaLib.}
 
 proc pflFold*(sequence: cstring; winSize: cint; pairSize: cint; cutoffb: cfloat;
-             pU: ptr ptr cdouble; dpp2: ptr ptr Plist; pUfp: ptr File; spup: ptr File): ptr Plist {.
+             pU: ptr ptr cdouble; dpp2: ptr ptr VrnaPlistT; pUfp: ptr File; spup: ptr File): ptr VrnaPlistT {.
     cdecl, importc: "pfl_fold", dynlib: rnaLib.}
 
 proc pflFoldPar*(sequence: cstring; winSize: cint; pairSize: cint; cutoffb: cfloat;
-                pU: ptr ptr cdouble; dpp2: ptr ptr Plist; pUfp: ptr File; spup: ptr File;
-                parameters: ptr VrnaExpParamT): ptr Plist {.cdecl,
+                pU: ptr ptr cdouble; dpp2: ptr ptr VrnaPlistT; pUfp: ptr File; spup: ptr File;
+                parameters: ptr VrnaExpParamT): ptr VrnaPlistT {.cdecl,
     importc: "pfl_fold_par", dynlib: rnaLib.}
 proc putoutpU_probPar*(pU: ptr ptr cdouble; length: cint; ulength: cint; fp: ptr File;
                       energies: cint; parameters: ptr VrnaExpParamT) {.cdecl,

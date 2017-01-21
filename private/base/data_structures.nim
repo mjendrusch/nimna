@@ -676,6 +676,7 @@ type
   VrnaDimerConcT* = VrnaDimerConcS
 
   # aln_util
+  VrnaPinfoT* = VrnaPinfoS
   VrnaPinfoS* = object
     i*: cuint
     j*: cuint

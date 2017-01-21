@@ -12,14 +12,14 @@ const
 proc vrnaStrdupPrintf*(format: cstring): cstring {.varargs, cdecl,
     importc: "vrna_strdup_printf", dynlib: rnaLib.}
 
-proc vrnaStrdupVprintf*(format: cstring; argp: VaList): cstring {.cdecl,
-    importc: "vrna_strdup_vprintf", dynlib: rnaLib.}
+# proc vrnaStrdupVprintf*(format: cstring; argp: VaList): cstring {.cdecl,
+#     importc: "vrna_strdup_vprintf", dynlib: rnaLib.}
 
 proc vrnaStrcatPrintf*(dest: cstringArray; format: cstring): cint {.varargs, cdecl,
     importc: "vrna_strcat_printf", dynlib: rnaLib.}
 
-proc vrnaStrcatVprintf*(dest: cstringArray; format: cstring; args: VaList): cint {.
-    cdecl, importc: "vrna_strcat_vprintf", dynlib: rnaLib.}
+# proc vrnaStrcatVprintf*(dest: cstringArray; format: cstring; args: VaList): cint {.
+#     cdecl, importc: "vrna_strcat_vprintf", dynlib: rnaLib.}
 
 proc vrnaRandomString*(l: cint; symbols: ptr char): cstring {.cdecl,
     importc: "vrna_random_string", dynlib: rnaLib.}

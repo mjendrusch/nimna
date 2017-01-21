@@ -5,8 +5,6 @@
 # This library is licensed under the MIT license.
 # For more information see LICENSE.
 
-var suboptSorted* {.importc: "subopt_sorted", dynlib: rnaLib.}: cint
-
 proc lduplexfold*(s1: cstring; s2: cstring; threshold: cint; extensionCost: cint;
                  alignmentLength: cint; delta: cint; fast: cint; ilA: cint; ilB: cint;
                  bA: cint; bB: cint): ptr ptr DuplexT {.cdecl, importc: "Lduplexfold",
@@ -28,8 +26,3 @@ proc lduplexfoldCXS*(s1: cstring; s2: cstring; accessS1: ptr ptr cint;
                     alignmentLength: cint; fast: cint; structure: cstring; ilA: cint;
                     ilB: cint; bA: cint; bB: cint): ptr ptr DuplexT {.cdecl,
     importc: "Lduplexfold_CXS", dynlib: rnaLib.}
-
-proc arraySize*(array: ptr ptr DuplexT): cint {.cdecl, importc: "arraySize",
-    dynlib: rnaLib.}
-proc freeDuplexT*(array: ptr ptr DuplexT) {.cdecl, importc: "freeDuplexT",
-                                       dynlib: rnaLib.}

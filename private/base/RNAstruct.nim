@@ -34,13 +34,13 @@ proc unexpandAlignedF*(align: array[2, cstring]) {.cdecl,
 proc parseStructure*(structure: cstring) {.cdecl, importc: "parse_structure",
                                         dynlib: rnaLib.}
 
-var loopSize* {.importc: "loop_size", dynlib: rnaLib.}: array[struc, cint]
+var loopSize* {.importc: "loop_size", dynlib: rnaLib.}: array[Struc, cint]
 
 
-var helixSize* {.importc: "helix_size", dynlib: rnaLib.}: array[struc, cint]
+var helixSize* {.importc: "helix_size", dynlib: rnaLib.}: array[Struc, cint]
 
 
-var loopDegree* {.importc: "loop_degree", dynlib: rnaLib.}: array[struc, cint]
+var loopDegree* {.importc: "loop_degree", dynlib: rnaLib.}: array[Struc, cint]
 
 
 var loops* {.importc: "loops", dynlib: rnaLib.}: cint
