@@ -78,7 +78,7 @@ for deltaT in 0..200:
 <div id="foldDemo"></div>
 
 <label for="DNA/RNA sequence">
-  DNA/RNA sequence: <input type="text" id="sequence" name="sequence", size="100", value="GGGGGGAAACCCAAGGACCCCCAGGGATTTTTAAAAAAAATGGGGCCCCCCCCCCC">
+  DNA/RNA sequence: <input type="text" id="sequence" name="sequence" size="100" value="GGGGGGAAACCCAAGGACCCCCAGGGATTTTTAAAAAAAATGGGGCCCCCCCCCCC">
 </label>
 
 ## Short term plans
