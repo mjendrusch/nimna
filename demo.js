@@ -718,13 +718,6 @@ framePtr = F;
 s_58735.attr("cx", HEX3Aanonymous_58745).attr("cy", HEX3Aanonymous_58770).attr("r", size_58737).attr("stroke-width", "3px").attr("stroke", "black").style("fill", color_58744);
 framePtr = F.prev;
 }
-function HEX5BHEX5DHEX3D_58971(obj_58975, field_58977, val_58979) {
-
-var F={procname:"[]=.[]=",prev:framePtr,filename:"lib/js/jsffi.nim",line:0};
-framePtr = F;
-obj_58975[field_58977] = (val_58979);
-framePtr = F.prev;
-}
 function main_58154() {
 
 function dothemagic_58189() {
@@ -869,7 +862,7 @@ var textbox_58156 = d3.select("#sequence");
 F.line = 55;
 var svg_58188 = d3.select("div#foldDemo").append("svg").attr("width", 10).attr("height", 10);
 textbox_58156.on("change", dothemagic_58189, false);
-HEX5BHEX5DHEX3D_58971(Module, "onRuntimeInitialized", dothemagic_58189);
+dothemagic_58189();
 framePtr = F.prev;
 }
 main_58154();
