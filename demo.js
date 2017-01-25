@@ -698,7 +698,7 @@ function HEX3Aanonymous_57745(d_57750) {
 var result_57751 = null;
 var F={procname:"makeNTide.:anonymous",prev:framePtr,filename:"quickfrob.nim",line:0};
 framePtr = F;
-F.line = 107;
+F.line = 104;
 result_57751 = toJSStr(cstrToNimstr(((d_57750.Field0 + 3.0000000000000000e+01))+""));
 framePtr = F.prev;
 return result_57751;
@@ -708,7 +708,7 @@ function HEX3Aanonymous_57770(d_57775) {
 var result_57776 = null;
 var F={procname:"makeNTide.:anonymous",prev:framePtr,filename:"quickfrob.nim",line:0};
 framePtr = F;
-F.line = 108;
+F.line = 105;
 result_57776 = toJSStr(cstrToNimstr(((d_57775.Field1 + 3.0000000000000000e+01))+""));
 framePtr = F.prev;
 return result_57776;
@@ -728,8 +728,8 @@ var Tmp1;
 var result_57670 = null;
 var F={procname:"doTheMagic.colorize",prev:framePtr,filename:"quickfrob.nim",line:0};
 framePtr = F;
-F.line = 93;
-F.line = 93;
+F.line = 87;
+F.line = 88;
 switch (sq_57327[chckIndx(i_57669, 0, sq_57327.length)-0]) {
 case 103: case 71: Tmp1 = makeNimstrLit("#CF2E00");
 
@@ -774,14 +774,14 @@ F.line = 68;
 var maxy_57331 = 0.0;
 F.line = 69;
 var miny_57332 = 1.0000000000000000e+06;
-F.line = 72;
+F.line = 70;
 var newcoords_57364 = newseq_57064(chckRange((sq_57327 != null ? sq_57327.length-1 : 0), 0, 2147483647));
 L1: do {
-F.line = 73;
+F.line = 72;
 var elem_57602 = {Field0: 0.0, Field1: 0.0};
 F.line = 3490;
 var HEX3Atmp_57956 = null;
-F.line = 73;
+F.line = 72;
 HEX3Atmp_57956 = res_57328.Field2;
 F.line = 3492;
 var i_57959 = 0;
@@ -794,22 +794,22 @@ if (!(i_57959 < L_57961)) break L3;
 F.line = 3495;
 elem_57602 = HEX3Atmp_57956[chckIndx(i_57959, 0, HEX3Atmp_57956.length)-0];
 if ((maxx_57329 < elem_57602.Field0)) {
-F.line = 77;
+F.line = 74;
 maxx_57329 = elem_57602.Field0;
 }
 
 if ((elem_57602.Field0 < minx_57330)) {
-F.line = 79;
+F.line = 76;
 minx_57330 = elem_57602.Field0;
 }
 
 if ((maxy_57331 < elem_57602.Field1)) {
-F.line = 81;
+F.line = 78;
 maxy_57331 = elem_57602.Field1;
 }
 
 if ((elem_57602.Field1 < miny_57332)) {
-F.line = 83;
+F.line = 80;
 miny_57332 = elem_57602.Field1;
 }
 
@@ -822,13 +822,13 @@ failedassertimpl_20839(makeNimstrLit("len(a) == L seq modified while iterating o
 } while(false);
 } while(false);
 L4: do {
-F.line = 88;
+F.line = 81;
 var idx_57636 = 0;
-F.line = 88;
+F.line = 81;
 var elem_57637 = {Field0: 0.0, Field1: 0.0};
 F.line = 2097;
 var HEX3Atmp_57963 = null;
-F.line = 88;
+F.line = 81;
 HEX3Atmp_57963 = res_57328.Field2;
 F.line = 2099;
 var i_57966 = 0;
@@ -840,9 +840,9 @@ F.line = 2099;
 idx_57636 = i_57966;
 F.line = 2101;
 elem_57637 = HEX3Atmp_57963[chckIndx(i_57966, 0, HEX3Atmp_57963.length)-0];
-F.line = 89;
+F.line = 82;
 newcoords_57364[chckIndx(idx_57636, 0, newcoords_57364.length)-0].Field0 = (elem_57637.Field0 - minx_57330);
-F.line = 90;
+F.line = 83;
 newcoords_57364[chckIndx(idx_57636, 0, newcoords_57364.length)-0].Field1 = (elem_57637.Field1 - miny_57332);
 i_57966 = addInt(i_57966, 1);
 }
@@ -860,7 +860,7 @@ framePtr = F;
 F.line = 54;
 var textbox_57156 = d3.select("#sequence");
 F.line = 55;
-var svg_57188 = d3.select("div").append("svg").attr("width", 10).attr("height", 10);
+var svg_57188 = d3.select("div#foldDemo").append("svg").attr("width", 10).attr("height", 10);
 textbox_57156.on("change", dothemagic_57189, false);
 dothemagic_57189();
 framePtr = F.prev;

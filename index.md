@@ -77,9 +77,9 @@ for deltaT in 0..200:
 
 <div id="foldDemo"></div>
 
-<textarea name="RNA/DNA sequence" id="sequence" cols="50" rows="5">
-  "GGGGGGGGAAACGGGAGCCCCAACCGAGGGCUUAUGGCUUUA"
-</textarea>
+<label for="DNA/RNA sequence">
+  DNA/RNA sequence: <input type="text" id="sequence" name="sequence", size="100", value="GGGGGGAAACCCAAGGACCCCCAGGGATTTTTAAAAAAAATGGGGCCCCCCCCCCC">
+</label>
 
 ## Short term plans
 You can expect this to happen over the next few days or weeks, at most
