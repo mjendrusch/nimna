@@ -74,8 +74,10 @@ for deltaT in 0..200:
 ```
 
 ## A Demo of upcoming JavaScript support:
+
 <div id="foldDemo"></div>
-<textarea name="RNA/DNA sequence", id="sequence", cols="50", rows="5">
+
+<textarea name="RNA/DNA sequence" id="sequence" cols="50" rows="5">
   "GGGGGGGGAAACGGGAGCCCCAACCGAGGGCUUAUGGCUUUA"
 </textarea>
 
