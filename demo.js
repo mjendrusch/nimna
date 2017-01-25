@@ -869,7 +869,7 @@ var textbox_58156 = d3.select("#sequence");
 F.line = 55;
 var svg_58188 = d3.select("div#foldDemo").append("svg").attr("width", 10).attr("height", 10);
 textbox_58156.on("change", dothemagic_58189, false);
-HEX5BHEX5DHEX3D_58971(Module, "_main", dothemagic_58189);
+HEX5BHEX5DHEX3D_58971(Module, "onRuntimeInitialized", dothemagic_58189);
 framePtr = F.prev;
 }
 main_58154();
