@@ -74,12 +74,7 @@ for deltaT in 0..200:
 ```
 
 ## A Demo of upcoming JavaScript support:
-
-<div id="foldDemo"></div>
-
-<label for="DNA/RNA sequence">
-  DNA/RNA sequence: <input type="text" id="sequence" name="sequence" size="100" value="GGGGGGAAACCCAAGGACCCCCAGGGATTTTTAAAAAAAATGGGGCCCCCCCCCCC">
-</label>
+Have a look at a simple RNA folding demo [here](https://mjendrusch.github.io/nimna/demo.html))
 
 ## Short term plans
 You can expect this to happen over the next few days or weeks, at most
@@ -100,8 +95,3 @@ You can expect this to happen over the next few days or weeks, at most
 - [x] Create a high level wrapper for local fold.
 - [x] Create a high level wrapper for structure evaluation.
 - [ ] Make this a **nimble** package.
-
-<script src="https://d3js.org/d3.v4.min.js"></script>
-<script src="libRNA.js"></script>
-<script src="demo.js"></script>
-<script src="libRNA.js"></script>
