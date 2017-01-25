@@ -137,7 +137,7 @@ type
   VrnaExpParamT* = VrnaExpParamS
   VrnaHcT* = VrnaHcS
   VrnaHcUpT* = VrnaHcUpS
-  VrnaCallbackHcEvaluate* = proc (i: cint; j: cint; k: cint; l: cint; d: char; data: pointer): char {.
+  VrnaCallbackHcEvaluate* = proc (iIdx: cint; jIdx: cint; kIdx: cint; lIdx: cint; d: char; data: pointer): char {.
       cdecl.}
   VrnaHcS* = object
     matrix*: cstring
@@ -524,16 +524,16 @@ type
   VrnaColorT* = VrnaColorS
   VrnaUdT* = VrnaUnstructuredDomainS
   VrnaUdMotifT* = VrnaUnstructuredDomainMotifS
-  VrnaCallbackUdEnergy* = proc (vc: ptr VrnaFoldCompoundT; i: cint; j: cint;
+  VrnaCallbackUdEnergy* = proc (vc: ptr VrnaFoldCompoundT; iIdx: cint; jIdx: cint;
                              loopType: cuint; data: pointer): cint {.cdecl.}
-  VrnaCallbackUdExpEnergy* = proc (vc: ptr VrnaFoldCompoundT; i: cint; j: cint;
+  VrnaCallbackUdExpEnergy* = proc (vc: ptr VrnaFoldCompoundT; iIdx: cint; jIdx: cint;
                                 loopType: cuint; data: pointer): Flt_Or_Dbl {.cdecl.}
   VrnaCallbackUdProduction* = proc (vc: ptr VrnaFoldCompoundT; data: pointer) {.cdecl.}
   VrnaCallbackUdExpProduction* = proc (vc: ptr VrnaFoldCompoundT; data: pointer) {.cdecl.}
-  VrnaCallbackUdProbsAdd* = proc (vc: ptr VrnaFoldCompoundT; i: cint; j: cint;
+  VrnaCallbackUdProbsAdd* = proc (vc: ptr VrnaFoldCompoundT; iIdx: cint; jIdx: cint;
                                loopType: cuint; expEnergy: Flt_Or_Dbl; data: pointer) {.
       cdecl.}
-  VrnaCallbackUdProbsGet* = proc (vc: ptr VrnaFoldCompoundT; i: cint; j: cint;
+  VrnaCallbackUdProbsGet* = proc (vc: ptr VrnaFoldCompoundT; iIdx: cint; jIdx: cint;
                                loopType: cuint; motif: cint; data: pointer): Flt_Or_Dbl {.
       cdecl.}
   VrnaUnstructuredDomainS* = object
@@ -559,11 +559,11 @@ type
 
   # soft constraints
   VrnaScT* = VrnaScS
-  VrnaCallbackScEnergy* = proc (i: cint; j: cint; k: cint; l: cint; d: char; data: pointer): cint {.
+  VrnaCallbackScEnergy* = proc (iIdx: cint; jIdx: cint; kIdx: cint; lIdx: cint; d: char; data: pointer): cint {.
       cdecl.}
-  VrnaCallbackScExpEnergy* = proc (i: cint; j: cint; k: cint; l: cint; d: char; data: pointer): Flt_Or_Dbl {.
+  VrnaCallbackScExpEnergy* = proc (iIdx: cint; jIdx: cint; kIdx: cint; lIdx: cint; d: char; data: pointer): Flt_Or_Dbl {.
       cdecl.}
-  VrnaCallbackScBacktrack* = proc (i: cint; j: cint; k: cint; l: cint; d: char; data: pointer): ptr VrnaBasepairT {.
+  VrnaCallbackScBacktrack* = proc (iIdx: cint; jIdx: cint; kIdx: cint; lIdx: cint; d: char; data: pointer): ptr VrnaBasepairT {.
       cdecl.}
   VrnaScS* = object
     energyUp*: ptr ptr cint
@@ -701,7 +701,7 @@ type
     s*: cstring
 
   # Grammar
-  VrnaCallbackGrRuleAux* = proc (vc: ptr VrnaFoldCompoundT; i: cint; j: cint;
+  VrnaCallbackGrRuleAux* = proc (vc: ptr VrnaFoldCompoundT; iIdx: cint; jIdx: cint;
                               data: pointer) {.cdecl.}
   VrnaCallbackGrFreeAuxdata* = proc (data: pointer) {.cdecl.}
   VrnaGrAuxT* = VrnaGrAuxS

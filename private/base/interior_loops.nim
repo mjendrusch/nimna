@@ -1,3 +1,10 @@
+#
+# nimna - *NA folding for Nim
+#
+# (c) Copyright 2017 Michael Jendrusch. All rights reserved.
+# This library is licensed under the MIT license.
+# For more information see LICENSE.
+
 proc vrnaE_intLoop*(vc: ptr VrnaFoldCompoundT; i: cint; j: cint): cint {.cdecl,
     importc: "vrna_E_int_loop", dynlib: rnaLib.}
 proc vrnaEvalIntLoop*(vc: ptr VrnaFoldCompoundT; i: cint; j: cint; k: cint; l: cint): cint {.
