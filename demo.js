@@ -27,12 +27,12 @@ var NTI52202 = {size: 0, kind: 14, base: null, node: null, finalizer: null};
 var NTI52223 = {size: 0, kind: 17, base: null, node: null, finalizer: null};
 var NTI52227 = {size: 0, kind: 17, base: null, node: null, finalizer: null};
 var NTI3444 = {size: 0, kind: 17, base: null, node: null, finalizer: null};
-var NTI57043 = {size: 0,kind: 24,base: null,node: null,finalizer: null};
-var NTI57044 = {size: 0, kind: 18, base: null, node: null, finalizer: null};
+var NTI58043 = {size: 0,kind: 24,base: null,node: null,finalizer: null};
+var NTI58044 = {size: 0, kind: 18, base: null, node: null, finalizer: null};
 var NTI3452 = {size: 0, kind: 17, base: null, node: null, finalizer: null};
 var NTI124 = {size: 0,kind: 36,base: null,node: null,finalizer: null};
-var NTI57050 = {size: 0, kind: 18, base: null, node: null, finalizer: null};
-var NTI57069 = {size: 0,kind: 24,base: null,node: null,finalizer: null};
+var NTI58050 = {size: 0, kind: 18, base: null, node: null, finalizer: null};
+var NTI58069 = {size: 0,kind: 24,base: null,node: null,finalizer: null};
 var NTI3456 = {size: 0, kind: 17, base: null, node: null, finalizer: null};
 var NTI3438 = {size: 0, kind: 17, base: null, node: null, finalizer: null};
 var NTI104 = {size: 0,kind: 31,base: null,node: null,finalizer: null};
@@ -68,17 +68,17 @@ NTI3438.base = NTI3436;
 var NNI3456 = {kind: 2, len: 0, offset: 0, typ: null, name: null, sons: []};
 NTI3456.node = NNI3456;
 NTI3456.base = NTI3424;
-var NNI57050 = {kind: 2, len: 2, offset: 0, typ: null, name: null, sons: [{kind: 1, offset: "Field0", len: 0, typ: NTI124, name: "Field0", sons: null}, 
+var NNI58050 = {kind: 2, len: 2, offset: 0, typ: null, name: null, sons: [{kind: 1, offset: "Field0", len: 0, typ: NTI124, name: "Field0", sons: null}, 
 {kind: 1, offset: "Field1", len: 0, typ: NTI124, name: "Field1", sons: null}]};
-NTI57050.node = NNI57050;
-NTI57069.base = NTI57050;
+NTI58050.node = NNI58050;
+NTI58069.base = NTI58050;
 var NNI3452 = {kind: 2, len: 0, offset: 0, typ: null, name: null, sons: []};
 NTI3452.node = NNI3452;
 NTI3452.base = NTI3424;
-var NNI57044 = {kind: 2, len: 2, offset: 0, typ: null, name: null, sons: [{kind: 1, offset: "Field0", len: 0, typ: NTI124, name: "Field0", sons: null}, 
+var NNI58044 = {kind: 2, len: 2, offset: 0, typ: null, name: null, sons: [{kind: 1, offset: "Field0", len: 0, typ: NTI124, name: "Field0", sons: null}, 
 {kind: 1, offset: "Field1", len: 0, typ: NTI124, name: "Field1", sons: null}]};
-NTI57044.node = NNI57044;
-NTI57043.base = NTI57044;
+NTI58044.node = NNI58044;
+NTI58043.base = NTI58044;
 var NNI3444 = {kind: 2, len: 0, offset: 0, typ: null, name: null, sons: []};
 NTI3444.node = NNI3444;
 NTI3444.base = NTI3424;
@@ -569,13 +569,13 @@ var startmilsecs_50048 = /**/[gettime_49642()];
 var level_52407 = [0];
 var handlers_52409 = [null];
 var lc_56247 = [{}];
-function newseq_57064(len_57068) {
+function newseq_58064(len_58068) {
 
-var result_57070 = null;
+var result_58070 = null;
 var F={procname:"newSeq.newSeq",prev:framePtr,filename:"lib/system.nim",line:0};
 framePtr = F;
-result_57070 = new Array(len_57068); for (var i=0;i<len_57068;++i) {result_57070[i]={Field0: 0.0, Field1: 0.0};}framePtr = F.prev;
-return result_57070;
+result_58070 = new Array(len_58068); for (var i=0;i<len_58068;++i) {result_58070[i]={Field0: 0.0, Field1: 0.0};}framePtr = F.prev;
+return result_58070;
 }
 function raiseRangeError() {
 
@@ -591,78 +591,78 @@ e_13284 = {m_type: NTI3452, parent: null, name: null, message: null, trace: null
 e_13284.message = nimCopy(null, makeNimstrLit("index out of bounds"), NTI138);
 raiseException(e_13284, "IndexError");
 }
-function decodecoords_57038(xptr_57040, yptr_57041, len_57042) {
+function decodecoords_58038(xptr_58040, yptr_58041, len_58042) {
 
-var result_57047 = null;
+var result_58047 = null;
 var F={procname:"quickfrob.decodeCoords",prev:framePtr,filename:"quickfrob.nim",line:0};
 framePtr = F;
 F.line = 21;
-result_57047 = nimCopy(null, newseq_57064(chckRange(len_57042, 0, 2147483647)), NTI57069);
+result_58047 = nimCopy(null, newseq_58064(chckRange(len_58042, 0, 2147483647)), NTI58069);
 L1: do {
 F.line = 22;
-var idx_57098 = 0;
+var idx_58098 = 0;
 F.line = 3684;
-var i_57115 = 0;
+var i_58115 = 0;
 L2: do {
 F.line = 3685;
 L3: while (true) {
-if (!(i_57115 < len_57042)) break L3;
+if (!(i_58115 < len_58042)) break L3;
 F.line = 3684;
-idx_57098 = i_57115;
+idx_58098 = i_58115;
 F.line = 23;
-nimCopy(result_57047[chckIndx(idx_57098, 0, result_57047.length)-0], {Field0: Module.getValue(addInt((xptr_57040|0), mulInt(4, idx_57098)), 'float'), Field1: Module.getValue(addInt((yptr_57041|0), mulInt(4, idx_57098)), 'float')}, NTI57044);
-i_57115 = addInt(i_57115, 1);
+nimCopy(result_58047[chckIndx(idx_58098, 0, result_58047.length)-0], {Field0: Module.getValue(addInt((xptr_58040|0), mulInt(4, idx_58098)), 'float'), Field1: Module.getValue(addInt((yptr_58041|0), mulInt(4, idx_58098)), 'float')}, NTI58044);
+i_58115 = addInt(i_58115, 1);
 }
 } while(false);
 } while(false);
 framePtr = F.prev;
-return result_57047;
+return result_58047;
 }
-function fold_57117(sq_57119) {
+function fold_58117(sq_58119) {
 
-var result_57128 = {Field0: 0.0, Field1: null, Field2: null};
+var result_58128 = {Field0: 0.0, Field1: null, Field2: null};
 var F={procname:"quickfrob.fold",prev:framePtr,filename:"quickfrob.nim",line:0};
 framePtr = F;
 F.line = 30;
-var length_57129 = (sq_57119 != null ? sq_57119.length : 0);
+var length_58129 = (sq_58119 != null ? sq_58119.length : 0);
 F.line = 31;
-var sqptr_57131 = Module._malloc(mulInt(addInt(length_57129, 1), 1));
+var sqptr_58131 = Module._malloc(mulInt(addInt(length_58129, 1), 1));
 F.line = 32;
-var strucptr_57133 = Module._malloc(mulInt(addInt(length_57129, 1), 1));
+var strucptr_58133 = Module._malloc(mulInt(addInt(length_58129, 1), 1));
 F.line = 33;
-var xptr_57135 = Module._malloc(mulInt(length_57129, 8));
+var xptr_58135 = Module._malloc(mulInt(length_58129, 8));
 F.line = 34;
-var yptr_57137 = Module._malloc(mulInt(length_57129, 8));
+var yptr_58137 = Module._malloc(mulInt(length_58129, 8));
 F.line = 35;
 try {
-Module.stringToUTF8(sq_57119, sqptr_57131, addInt(length_57129, 1));
+Module.stringToUTF8(sq_58119, sqptr_58131, addInt(length_58129, 1));
 F.line = 42;
-var energy_57138 = _vrna_fold(sqptr_57131, strucptr_57133);
+var energy_58138 = _vrna_fold(sqptr_58131, strucptr_58133);
 F.line = 43;
-var ptable_57139 = _vrna_ptable(strucptr_57133);
+var ptable_58139 = _vrna_ptable(strucptr_58133);
 F.line = 44;
-var test_57140 = _simple_xy_coordinates(ptable_57139, xptr_57135, yptr_57137);
+var test_58140 = _simple_xy_coordinates(ptable_58139, xptr_58135, yptr_58137);
 F.line = 45;
 try {
 F.line = 46;
-result_57128.Field0 = energy_57138;
+result_58128.Field0 = energy_58138;
 F.line = 47;
-result_57128.Field1 = Module.UTF8ToString(strucptr_57133);
+result_58128.Field1 = Module.UTF8ToString(strucptr_58133);
 F.line = 48;
-result_57128.Field2 = nimCopy(null, decodecoords_57038(xptr_57135, yptr_57137, length_57129), NTI57043);
+result_58128.Field2 = nimCopy(null, decodecoords_58038(xptr_58135, yptr_58137, length_58129), NTI58043);
 } finally {
 framePtr = F;
-Module._free(ptable_57139);
+Module._free(ptable_58139);
 }
 } finally {
 framePtr = F;
-Module._free(sqptr_57131);
-Module._free(strucptr_57133);
-Module._free(xptr_57135);
-Module._free(yptr_57137);
+Module._free(sqptr_58131);
+Module._free(strucptr_58133);
+Module._free(xptr_58135);
+Module._free(yptr_58137);
 }
 framePtr = F.prev;
-return result_57128;
+return result_58128;
 }
 function sysfatal_20821(message_20827) {
 
@@ -691,46 +691,53 @@ framePtr = F;
 raiseassert_20816(msg_20841);
 framePtr = F.prev;
 }
-function makentide_57730(s_57735, size_57737, color_57744) {
+function makentide_58730(s_58735, size_58737, color_58744) {
 
-function HEX3Aanonymous_57745(d_57750) {
+function HEX3Aanonymous_58745(d_58750) {
 
-var result_57751 = null;
+var result_58751 = null;
 var F={procname:"makeNTide.:anonymous",prev:framePtr,filename:"quickfrob.nim",line:0};
 framePtr = F;
 F.line = 104;
-result_57751 = toJSStr(cstrToNimstr(((d_57750.Field0 + 3.0000000000000000e+01))+""));
+result_58751 = toJSStr(cstrToNimstr(((d_58750.Field0 + 3.0000000000000000e+01))+""));
 framePtr = F.prev;
-return result_57751;
+return result_58751;
 }
-function HEX3Aanonymous_57770(d_57775) {
+function HEX3Aanonymous_58770(d_58775) {
 
-var result_57776 = null;
+var result_58776 = null;
 var F={procname:"makeNTide.:anonymous",prev:framePtr,filename:"quickfrob.nim",line:0};
 framePtr = F;
 F.line = 105;
-result_57776 = toJSStr(cstrToNimstr(((d_57775.Field1 + 3.0000000000000000e+01))+""));
+result_58776 = toJSStr(cstrToNimstr(((d_58775.Field1 + 3.0000000000000000e+01))+""));
 framePtr = F.prev;
-return result_57776;
+return result_58776;
 }
 var F={procname:"makeNTide.makeNTide",prev:framePtr,filename:"quickfrob.nim",line:0};
 framePtr = F;
-s_57735.attr("cx", HEX3Aanonymous_57745).attr("cy", HEX3Aanonymous_57770).attr("r", size_57737).attr("stroke-width", "3px").attr("stroke", "black").style("fill", color_57744);
+s_58735.attr("cx", HEX3Aanonymous_58745).attr("cy", HEX3Aanonymous_58770).attr("r", size_58737).attr("stroke-width", "3px").attr("stroke", "black").style("fill", color_58744);
 framePtr = F.prev;
 }
-function main_57154() {
+function HEX5BHEX5DHEX3D_58971(obj_58975, field_58977, val_58979) {
 
-function dothemagic_57189() {
+var F={procname:"[]=.[]=",prev:framePtr,filename:"lib/js/jsffi.nim",line:0};
+framePtr = F;
+obj_58975[field_58977] = (val_58979);
+framePtr = F.prev;
+}
+function main_58154() {
 
-function colorize_57663(d_57668, i_57669) {
+function dothemagic_58189() {
+
+function colorize_58663(d_58668, i_58669) {
 
 var Tmp1;
-var result_57670 = null;
+var result_58670 = null;
 var F={procname:"doTheMagic.colorize",prev:framePtr,filename:"quickfrob.nim",line:0};
 framePtr = F;
 F.line = 87;
 F.line = 88;
-switch (sq_57327[chckIndx(i_57669, 0, sq_57327.length)-0]) {
+switch (sq_58327[chckIndx(i_58669, 0, sq_58327.length)-0]) {
 case 103: case 71: Tmp1 = makeNimstrLit("#CF2E00");
 
 break;
@@ -750,71 +757,71 @@ default:
 Tmp1 = makeNimstrLit("#606060");
 break;
 }
-result_57670 = toJSStr(Tmp1);
+result_58670 = toJSStr(Tmp1);
 framePtr = F.prev;
-return result_57670;
+return result_58670;
 }
 var F={procname:"main.doTheMagic",prev:framePtr,filename:"quickfrob.nim",line:0};
 framePtr = F;
 BeforeRet: do {
 F.line = 61;
-var sq_57327 = cstrToNimstr(textbox_57156.property("value"));
-if (((sq_57327 != null ? sq_57327.length-1 : 0) == 0)) {
+var sq_58327 = cstrToNimstr(textbox_58156.property("value"));
+if (((sq_58327 != null ? sq_58327.length-1 : 0) == 0)) {
 F.line = 63;
 break BeforeRet;
 }
 
 F.line = 65;
-var res_57328 = fold_57117(toJSStr(sq_57327));
+var res_58328 = fold_58117(toJSStr(sq_58327));
 F.line = 66;
-var maxx_57329 = 0.0;
+var maxx_58329 = 0.0;
 F.line = 67;
-var minx_57330 = 1.0000000000000000e+06;
+var minx_58330 = 1.0000000000000000e+06;
 F.line = 68;
-var maxy_57331 = 0.0;
+var maxy_58331 = 0.0;
 F.line = 69;
-var miny_57332 = 1.0000000000000000e+06;
+var miny_58332 = 1.0000000000000000e+06;
 F.line = 70;
-var newcoords_57364 = newseq_57064(chckRange((sq_57327 != null ? sq_57327.length-1 : 0), 0, 2147483647));
+var newcoords_58364 = newseq_58064(chckRange((sq_58327 != null ? sq_58327.length-1 : 0), 0, 2147483647));
 L1: do {
 F.line = 72;
-var elem_57602 = {Field0: 0.0, Field1: 0.0};
+var elem_58602 = {Field0: 0.0, Field1: 0.0};
 F.line = 3490;
-var HEX3Atmp_57956 = null;
+var HEX3Atmp_58956 = null;
 F.line = 72;
-HEX3Atmp_57956 = res_57328.Field2;
+HEX3Atmp_58956 = res_58328.Field2;
 F.line = 3492;
-var i_57959 = 0;
+var i_58959 = 0;
 F.line = 3493;
-var L_57961 = (HEX3Atmp_57956 != null ? HEX3Atmp_57956.length : 0);
+var L_58961 = (HEX3Atmp_58956 != null ? HEX3Atmp_58956.length : 0);
 L2: do {
 F.line = 3494;
 L3: while (true) {
-if (!(i_57959 < L_57961)) break L3;
+if (!(i_58959 < L_58961)) break L3;
 F.line = 3495;
-elem_57602 = HEX3Atmp_57956[chckIndx(i_57959, 0, HEX3Atmp_57956.length)-0];
-if ((maxx_57329 < elem_57602.Field0)) {
+elem_58602 = HEX3Atmp_58956[chckIndx(i_58959, 0, HEX3Atmp_58956.length)-0];
+if ((maxx_58329 < elem_58602.Field0)) {
 F.line = 74;
-maxx_57329 = elem_57602.Field0;
+maxx_58329 = elem_58602.Field0;
 }
 
-if ((elem_57602.Field0 < minx_57330)) {
+if ((elem_58602.Field0 < minx_58330)) {
 F.line = 76;
-minx_57330 = elem_57602.Field0;
+minx_58330 = elem_58602.Field0;
 }
 
-if ((maxy_57331 < elem_57602.Field1)) {
+if ((maxy_58331 < elem_58602.Field1)) {
 F.line = 78;
-maxy_57331 = elem_57602.Field1;
+maxy_58331 = elem_58602.Field1;
 }
 
-if ((elem_57602.Field1 < miny_57332)) {
+if ((elem_58602.Field1 < miny_58332)) {
 F.line = 80;
-miny_57332 = elem_57602.Field1;
+miny_58332 = elem_58602.Field1;
 }
 
-i_57959 = addInt(i_57959, 1);
-if (!(((HEX3Atmp_57956 != null ? HEX3Atmp_57956.length : 0) == L_57961))) {
+i_58959 = addInt(i_58959, 1);
+if (!(((HEX3Atmp_58956 != null ? HEX3Atmp_58956.length : 0) == L_58961))) {
 failedassertimpl_20839(makeNimstrLit("len(a) == L seq modified while iterating over it"));
 }
 
@@ -823,49 +830,49 @@ failedassertimpl_20839(makeNimstrLit("len(a) == L seq modified while iterating o
 } while(false);
 L4: do {
 F.line = 81;
-var idx_57636 = 0;
+var idx_58636 = 0;
 F.line = 81;
-var elem_57637 = {Field0: 0.0, Field1: 0.0};
+var elem_58637 = {Field0: 0.0, Field1: 0.0};
 F.line = 2097;
-var HEX3Atmp_57963 = null;
+var HEX3Atmp_58963 = null;
 F.line = 81;
-HEX3Atmp_57963 = res_57328.Field2;
+HEX3Atmp_58963 = res_58328.Field2;
 F.line = 2099;
-var i_57966 = 0;
+var i_58966 = 0;
 L5: do {
 F.line = 2100;
 L6: while (true) {
-if (!(i_57966 < (HEX3Atmp_57963 != null ? HEX3Atmp_57963.length : 0))) break L6;
+if (!(i_58966 < (HEX3Atmp_58963 != null ? HEX3Atmp_58963.length : 0))) break L6;
 F.line = 2099;
-idx_57636 = i_57966;
+idx_58636 = i_58966;
 F.line = 2101;
-elem_57637 = HEX3Atmp_57963[chckIndx(i_57966, 0, HEX3Atmp_57963.length)-0];
+elem_58637 = HEX3Atmp_58963[chckIndx(i_58966, 0, HEX3Atmp_58963.length)-0];
 F.line = 82;
-newcoords_57364[chckIndx(idx_57636, 0, newcoords_57364.length)-0].Field0 = (elem_57637.Field0 - minx_57330);
+newcoords_58364[chckIndx(idx_58636, 0, newcoords_58364.length)-0].Field0 = (elem_58637.Field0 - minx_58330);
 F.line = 83;
-newcoords_57364[chckIndx(idx_57636, 0, newcoords_57364.length)-0].Field1 = (elem_57637.Field1 - miny_57332);
-i_57966 = addInt(i_57966, 1);
+newcoords_58364[chckIndx(idx_58636, 0, newcoords_58364.length)-0].Field1 = (elem_58637.Field1 - miny_58332);
+i_58966 = addInt(i_58966, 1);
 }
 } while(false);
 } while(false);
-svg_57188.attr("width", ((maxx_57329 - minx_57330) + 4.0000000000000000e+01)).attr("height", ((maxy_57331 - miny_57332) + 4.0000000000000000e+01));
-makentide_57730(svg_57188.selectAll("circle").data(newcoords_57364), 7, colorize_57663);
-makentide_57730(svg_57188.selectAll("circle").data(newcoords_57364).enter().append("circle"), 7, colorize_57663);
-svg_57188.selectAll("circle").data(newcoords_57364).exit().remove();
+svg_58188.attr("width", ((maxx_58329 - minx_58330) + 4.0000000000000000e+01)).attr("height", ((maxy_58331 - miny_58332) + 4.0000000000000000e+01));
+makentide_58730(svg_58188.selectAll("circle").data(newcoords_58364), 7, colorize_58663);
+makentide_58730(svg_58188.selectAll("circle").data(newcoords_58364).enter().append("circle"), 7, colorize_58663);
+svg_58188.selectAll("circle").data(newcoords_58364).exit().remove();
 } while (false); 
 framePtr = F.prev;
 }
 var F={procname:"quickfrob.main",prev:framePtr,filename:"quickfrob.nim",line:0};
 framePtr = F;
 F.line = 54;
-var textbox_57156 = d3.select("#sequence");
+var textbox_58156 = d3.select("#sequence");
 F.line = 55;
-var svg_57188 = d3.select("div#foldDemo").append("svg").attr("width", 10).attr("height", 10);
-textbox_57156.on("change", dothemagic_57189, false);
-dothemagic_57189();
+var svg_58188 = d3.select("div#foldDemo").append("svg").attr("width", 10).attr("height", 10);
+textbox_58156.on("change", dothemagic_58189, false);
+HEX5BHEX5DHEX3D_58971(Module, "_main", dothemagic_58189);
 framePtr = F.prev;
 }
-main_57154();
+main_58154();
 function nsuToLowerAsciiChar(c_41792) {
 
 var result_41793 = 0;
