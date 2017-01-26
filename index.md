@@ -74,7 +74,7 @@ for deltaT in 0..200:
 ```
 
 ## A Demo of upcoming JavaScript support:
-Have a look at a simple RNA folding demo [here](https://mjendrusch.github.io/nimna/demo.html))
+Have a look at a simple RNA folding demo [here](https://mjendrusch.github.io/nimna/demo.html)
 
 ## Short term plans
 You can expect this to happen over the next few days or weeks, at most
