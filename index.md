@@ -74,7 +74,141 @@ for deltaT in 0..200:
 ```
 
 ## A Demo of upcoming JavaScript support:
-Have a look at a simple RNA folding demo [here](https://mjendrusch.github.io/nimna/demo.html)
+Have a look at a simple RNA folding demo [here](https://mjendrusch.github.io/nimna/demo.html).
+JavaScript support based on emscripten for the whole library will be ready soon.
+
+This is the nim code used to generate the demo. It uses `D3.js` to plot the
+predicted RNA/DNA secondary structures. The fully functional `D3.js` wrapper
+used here is a work in progress, and will be available soon.
+
+```nim
+import d3select
+import future, strutils
+
+type
+  RootPtr = distinct cint
+  Sptr = distinct cint
+  Cptr = distinct cint
+  Fptr = distinct cint
+
+# Wrap some emscriptened procedures.
+proc internalFold(sq: Cptr, struc: Cptr): cfloat {. importc: "_vrna_fold" .}
+proc simpleCoords(pairs: Sptr, x, y: Fptr): cint {. importc: "_simple_xy_coordinates" .}
+proc pairTable(struc: Cptr): Sptr {. importc: "_vrna_ptable" .}
+
+# Wrap some emscripten functionality
+proc emMalloc(size: int): RootPtr {. importc: "Module._malloc" .}
+proc emFree(p: RootPtr) {. importc: "Module._free" .}
+proc stringToUtf8(s: cstring, p: Cptr, len: int) {. importc: "Module.stringToUTF8" .}
+proc utf8ToString(p: Cptr): cstring {. importc: "Module.UTF8ToString" .}
+proc getValue(f: FPtr): cfloat {. importcpp: "Module.getValue(#, 'float')" .}
+
+# Decode a pair of emscripten float pointers to a seq of tuples.
+proc decodeCoords(xPtr, yPtr: FPtr, len: int): seq[tuple[x, y: float]] =
+  result = newSeq[tuple[x, y: float]](len)
+  for idx in 0 ..< len:
+    result[idx] = (
+      x: getValue((xPtr.cint + sizeOf(cfloat) * idx).FPtr).float,
+      y: getValue((yPtr.cint + sizeOf(cfloat) * idx).FPtr).float
+    )
+
+# Wrap all of that into a nice high level interface.
+proc fold*(sq: cstring): tuple[E: float, struc: cstring, coords: seq[tuple[x, y: float]]] =
+  let
+    length = sq.len
+    sqPtr = emMalloc((length + 1) * sizeOf(char)).CPtr
+    strucPtr = emMalloc((length + 1) * sizeOf(char)).CPtr
+    xPtr = emMalloc((length) * sizeOf(float)).FPtr
+    yPtr = emMalloc((length) * sizeOf(float)).FPtr
+  defer:
+    emFree sqPtr.RootPtr
+    emFree strucPtr.RootPtr
+    emFree xPtr.RootPtr
+    emFree yPtr.RootPtr
+  sq.stringToUtf8(sqPtr, length + 1)
+  let
+    energy = internalFold(sqPtr, strucPtr)
+    pTable = strucPtr.pairTable
+  let test = simpleCoords(pTable, xPtr, yPtr)
+  defer: emFree pTable.RootPtr
+  result.E = energy
+  result.struc = strucPtr.utf8ToString
+  result.coords = decodeCoords(xPtr, yPtr, length)
+
+# Use wrapped D3.js functionality to plot the predicted secondary structures.
+proc main =
+  let
+    textbox = select("#sequence")
+    svg = select("div#foldDemo").append("svg")
+      .attr("width", 10)
+      .attr("height", 10)
+
+  proc doTheMagic =
+    ## Compute the folding of a sequence
+    let sq = $property[cstring](textbox, "value")
+    if sq.len == 0:
+      return
+    var
+      res = fold(sq)
+      maxX = 0.0
+      minX = 1e6
+      maxY = 0.0
+      minY = 1e6
+      newCoords = newSeq[tuple[x, y: float]](sq.len)
+    # Adjust svg to fit the secondary structure.
+    for elem in res.coords:
+      if elem.x > maxX:
+        maxX = elem.x
+      if elem.x < minX:
+        minX = elem.x
+      if elem.y > maxY:
+        maxY = elem.y
+      if elem.y < minY:
+        minY = elem.y
+    for idx, elem in res.coords.pairs:
+      newCoords[idx].x = elem.x - minX
+      newCoords[idx].y = elem.y - minY
+    svg.attr("width", maxX - minX + 40).attr("height", maxY - minY + 40)
+
+    proc colorize(d: tuple[x, y: float], i: int): cstring =
+      ## Closure to assign a color to each nucleotide
+      case sq[i]:
+        of 'g', 'G':
+          "#CF2E00"
+        of 'a', 'A':
+          "#016481"
+        of 't', 'T':
+          "#009244"
+        of 'u', 'U':
+          "#004E24"
+        of 'c', 'C':
+          "#CF6800"
+        else:
+          "#606060"
+
+    proc makeNTide[T: tuple[x, y: float]](s: Selection[T], size: int, color: proc(d: T, i: int): cstring) =
+      ## Set all attributes for a nucleotide
+      s.attr("cx", (d: tuple[x, y: float]) -> cstring => $(d.x + 30))
+        .attr("cy", (d: tuple[x, y: float]) -> cstring => $(d.y + 30))
+        .attr("r", size)
+        .attr("stroke-width", "3px".cstring).attr("stroke", "black".cstring)
+        .style("fill", color)
+
+    # Do the usual D3.js procedure of adjusting given elements to fit new data,
+    # adding additional elements, if there is more data than elements currently
+    # available, or delete elements with no corresponding data.
+    svg.selectAll("circle").data(newCoords).makeNTide(7, colorize)
+    svg.selectAll("circle").data(newCoords)
+      .enter.append("circle").makeNtide(7, colorize)
+    svg.selectAll("circle").data(newCoords).exit.remove
+
+  # Set the change handler for the sequence input element to predict and plot
+  # the secondary structure.
+  textbox.on("change", doTheMagic)
+  doTheMagic()
+
+main()
+```
 
 ## Short term plans
 You can expect this to happen over the next few days or weeks, at most
