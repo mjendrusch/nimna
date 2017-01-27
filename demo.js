@@ -49,9 +49,9 @@ NTI3440.node = NNI3440;
 var NNI3436 = {kind: 2, len: 0, offset: 0, typ: null, name: null, sons: []};
 NTI3436.node = NNI3436;
 NTI3483.base = NTI3424;
-var NNI3424 = {kind: 2, len: 4, offset: 0, typ: null, name: null, sons: [{kind: 1, offset: "parent", len: 0, typ: NTI3483, name: "parent", sons: null}, 
-{kind: 1, offset: "name", len: 0, typ: NTI140, name: "name", sons: null}, 
-{kind: 1, offset: "message", len: 0, typ: NTI138, name: "msg", sons: null}, 
+var NNI3424 = {kind: 2, len: 4, offset: 0, typ: null, name: null, sons: [{kind: 1, offset: "parent", len: 0, typ: NTI3483, name: "parent", sons: null},
+{kind: 1, offset: "name", len: 0, typ: NTI140, name: "name", sons: null},
+{kind: 1, offset: "message", len: 0, typ: NTI138, name: "msg", sons: null},
 {kind: 1, offset: "trace", len: 0, typ: NTI138, name: "trace", sons: null}]};
 NTI3424.node = NNI3424;
 var NNI3408 = {kind: 2, len: 0, offset: 0, typ: null, name: null, sons: []};
@@ -59,7 +59,7 @@ NTI3408.node = NNI3408;
 NTI3424.base = NTI3408;
 NTI3436.base = NTI3424;
 NTI3440.base = NTI3436;
-var NNI12409 = {kind: 2, len: 2, offset: 0, typ: null, name: null, sons: [{kind: 1, offset: "Field0", len: 0, typ: NTI140, name: "Field0", sons: null}, 
+var NNI12409 = {kind: 2, len: 2, offset: 0, typ: null, name: null, sons: [{kind: 1, offset: "Field0", len: 0, typ: NTI140, name: "Field0", sons: null},
 {kind: 1, offset: "Field1", len: 0, typ: NTI104, name: "Field1", sons: null}]};
 NTI12409.node = NNI12409;
 var NNI3438 = {kind: 2, len: 0, offset: 0, typ: null, name: null, sons: []};
@@ -68,14 +68,14 @@ NTI3438.base = NTI3436;
 var NNI3456 = {kind: 2, len: 0, offset: 0, typ: null, name: null, sons: []};
 NTI3456.node = NNI3456;
 NTI3456.base = NTI3424;
-var NNI57050 = {kind: 2, len: 2, offset: 0, typ: null, name: null, sons: [{kind: 1, offset: "Field0", len: 0, typ: NTI124, name: "Field0", sons: null}, 
+var NNI57050 = {kind: 2, len: 2, offset: 0, typ: null, name: null, sons: [{kind: 1, offset: "Field0", len: 0, typ: NTI124, name: "Field0", sons: null},
 {kind: 1, offset: "Field1", len: 0, typ: NTI124, name: "Field1", sons: null}]};
 NTI57050.node = NNI57050;
 NTI57069.base = NTI57050;
 var NNI3452 = {kind: 2, len: 0, offset: 0, typ: null, name: null, sons: []};
 NTI3452.node = NNI3452;
 NTI3452.base = NTI3424;
-var NNI57044 = {kind: 2, len: 2, offset: 0, typ: null, name: null, sons: [{kind: 1, offset: "Field0", len: 0, typ: NTI124, name: "Field0", sons: null}, 
+var NNI57044 = {kind: 2, len: 2, offset: 0, typ: null, name: null, sons: [{kind: 1, offset: "Field0", len: 0, typ: NTI124, name: "Field0", sons: null},
 {kind: 1, offset: "Field1", len: 0, typ: NTI124, name: "Field1", sons: null}]};
 NTI57044.node = NNI57044;
 NTI57043.base = NTI57044;
@@ -84,16 +84,16 @@ NTI3444.node = NNI3444;
 NTI3444.base = NTI3424;
 var NNI52227 = {kind: 2, len: 0, offset: 0, typ: null, name: null, sons: []};
 NTI52227.node = NNI52227;
-var NNI52202 = {kind: 2, offset: 0, typ: null, name: null, len: 8, sons: [{kind: 1, offset: 0, typ: NTI52202, name: "lvlAll", len: 0, sons: null}, 
-{kind: 1, offset: 1, typ: NTI52202, name: "lvlDebug", len: 0, sons: null}, 
-{kind: 1, offset: 2, typ: NTI52202, name: "lvlInfo", len: 0, sons: null}, 
-{kind: 1, offset: 3, typ: NTI52202, name: "lvlNotice", len: 0, sons: null}, 
-{kind: 1, offset: 4, typ: NTI52202, name: "lvlWarn", len: 0, sons: null}, 
-{kind: 1, offset: 5, typ: NTI52202, name: "lvlError", len: 0, sons: null}, 
-{kind: 1, offset: 6, typ: NTI52202, name: "lvlFatal", len: 0, sons: null}, 
+var NNI52202 = {kind: 2, offset: 0, typ: null, name: null, len: 8, sons: [{kind: 1, offset: 0, typ: NTI52202, name: "lvlAll", len: 0, sons: null},
+{kind: 1, offset: 1, typ: NTI52202, name: "lvlDebug", len: 0, sons: null},
+{kind: 1, offset: 2, typ: NTI52202, name: "lvlInfo", len: 0, sons: null},
+{kind: 1, offset: 3, typ: NTI52202, name: "lvlNotice", len: 0, sons: null},
+{kind: 1, offset: 4, typ: NTI52202, name: "lvlWarn", len: 0, sons: null},
+{kind: 1, offset: 5, typ: NTI52202, name: "lvlError", len: 0, sons: null},
+{kind: 1, offset: 6, typ: NTI52202, name: "lvlFatal", len: 0, sons: null},
 {kind: 1, offset: 7, typ: NTI52202, name: "lvlNone", len: 0, sons: null}]};
 NTI52202.node = NNI52202;
-var NNI52223 = {kind: 2, len: 2, offset: 0, typ: null, name: null, sons: [{kind: 1, offset: "levelthreshold", len: 0, typ: NTI52202, name: "levelThreshold", sons: null}, 
+var NNI52223 = {kind: 2, len: 2, offset: 0, typ: null, name: null, sons: [{kind: 1, offset: "levelthreshold", len: 0, typ: NTI52202, name: "levelThreshold", sons: null},
 {kind: 1, offset: "fmtstr", len: 0, typ: NTI138, name: "fmtStr", sons: null}]};
 NTI52223.node = NNI52223;
 NTI52223.base = NTI3408;
@@ -102,37 +102,37 @@ NTI49605.base = NTI104;
 NTI49608.base = NTI104;
 NTI49611.base = NTI104;
 NTI49614.base = NTI104;
-var NNI49403 = {kind: 2, offset: 0, typ: null, name: null, len: 12, sons: [{kind: 1, offset: 0, typ: NTI49403, name: "mJan", len: 0, sons: null}, 
-{kind: 1, offset: 1, typ: NTI49403, name: "mFeb", len: 0, sons: null}, 
-{kind: 1, offset: 2, typ: NTI49403, name: "mMar", len: 0, sons: null}, 
-{kind: 1, offset: 3, typ: NTI49403, name: "mApr", len: 0, sons: null}, 
-{kind: 1, offset: 4, typ: NTI49403, name: "mMay", len: 0, sons: null}, 
-{kind: 1, offset: 5, typ: NTI49403, name: "mJun", len: 0, sons: null}, 
-{kind: 1, offset: 6, typ: NTI49403, name: "mJul", len: 0, sons: null}, 
-{kind: 1, offset: 7, typ: NTI49403, name: "mAug", len: 0, sons: null}, 
-{kind: 1, offset: 8, typ: NTI49403, name: "mSep", len: 0, sons: null}, 
-{kind: 1, offset: 9, typ: NTI49403, name: "mOct", len: 0, sons: null}, 
-{kind: 1, offset: 10, typ: NTI49403, name: "mNov", len: 0, sons: null}, 
+var NNI49403 = {kind: 2, offset: 0, typ: null, name: null, len: 12, sons: [{kind: 1, offset: 0, typ: NTI49403, name: "mJan", len: 0, sons: null},
+{kind: 1, offset: 1, typ: NTI49403, name: "mFeb", len: 0, sons: null},
+{kind: 1, offset: 2, typ: NTI49403, name: "mMar", len: 0, sons: null},
+{kind: 1, offset: 3, typ: NTI49403, name: "mApr", len: 0, sons: null},
+{kind: 1, offset: 4, typ: NTI49403, name: "mMay", len: 0, sons: null},
+{kind: 1, offset: 5, typ: NTI49403, name: "mJun", len: 0, sons: null},
+{kind: 1, offset: 6, typ: NTI49403, name: "mJul", len: 0, sons: null},
+{kind: 1, offset: 7, typ: NTI49403, name: "mAug", len: 0, sons: null},
+{kind: 1, offset: 8, typ: NTI49403, name: "mSep", len: 0, sons: null},
+{kind: 1, offset: 9, typ: NTI49403, name: "mOct", len: 0, sons: null},
+{kind: 1, offset: 10, typ: NTI49403, name: "mNov", len: 0, sons: null},
 {kind: 1, offset: 11, typ: NTI49403, name: "mDec", len: 0, sons: null}]};
 NTI49403.node = NNI49403;
-var NNI49405 = {kind: 2, offset: 0, typ: null, name: null, len: 7, sons: [{kind: 1, offset: 0, typ: NTI49405, name: "dMon", len: 0, sons: null}, 
-{kind: 1, offset: 1, typ: NTI49405, name: "dTue", len: 0, sons: null}, 
-{kind: 1, offset: 2, typ: NTI49405, name: "dWed", len: 0, sons: null}, 
-{kind: 1, offset: 3, typ: NTI49405, name: "dThu", len: 0, sons: null}, 
-{kind: 1, offset: 4, typ: NTI49405, name: "dFri", len: 0, sons: null}, 
-{kind: 1, offset: 5, typ: NTI49405, name: "dSat", len: 0, sons: null}, 
+var NNI49405 = {kind: 2, offset: 0, typ: null, name: null, len: 7, sons: [{kind: 1, offset: 0, typ: NTI49405, name: "dMon", len: 0, sons: null},
+{kind: 1, offset: 1, typ: NTI49405, name: "dTue", len: 0, sons: null},
+{kind: 1, offset: 2, typ: NTI49405, name: "dWed", len: 0, sons: null},
+{kind: 1, offset: 3, typ: NTI49405, name: "dThu", len: 0, sons: null},
+{kind: 1, offset: 4, typ: NTI49405, name: "dFri", len: 0, sons: null},
+{kind: 1, offset: 5, typ: NTI49405, name: "dSat", len: 0, sons: null},
 {kind: 1, offset: 6, typ: NTI49405, name: "dSun", len: 0, sons: null}]};
 NTI49405.node = NNI49405;
 NTI49620.base = NTI104;
-var NNI49602 = {kind: 2, len: 10, offset: 0, typ: null, name: null, sons: [{kind: 1, offset: "second", len: 0, typ: NTI49605, name: "second", sons: null}, 
-{kind: 1, offset: "minute", len: 0, typ: NTI49608, name: "minute", sons: null}, 
-{kind: 1, offset: "hour", len: 0, typ: NTI49611, name: "hour", sons: null}, 
-{kind: 1, offset: "monthday", len: 0, typ: NTI49614, name: "monthday", sons: null}, 
-{kind: 1, offset: "month", len: 0, typ: NTI49403, name: "month", sons: null}, 
-{kind: 1, offset: "year", len: 0, typ: NTI104, name: "year", sons: null}, 
-{kind: 1, offset: "weekday", len: 0, typ: NTI49405, name: "weekday", sons: null}, 
-{kind: 1, offset: "yearday", len: 0, typ: NTI49620, name: "yearday", sons: null}, 
-{kind: 1, offset: "isdst", len: 0, typ: NTI130, name: "isDST", sons: null}, 
+var NNI49602 = {kind: 2, len: 10, offset: 0, typ: null, name: null, sons: [{kind: 1, offset: "second", len: 0, typ: NTI49605, name: "second", sons: null},
+{kind: 1, offset: "minute", len: 0, typ: NTI49608, name: "minute", sons: null},
+{kind: 1, offset: "hour", len: 0, typ: NTI49611, name: "hour", sons: null},
+{kind: 1, offset: "monthday", len: 0, typ: NTI49614, name: "monthday", sons: null},
+{kind: 1, offset: "month", len: 0, typ: NTI49403, name: "month", sons: null},
+{kind: 1, offset: "year", len: 0, typ: NTI104, name: "year", sons: null},
+{kind: 1, offset: "weekday", len: 0, typ: NTI49405, name: "weekday", sons: null},
+{kind: 1, offset: "yearday", len: 0, typ: NTI49620, name: "yearday", sons: null},
+{kind: 1, offset: "isdst", len: 0, typ: NTI130, name: "isDST", sons: null},
 {kind: 1, offset: "timezone", len: 0, typ: NTI104, name: "timezone", sons: null}]};
 NTI49602.node = NNI49602;
 NTI49602.base = NTI3408;
@@ -184,7 +184,7 @@ case 19:       if (dest_18514 === null || dest_18514 === undefined) {
       }
       for (var key in src_18515) { dest_18514[key] = src_18515[key]; }
       result_18829 = dest_18514;
-    
+
 break;
 case 18: case 17: if (!((ti_18516.base == null))) {
 result_18829 = nimCopy(dest_18514, src_18515, ti_18516.base);
@@ -213,14 +213,14 @@ case 24: case 4: case 27: case 16:       if (src_18515 === null) {
           result_18829[i] = nimCopy(result_18829[i], src_18515[i], ti_18516.base);
         }
       }
-    
+
 break;
 case 28:       if (src_18515 !== null) {
         result_18829 = src_18515.slice(0);
       }
-    
+
 break;
-default: 
+default:
 result_18829 = src_18515;
 break;
 }
@@ -334,7 +334,7 @@ else {
 raiseRangeError();
 }
 
-} while (false); 
+} while (false);
 return result_19018;
 }
 function chckIndx(i_19009, a_19010, b_19011) {
@@ -350,7 +350,7 @@ else {
 raiseIndexError();
 }
 
-} while (false); 
+} while (false);
 return result_19012;
 }
 function divInt(a_16803, b_16804) {
@@ -382,7 +382,7 @@ x_19078 = x_19078.base;
 } while(false);
 result_19077 = true;
 break BeforeRet;
-} while (false); 
+} while (false);
 return result_19077;
 }
 function mnewString(len_14003) {
@@ -409,16 +409,16 @@ var result_18500 = false;
 BeforeRet: do {
 result_18500 = !((SetConstr(17, 16, 4, 18, 27, 19, 23, 22, 21)[ti_18499.base.kind] != undefined));
 break BeforeRet;
-} while (false); 
+} while (false);
 return result_18500;
 }
 function nimCopyAux(dest_18519, src_18520, n_18522) {
 
 switch (n_18522.kind) {
-case 0: 
+case 0:
 break;
 case 1:       dest_18519[n_18522.offset] = nimCopy(dest_18519[n_18522.offset], src_18520[n_18522.offset], n_18522.typ);
-    
+
 break;
 case 2: L1: do {
 var i_18815 = 0;
@@ -440,7 +440,7 @@ case 3:       dest_18519[n_18522.offset] = nimCopy(dest_18519[n_18522.offset], s
       for (var i = 0; i < n_18522.sons.length; ++i) {
         nimCopyAux(dest_18519, src_18520, n_18522.sons[i][1]);
       }
-    
+
 break;
 }
 }
@@ -567,7 +567,7 @@ BeforeRet: do {
 F.line = 592;
 result_50013 = new Date();
 break BeforeRet;
-} while (false); 
+} while (false);
 framePtr = F.prev;
 return result_50013;
 }
@@ -748,7 +748,7 @@ break;
 case 99: case 67: Tmp1 = makeNimstrLit("#CF6800");
 
 break;
-default: 
+default:
 Tmp1 = makeNimstrLit("#606060");
 break;
 }
@@ -866,7 +866,7 @@ svg_57341.attr("width", ((maxx_57355 - minx_57356) + 4.0000000000000000e+01)).at
 makentide_57696(svg_57341.selectAll("circle").data(newcoords_57370), 7, colorize_57663);
 makentide_57696(svg_57341.selectAll("circle").data(newcoords_57370).enter().append("circle"), 7, colorize_57663);
 svg_57341.selectAll("circle").data(newcoords_57370).exit().remove();
-} while (false); 
+} while (false);
 framePtr = F.prev;
 }
 function main_57249() {
@@ -1059,9 +1059,9 @@ break;
 case "app": if (result_52418 != null) { result_52418 = (result_52418.slice(0, -1)).concat(app_52601); } else { result_52418 = app_52601;};
 
 break;
-case "appdir": 
+case "appdir":
 break;
-case "appname": 
+case "appname":
 break;
 case "levelid": if (result_52418 != null) { addChar(result_52418, Levelnames_52211[chckIndx(level_52415, 0, Levelnames_52211.length)-0][0]); } else { result_52418 = [Levelnames_52211[chckIndx(level_52415, 0, Levelnames_52211.length)-0][0], 0]; };
 
@@ -1069,7 +1069,7 @@ break;
 case "levelname": if (result_52418 != null) { result_52418 = (result_52418.slice(0, -1)).concat(Levelnames_52211[chckIndx(level_52415, 0, Levelnames_52211.length)-0]); } else { result_52418 = Levelnames_52211[chckIndx(level_52415, 0, Levelnames_52211.length)-0];};
 
 break;
-default: 
+default:
 break;
 }
 }
