@@ -651,7 +651,7 @@ F.line = 83;
 break L4;
 }
 
-if ((SetConstr(71, 103, 65, 97, 84, 116, 67, 99)[chr_57204] != undefined)) {
+if ((SetConstr(71, 103, 65, 97, 84, 85, 116, 117, 67, 99)[chr_57204] != undefined)) {
 if (result_57202 != null) { addChar(result_57202, chr_57204); } else { result_57202 = [chr_57204, 0]; };
 }
 else {
