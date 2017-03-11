@@ -72,21 +72,13 @@ for deltaT in 0..200:
 ```
 
 ## Short term plans
-You can expect this to happen over the next few days or weeks, at most
+Exam season is over, so I can finally get back to this project. The
+following steps I shall tackle over the next weeks
 (in more or less chronological order):
 
-- [x] Wrap the remaining ViennaRNA headers.
-- [x] Create a high level wrapper for *parameter file IO*.
-- [x] Create a high level wrapper for all remaining flavours
-  of constraints.
-- [x] Create a high level wrapper for centroid structure prediction.
-- [x] Create a high level wrapper for MEA structure prediction.
-- [x] Create a high level wrapper for comparative structure prediction.
-- [x] Create a high level wrapper for 2Dfold.
-- [x] ~~Create a high level wrapper for duplex fold.~~
-      This functionality is given by using a dimer Compound,
-      as already available.
-- [x] Create a high level wrapper for subopt.
-- [x] Create a high level wrapper for local fold.
-- [x] Create a high level wrapper for structure evaluation.
 - [ ] Make this a **nimble** package.
+- [ ] Create bindings for the JS backend using the emscriptened version of
+      ViennaRNA.
+- [ ] Implement utilities for NA sequence design based on user-defined fitness
+      functions using an "artificial immune system" scheme.
+- [ ] Achieve better test coverage.

@@ -5,7 +5,7 @@
 # This library is licensed under the MIT license.
 # For more information see LICENSE.
 
-import private/RNA
+import nimna/private/RNA
 import macros
 import strutils
 import math
@@ -13,16 +13,16 @@ import random
 
 export RNA
 
-include private/nimna_cutils
-include private/nimna_types
-include private/nimna_compound
-include private/nimna_alignment
-include private/nimna_constraints
-include private/nimna_model
-include private/nimna_2dfold
-include private/nimna_probabilities
-include private/nimna_interactionlist
-include private/nimna_fold
-include private/nimna_subopt
-include private/nimna_eval
-include private/nimna_misc
+include nimna/private/nimna_cutils
+include nimna/private/nimna_types
+include nimna/private/nimna_compound
+include nimna/private/nimna_alignment
+include nimna/private/nimna_constraints
+include nimna/private/nimna_model
+include nimna/private/nimna_2dfold
+include nimna/private/nimna_probabilities
+include nimna/private/nimna_interactionlist
+include nimna/private/nimna_fold
+include nimna/private/nimna_subopt
+include nimna/private/nimna_eval
+include nimna/private/nimna_misc

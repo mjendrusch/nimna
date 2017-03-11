@@ -1,4 +1,4 @@
-import ../nimna.nim, unittest
+import ../nimna, unittest
 
 suite "Test energy evaluation behaviour":
 

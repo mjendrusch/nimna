@@ -24,7 +24,7 @@ suite "Test probability view behaviour":
     for idx in 0 ..< sequence.len - 1:
       check prob[idx, idx + 1] < 1e-6
     for idx in 0 ..< (sequence.len - 3) div 2:
-      check prob[idx, idx + 1] > 1e-3
+      check prob[idx, sequence.len - 1 - idx] > 1e-3
     for idx in 0 ..< sequence.len:
       for idy in idx + 1 ..< sequence.len:
         check prob[idx, idy] == prob[idy, idx]

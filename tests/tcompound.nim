@@ -1,4 +1,4 @@
-import ../nimna.nim, unittest
+import ../nimna, unittest
 
 suite "Test Compound behaviour":
 
@@ -17,12 +17,14 @@ suite "Test Compound behaviour":
     check c3.typ == VrnaFcTypeSingle
     check c4.typ == VrnaFcTypeComparative
     check c5.typ == VrnaFcTypeSingle
-    check c2.isDimer and c3.isDimer
+    check(not c1.isDimer)
+    check c2.isDimer
+    check c3.isDimer
     check c2.sequence == c3.sequence
     check c4 is CompoundComparative
     check c5 is Compound2D
 
   test "Compound accessors":
-    check c1.sequence == "GGGGGAAACCCCCC"
-    check c1.len == "GGGGGAAACCCCCC".len
-    check cs1.params[].temperature == 20.0
+    check c1.sequence == "GGGGGAAACCCCC"
+    check c1.len == "GGGGGAAACCCCC".len
+    check cs1.params[].temperature == 22.0

@@ -1,4 +1,4 @@
-import ../nimna.nim, unittest
+import ../nimna, unittest
 
 suite "Test folding behaviour":
 
@@ -20,13 +20,13 @@ suite "Test folding behaviour":
       (energy, structure) = comp.pf
       (dimEnergies, dimStructure) = dim.pfDimer
     check energy < 0.0 and dimEnergies.f0ab < 0.0
-    check structure == "((((((...))))))"
+    check structure == "((((({...)))))}"
     check dimStructure == "(((((())))))"
 
   test "Test mea folding":
     let
-      (energy, structure) = comp.mea
-    check energy < 0.0
+      (accuracy, structure) = comp.mea
+    check accuracy > 5.0
     check structure == "((((((...))))))"
 
   test "Test centroid folding":
