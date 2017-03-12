@@ -79,6 +79,6 @@ following steps I shall tackle over the next weeks
 - [ ] Make this a **nimble** package.
 - [ ] Create bindings for the JS backend using the emscriptened version of
       ViennaRNA.
-- [ ] Implement utilities for NA sequence design based on user-defined fitness
+- [x] Implement utilities for NA sequence design based on user-defined fitness
       functions using an "artificial immune system" scheme.
 - [ ] Achieve better test coverage.
