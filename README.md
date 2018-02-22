@@ -1,5 +1,5 @@
 # nimna
-**nim** **n**ucleic **a**cid folding. 
+**nim** **n**ucleic **a**cid folding.
 
 ## What is nimna?
 **nimna** is a set of bindings to [ViennaRNA](https://www.tbi.univie.ac.at/RNA/),
@@ -257,15 +257,3 @@ for deltaT in 0..200:
     echo "\e[$1A" % $(rna.length + 2)
   rna.densityPlot
 ```
-
-## Short term plans
-Exam season is over, so I can finally get back to this project. The
-following steps I shall tackle over the next weeks
-(in more or less chronological order):
-
-- [ ] Make this a **nimble** package.
-- [ ] Create bindings for the JS backend using the emscriptened version of
-      ViennaRNA.
-- [x] Implement utilities for NA sequence design based on user-defined fitness
-      functions using an "artificial immune system" scheme.
-- [ ] Achieve better test coverage.
