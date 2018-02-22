@@ -5,6 +5,9 @@
 # This library is licensed under the MIT license.
 # For more information see LICENSE.
 
+import RNA
+import nimna_types, nimna_cutils, nimna_compound
+
 proc eval*(c: Compound, structure: string): float =
   ## Calculates the free energy associated with a secondary structure.
   withRef c:

@@ -1,4 +1,12 @@
-import nimna, tables, random, algorithm, sequtils, sets
+#
+# nimna - *NA folding for Nim
+#
+# (c) Copyright 2017 Michael Jendrusch. All rights reserved.
+# This library is licensed under the MIT license.
+# For more information see LICENSE.
+
+import nimna
+import tables, random, algorithm, sequtils, sets
 
 const
   concreteAlphabet* = {'A', 'a', 'C', 'c', 'G', 'g', 'T', 't', 'U', 'u'}
@@ -131,7 +139,7 @@ proc nucleotideChoice(mt: Mutator, constraint: char = 'N'): char =
   if constraint in concreteAlphabet: return constraint
   var
     sum = 0.0
-    rand = random(
+    rand = rand(
       if mt.totalProb.hasKey(constraint):
         mt.totalProb[constraint]
       else:
@@ -153,18 +161,18 @@ proc mutate*(mt: Mutator, source: string = ""): Compound =
   else:
     sequence = source
     for idx in 0 ..< source.len:
-      if random(1.0) > mt.mutationProb:
+      if rand(1.0) > mt.mutationProb:
         continue
       sequence[idx] = mt.nucleotideChoice(mt.constraintString[idx])
     for elem in mt.pairConstraints:
-      if random(1.0) > mt.consistentProb or
+      if rand(1.0) > mt.consistentProb or
           mt.constraintString[elem.j] in abstractAlphabet:
         continue
       let newNtide = mt.nucleotideChoice(mt.constraintString[elem.i])
       sequence[elem.i] = newNtide
       sequence[elem.j] = complement(newNtide)
     for elem in mt.freeConstraints:
-      if random(1.0) > mt.consistentProb:
+      if rand(1.0) > mt.consistentProb:
         continue
       sequence[elem] = mt.nucleotideChoice(mt.constraintString[elem])
   return compound(sequence)

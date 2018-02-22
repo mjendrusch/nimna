@@ -5,9 +5,12 @@
 # This library is licensed under the MIT license.
 # For more information see LICENSE.
 
-proc freeMfeSolutions(s: MfeSolutions) =
+import RNA
+import nimna_types, nimna_cutils
+
+proc freeMfeSolutions*(s: MfeSolutions) =
   free(s.mfe)
-proc freePfSolutions(s: PfSolutions) =
+proc freePfSolutions*(s: PfSolutions) =
   free(s.pf)
 
 template makeIterators(name, lc, pairType: untyped): untyped =

@@ -5,9 +5,15 @@
 # This library is licensed under the MIT license.
 # For more information see LICENSE.
 
-include nimna_constraints_hard
-include nimna_constraints_soft
-include nimna_constraints_motif
+import RNA
+import nimna_types, nimna_compound
+
+import nimna_constraints_hard
+import nimna_constraints_soft
+import nimna_constraints_motif
+export nimna_constraints_hard
+export nimna_constraints_soft
+export nimna_constraints_motif
 
 proc lift*(c: Compound): Compound {. discardable, inline .} =
   ## Resets all constraints in a Compound.

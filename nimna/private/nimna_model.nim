@@ -5,6 +5,10 @@
 # This library is licensed under the MIT license.
 # For more information see LICENSE.
 
+import macros
+import RNA
+import nimna_types, nimna_cutils
+
 macro settings*(xs: varargs[untyped]): Settings =
   ## Creates Settings from a set of directives.
   ## e.g.:

@@ -5,6 +5,9 @@
 # This library is licensed under the MIT license.
 # For more information see LICENSE.
 
+import RNA
+import nimna_types, nimna_cutils, nimna_model
+
 proc freeSuboptimals(so: Suboptimals) =
   free(so.so)
 

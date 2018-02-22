@@ -5,6 +5,9 @@
 # This library is licensed under the MIT license.
 # For more information see LICENSE.
 
+import RNA
+import nimna_types, nimna_cutils
+
 template constraintOption*(x: varargs[ConstraintOption]): ConstraintOption =
   ## Merges a list of ``ConstraintOptions`` into a single ``ConstraintOption``
   var res = 0.char

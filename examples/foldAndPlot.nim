@@ -6,7 +6,7 @@
 # For more information see LICENSE.
 
 import strutils
-import ../nimna
+import nimna
 
 ## A small command line utility to fold a rna sequence and display its
 ## base pair probability matrix as a density plot in the terminal at

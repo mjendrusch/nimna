@@ -5,6 +5,9 @@
 # This library is licensed under the MIT license.
 # For more information see LICENSE.
 
+import RNA
+import nimna_types, nimna_cutils, nimna_compound, nimna_2dfold
+
 template foldImpl(c, name: untyped): untyped =
   let
     sq = cast[cstring](c.sequence)
@@ -84,30 +87,3 @@ proc centroid*(p: Probabilities): tuple[dist: float; struc: string] =
   ## object.
   centroidImpl(p, p.parent.sequence,
     vrnaCentroidFromProbs(p.parent.length.cint, result.dist.unsafeAddr, p.bppm))
-
-# Maximum expected accuracy folding
-
-proc mea*(pl: PairList, gamma: float = 1.0'f64):
-    tuple[accuracy: float; struc: string] =
-  ## Computes the maximum accuracy structure of an Ensemble stored in a PairList.
-  var struc = cast[cstring](alloc0((pl.len + 1) * sizeOf(char)))
-  for idx in 0 ..< pl.len:
-    struc[idx] = '.'
-  defer: dealloc struc
-  withRef pl:
-    result.accuracy = mea(pl.pl, struc, gamma.cdouble)
-    result.struc = $struc
-
-proc mea*(c: Compound, gamma: float = 1.0'f64):
-    tuple[accuracy: float; struc: string] =
-  ## Computes the maximum accuracy structure of an Ensemble stored in a Compound.
-  ## A computation of the partition function will be done, if no ensemble is
-  ## available.
-  c.recomputePfImpl
-  result = c.pairList.mea(gamma)
-
-proc mea*(p: Probabilities, gamma: float = 1.0'f64):
-    tuple[accuracy: float; struc: string] =
-  ## Computes the maximum accuracy structure of an Ensemble stored in
-  ## a set of Probabilities.
-  result = p.pairList.mea(gamma)

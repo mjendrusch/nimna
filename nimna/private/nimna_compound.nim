@@ -5,11 +5,15 @@
 # This library is licensed under the MIT license.
 # For more information see LICENSE.
 
+import macros
+import RNA
+import nimna_types
+
 {. experimental .}
 
 # Utilities
 
-template recomputePfImpl(c: untyped): untyped =
+template recomputePfImpl*(c: untyped): untyped =
   if not c.hasPf:
     if c.isDimer:
       discard c.pfDimer
@@ -18,15 +22,13 @@ template recomputePfImpl(c: untyped): untyped =
 
 # Accessors
 
-macro `.`*(c: Compound, field: string): auto =
-  let ident = newIdentNode(!field.strVal)
+macro `.`*(c: Compound, field: untyped): auto =
   result = quote do:
-    `c`.vfc[].`ident`
+    `c`.vfc[].`field`
 
-macro `.=`*[T](c: Compound, field: string, val: T): untyped =
-  let ident = newIdentNode(!field.strVal)
+macro `.=`*[T](c: Compound, field: untyped, val: T): untyped =
   result = quote do:
-    `c`.vfc[].`ident` = `val`
+    `c`.vfc[].`field` = `val`
 
 # Constructors / Destructors
 

@@ -5,6 +5,9 @@
 # This library is licensed under the MIT license.
 # For more information see LICENSE.
 
+import RNA
+import nimna_types, nimna_cutils, nimna_compound, nimna_fold
+
 proc freePairList(pl: PairList) =
   free(pl.pl)
 template newPairList(pl: untyped): untyped =
@@ -47,6 +50,34 @@ proc pairList*(p: Probabilities, cutoff: float = 1E-6): PairList =
     inc count
   result.len = p.parent.len
   result.nitems = count
+
+# Maximum expected accuracy folding
+
+proc mea*(pl: PairList, gamma: float = 1.0'f64):
+    tuple[accuracy: float; struc: string] =
+  ## Computes the maximum accuracy structure of an Ensemble stored in a PairList.
+  var struc = cast[cstring](alloc0((pl.len + 1) * sizeOf(char)))
+  for idx in 0 ..< pl.len:
+    struc[idx] = '.'
+  defer: dealloc struc
+  withRef pl:
+    result.accuracy = mea(pl.pl, struc, gamma.cdouble)
+    result.struc = $struc
+
+proc mea*(c: Compound, gamma: float = 1.0'f64):
+    tuple[accuracy: float; struc: string] =
+  ## Computes the maximum accuracy structure of an Ensemble stored in a Compound.
+  ## A computation of the partition function will be done, if no ensemble is
+  ## available.
+  c.recomputePfImpl
+  result = c.pairList.mea(gamma)
+
+proc mea*(p: Probabilities, gamma: float = 1.0'f64):
+    tuple[accuracy: float; struc: string] =
+  ## Computes the maximum accuracy structure of an Ensemble stored in
+  ## a set of Probabilities.
+  result = p.pairList.mea(gamma)
+
 
 iterator items*(pl: PairList): PairListItem =
   ## Iterates over PairListItems in a PairList.

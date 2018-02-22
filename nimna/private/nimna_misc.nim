@@ -5,6 +5,10 @@
 # This library is licensed under the MIT license.
 # For more information see LICENSE.
 
+import strutils, math, random
+import RNA
+import nimna_types, nimna_cutils, nimna_compound, nimna_probabilities
+
 # Structure sampling from an ensemble
 
 proc sample*(c: Compound): string =
@@ -102,7 +106,7 @@ proc randomDNA*(length: int): string =
   ## Returns a random DNA of a given length.
   result = newStringOfCap(length)
   for i in 0 ..< length:
-    result.add random(['G', 'A', 'T', 'C'])
+    result.add ['G', 'A', 'T', 'C'].rand
 
 proc randomDNAofStructure*(struc: string): string =
   ## Returns a random DNA with a certain projected secondary structure.
@@ -117,7 +121,7 @@ proc randomDNAofStructure*(struc: string): string =
     of ')':
       close.insert(idx, 0)
     else:
-      result[idx] = ['G', 'A', 'T', 'C'].random
+      result[idx] = ['G', 'A', 'T', 'C'].rand
   for idx in 0 ..< open.len:
-    result[open[idx]] = ['G', 'A', 'T', 'C'].random
+    result[open[idx]] = ['G', 'A', 'T', 'C'].rand
     result[close[idx]] = result[open[idx]].complement

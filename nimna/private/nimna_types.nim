@@ -5,13 +5,15 @@
 # This library is licensed under the MIT license.
 # For more information see LICENSE.
 
+import RNA
+
 type
   Compound* = ref object of RootObj
     ## Represents a sequence of DNA or RNA together with folding parameters
     ## and results.
-    vfc: ptr VrnaFoldCompoundT
-    hasPf: bool
-    isD: bool
+    vfc*: ptr VrnaFoldCompoundT
+    hasPf*: bool
+    isD*: bool
   Compound2D* = ref object of Compound
     ## Represents a sequence of DNA or RNA together with folding parameters
     ## folding results, and a pair of reference structures.
@@ -19,16 +21,16 @@ type
     ## Represents a sequence alignment of DNAs or RNAs with folding parameters
     ## and results.
   Alignment* = ref object
-    algn: cStringArray
-    names: cStringArray
-    id: cstring
-    structure: cstring
-    nSeqs: int
+    algn*: cStringArray
+    cnames*: cStringArray
+    id*: cstring
+    structure*: cstring
+    nSeqs*: int
   DimerEnergies* = VrnaDimerPfS
   Fold* = VrnaSuboptSolutionT
   Suboptimals* = ref object
-    len: int
-    so: ptr Fold
+    len*: int
+    so*: ptr Fold
   MfeSolution* = VrnaSolTwoDT
     ## Represents a secondary structure and energy at a single position in
     ## secondary structure space.
@@ -36,14 +38,14 @@ type
     ## Represents a partition function at a single position in
     ## secondary structure space.
   MfeSolutions* = ref object
-    mfe: ptr MfeSolution
+    mfe*: ptr MfeSolution
   PfSolutions* = ref object
-    pf: ptr PfSolution
+    pf*: ptr PfSolution
   InteractionList* = ref object of RootObj
     ## Represents a list of base interactions.
-    pl: ptr VrnaPlistT
-    len: int
-    nitems: int
+    pl*: ptr VrnaPlistT
+    len*: int
+    nitems*: int
   PairList* = ref object of InteractionList
     ## Represents a list of base pairing interactions
   GQuadList* = ref object of InteractionList
@@ -63,8 +65,8 @@ type
     ## Represents the kinds of motifs a ligand can bind to.
   Probabilities* = ref object
     ## Represents the base pair probability matrix of a Compound
-    parent: Compound
-    bppm: ptr FltOrDbl
+    parent*: Compound
+    bppm*: ptr FltOrDbl
   MotifError* = object of Exception
 
 const

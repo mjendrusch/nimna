@@ -5,7 +5,12 @@
 # This library is licensed under the MIT license.
 # For more information see LICENSE.
 
-const rnaLib = "RNA.so"
+when defined(windows):
+  const rnaLib = "libRNA.dll"
+elif defined(darwin):
+  const rnaLib = "libRNA.dylib"
+else:
+  const rnaLib = "libRNA.so"
 
 {. push warning[SmallLshouldNotBeUsed]: off .}
 

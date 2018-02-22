@@ -5,8 +5,11 @@
 # This library is licensed under the MIT license.
 # For more information see LICENSE.
 
-proc pf*(c: Compound): tuple[E: float; struc: string]
-proc pfDimer*(c: Compound): tuple[E: DimerEnergies; struc: string]
+import RNA
+import nimna_types, nimna_cutils, nimna_compound, nimna_fold
+
+# proc pf*(c: Compound): tuple[E: float; struc: string]
+# proc pfDimer*(c: Compound): tuple[E: DimerEnergies; struc: string]
 template len*(p: Probabilities): int =
   p.parent.len
 

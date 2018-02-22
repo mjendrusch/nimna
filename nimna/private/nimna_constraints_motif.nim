@@ -5,6 +5,9 @@
 # This library is licensed under the MIT license.
 # For more information see LICENSE.
 
+import RNA
+import nimna_types, nimna_cutils, nimna_compound
+
 const
   vudExtLoop* = 1.UnstructuredOption
   vudHpLoop* = 2.UnstructuredOption

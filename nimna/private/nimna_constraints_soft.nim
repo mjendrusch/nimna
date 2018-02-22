@@ -5,6 +5,9 @@
 # This library is licensed under the MIT license.
 # For more information see LICENSE.
 
+import RNA
+import nimna_types, nimna_cutils, nimna_compound
+
 proc preferUnpaired*(c: Compound; position: int; energy: float;
     option: ConstraintOption = vccAllLoops): Compound {. discardable .} =
   ## Adds a soft constraint leaving a base at position unpaired
