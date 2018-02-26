@@ -1,0 +1,28 @@
+Subopt
+======
+
+This module provides procedures for suboptimal nucleic acid folding. Given a
+``Compound`` and a maximum energy deviation from the minimum free energy given
+in integer multiples of `0.01 kcal / mol`, one can compute a set of
+suboptimal solutions to the folding problem within that range.
+
+Example usage
+-------------
+
+Let's say we have a possibly multi-stable RNA sequence and want to see all
+solutions within `1 kcal / mol` of the minimum free energy at
+`37 °C`, as that is the temperature we would like to use it at.
+
+.. code-block :: nim
+  import strformat
+  import nimna
+
+  let
+    rnaOfInterest = compound"... the sequence ...".update settings(
+      temperature = 37.0 # Set the temperature.
+    )
+    solutions = rnaOfInterest.suboptimals(100) # Get the suboptimal solutions.
+
+  ## Iterate over the solutions and retrieve their information:
+  for (energy, structure) in solutions:
+    echo fmt"Fold with energy: {energy} [kcal / mol] and structure: {structure}"

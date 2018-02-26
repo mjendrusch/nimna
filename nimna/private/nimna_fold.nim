@@ -5,6 +5,8 @@
 # This library is licensed under the MIT license.
 # For more information see LICENSE.
 
+## .. include:: ../../docs/fold.txt
+
 import RNA
 import nimna_types, nimna_cutils, nimna_compound, nimna_2dfold
 
@@ -39,7 +41,6 @@ proc mfeWindow*(c: Compound, f: File): float =
   withRef c:
     result = mfeWindow(c.vfc, f)
 
-
 proc pf2D*(c: Compound2D; distance1, distance2: int): PfSolutions =
   ## Computes the partition function at all points in secondary
   ## structure space with maximum distance1 to one reference
@@ -67,11 +68,10 @@ proc mfeDimer*(c: Compound): tuple[E: float; struc: string] =
 # Centroid folding
 
 template centroidImpl(x, sqAcc, call: untyped): untyped =
-  let sq = cast[cstring](sqAcc)
   withRef x:
     let structure = call
     result.struc = $structure
-  dealloc structure
+  free structure
 
 proc centroid*(c: Compound): tuple[dist: float; struc: string] =
   ## Computes the centroid structure of an ensemble stored in a Compound,

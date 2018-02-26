@@ -1,0 +1,23 @@
+Alignment
+=========
+
+This module provides constructors and accessors for ``Alignment`` objects,
+which represent multiple sequence alignments. ``Alignments`` are read from
+file using the ``alignment`` procedure, where the file can be any of the
+usual multiple sequence alignment formats.
+
+Example usage
+-------------
+
+Let's read an alignment, and fold it into a consensus secondary structure.
+
+.. code-block :: nim
+  import nimna
+
+  let
+    align = alignment"algn.fasta"
+    comp = compound align
+    # Just use minimum free energy folding
+    # with an alignment compound for the
+    # consensus secondary structure.
+    (energy, structure) = comp.mfe

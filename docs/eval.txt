@@ -1,0 +1,21 @@
+Eval
+=====
+
+This module contains procedures to evaluate the energy of a nucleic acid
+sequence folded into a particular secondary structure, as well as the difference
+in energy yielded by adding or removing base pairs to a secondary structure.
+
+Example usage
+-------------
+
+Let's see if we can evaluate how well a sequence fits to a secondary structure:
+
+.. code-block :: nim
+  import nimna
+
+  proc fitness(c: Compound; structure: string): float =
+    ## Compute E_structure - E_ensemble.
+    let
+      targetEnergy = c.eval(structure)
+      (ensembleEnergy, _) = c.pf
+    return targetEnergy - ensembleEnergy

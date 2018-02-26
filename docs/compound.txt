@@ -1,0 +1,19 @@
+Compound
+========
+
+This module contains the ``Compound`` types, constructors and accessors for
+those types. The procedures in this module will be used in almost any possible
+use-case for ``nimna``.
+
+Example usage
+-------------
+
+Those are the ways ``Compounds`` can be created.
+
+.. code-block :: nim
+  import nimna
+
+  let
+    monomer = compound"some sequence ..."
+    dimer = dimer("some sequence ...", "some other sequence ...")
+    alsoADimer = compound"some sequence ...&some other sequence ..."

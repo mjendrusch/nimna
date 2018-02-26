@@ -6,7 +6,7 @@
 # For more information see LICENSE.
 
 proc makeSwString*(string: cstring): ptr SwString {.cdecl, importc: "Make_swString",
-    dynlib: rnaLib.}
+    importRna.}
 
 proc stringEditDistance*(t1: ptr SwString; t2: ptr SwString): cfloat {.cdecl,
-    importc: "string_edit_distance", dynlib: rnaLib.}
+    importc: "string_edit_distance", importRna.}

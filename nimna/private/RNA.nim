@@ -5,12 +5,20 @@
 # This library is licensed under the MIT license.
 # For more information see LICENSE.
 
+## .. include:: ../../docs/RNA.txt
+
 when defined(windows):
-  const rnaLib = "libRNA.dll"
+  const rnaLib* = "libRNA.dll"
 elif defined(darwin):
-  const rnaLib = "libRNA.dylib"
+  const rnaLib* = "libRNA.dylib"
 else:
-  const rnaLib = "libRNA.so"
+  const rnaLib* = "libRNA.so"
+when false:
+  {. pragma: importRNA dynlib: rnaLib .}
+else:
+  # {. passL: "$(nimble path nimna)/deps/lib/" .}
+  {. passL: "-fopenmp -lRNA" .}
+  {. pragma: importRNA .}
 
 {. push warning[SmallLshouldNotBeUsed]: off .}
 

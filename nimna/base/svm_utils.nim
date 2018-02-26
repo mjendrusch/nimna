@@ -7,19 +7,19 @@
 
 when defined(withSVM):
   var
-    avgModelString* {.importc: "avg_model_string", dynlib: rnaLib.}: cstring
-    sdModelString* {.importc: "sd_model_string", dynlib: rnaLib.}: cstring
+    avgModelString* {.importc: "avg_model_string", importRna.}: cstring
+    sdModelString* {.importc: "sd_model_string", importRna.}: cstring
 
   proc getZ*(sequence: cstring; energy: cdouble): cfloat {.cdecl, importc: "get_z",
-      dynlib: rnaLib.}
+      importRna.}
   proc avgRegression*(n: cint; a: cint; c: cint; g: cint; t: cint; avgModel: ptr SvmModel;
                      info: ptr cint): cdouble {.cdecl, importc: "avg_regression",
-      dynlib: rnaLib.}
+      importRna.}
   proc sdRegression*(n: cint; a: cint; c: cint; g: cint; t: cint; sdModel: ptr SvmModel): cdouble {.
-      cdecl, importc: "sd_regression", dynlib: rnaLib.}
+      cdecl, importc: "sd_regression", importRna.}
   proc minimalSd*(n: cint; a: cint; c: cint; g: cint; t: cint): cdouble {.cdecl,
-      importc: "minimal_sd", dynlib: rnaLib.}
+      importc: "minimal_sd", importRna.}
   proc svmLoadModelString*(modelString: cstring): ptr SvmModel {.cdecl,
-      importc: "svm_load_model_string", dynlib: rnaLib.}
+      importc: "svm_load_model_string", importRna.}
   proc getSeqComposition*(s: ptr cshort; start: cuint; stop: cuint; length: cuint): ptr cint {.
-      cdecl, importc: "get_seq_composition", dynlib: rnaLib.}
+      cdecl, importc: "get_seq_composition", importRna.}

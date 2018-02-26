@@ -35,17 +35,17 @@ type
 proc vrnaPlotDpEPS*(filename: cstring; sequence: cstring; upper: ptr VrnaPlistT;
                    lower: ptr VrnaPlistT; auxdata: ptr VrnaDotplotAuxdataT;
                    options: cuint): cint {.cdecl, importc: "vrna_plot_dp_EPS",
-                                        dynlib: rnaLib.}
+                                        importRna.}
 proc pS_colorDotPlot*(string: cstring; pi: ptr VrnaCpairT; filename: cstring): cint {.cdecl,
-    importc: "PS_color_dot_plot", dynlib: rnaLib.}
+    importc: "PS_color_dot_plot", importRna.}
 proc pS_colorDotPlotTurn*(seq: cstring; pi: ptr VrnaCpairT; filename: cstring; winSize: cint): cint {.
-    cdecl, importc: "PS_color_dot_plot_turn", dynlib: rnaLib.}
+    cdecl, importc: "PS_color_dot_plot_turn", importRna.}
 
 proc pS_dotPlotList*(seq: cstring; filename: cstring; pl: ptr VrnaPlistT; mf: ptr VrnaPlistT;
                     comment: cstring): cint {.cdecl, importc: "PS_dot_plot_list",
-    dynlib: rnaLib.}
+    importRna.}
 proc vrnaPlotDpPS_list*(seq: cstring; cp: cint; wastlfile: cstring; pl: ptr VrnaPlistT;
                        mf: ptr VrnaPlistT; comment: cstring): cint {.cdecl,
-    importc: "vrna_plot_dp_PS_list", dynlib: rnaLib.}
+    importc: "vrna_plot_dp_PS_list", importRna.}
 proc pS_dotPlotTurn*(seq: cstring; pl: ptr VrnaPlistT; filename: cstring; winSize: cint): cint {.
-    cdecl, importc: "PS_dot_plot_turn", dynlib: rnaLib.}
+    cdecl, importc: "PS_dot_plot_turn", importRna.}

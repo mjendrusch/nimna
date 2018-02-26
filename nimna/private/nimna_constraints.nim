@@ -5,6 +5,8 @@
 # This library is licensed under the MIT license.
 # For more information see LICENSE.
 
+## .. include:: ../../docs/constraints.txt
+
 import RNA
 import nimna_types, nimna_compound
 
@@ -22,5 +24,5 @@ proc lift*(c: Compound): Compound {. discardable, inline .} =
   liftMotifs(c)
 
 proc init*(c: Compound): Compound {. discardable, inline .} =
-  ## Initializes all constraint data structure in a Compound.
+  ## Initializes all constraint data structures in a Compound.
   lift(c)

@@ -1,0 +1,23 @@
+Sample
+======
+
+This module implements the random sampling of structures from a ``Compound's``
+ensemble according to its Boltzmann distribution.
+
+Example usage
+-------------
+
+We now want to sample secondary structures from a ``Compound``.
+
+.. code-block :: nim
+  import nimna
+
+  var
+    # The compound in question.
+    c: Compound = ...
+
+  # Let's get ourselves a few thousand samples:
+  for idx in 0 ..< 10_000:
+    let
+      res = c.sample
+    ... # Do something to the sample.

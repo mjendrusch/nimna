@@ -6,6 +6,6 @@
 # For more information see LICENSE.
 
 proc mea*(p: ptr VrnaPlistT; structure: cstring; gamma: cdouble): cfloat {.cdecl,
-    importc: "MEA", dynlib: rnaLib.}
+    importc: "MEA", importRna.}
 proc meaSeq*(p: ptr VrnaPlistT; sequence: cstring; structure: cstring; gamma: cdouble;
-             pf: ptr VrnaExpParamT): cfloat {.cdecl, importc: "MEA_seq", dynlib: rnaLib.}
+             pf: ptr VrnaExpParamT): cfloat {.cdecl, importc: "MEA_seq", importRna.}

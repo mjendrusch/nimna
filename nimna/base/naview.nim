@@ -6,4 +6,4 @@
 # For more information see LICENSE.
 
 proc naviewXyCoordinates*(pairTable: ptr cshort; x: ptr cfloat; y: ptr cfloat): cint {.
-    cdecl, importc: "naview_xy_coordinates", dynlib: rnaLib.}
+    cdecl, importc: "naview_xy_coordinates", importRna.}

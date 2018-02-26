@@ -5,27 +5,12 @@
 # This library is licensed under the MIT license.
 # For more information see LICENSE.
 
+## .. include:: ../../docs/misc.txt
+
 import strutils, math, random
 import RNA
-import nimna_types, nimna_cutils, nimna_compound, nimna_probabilities
-
-# Structure sampling from an ensemble
-
-proc sample*(c: Compound): string =
-  ## Samples a secondary structure from an ensemble according to its probability.
-  withRef c:
-    let structure = vrnaPBacktrack(c.vfc)
-    result = $structure
-  dealloc structure
-
-proc sample2D*(c: Compound2D; distance1, distance2: int): string =
-  ## Samples a secondary structure at a position in secondary structure
-  ## space with distance1 from one reference structure and distance2 from
-  ## the other.
-  withRef c:
-    let structure = vrnaPBacktrackTwoD(c.vfc, distance1.cint, distance2.cint)
-    result = $structure
-  dealloc structure
+import nimna_types, nimna_cutils, nimna_compound, nimna_probabilities,
+       nimna_fold
 
 # Utilities for plotting:
 
@@ -48,7 +33,8 @@ proc toBlueRed(f: float, gamma: float): string =
     num = 201 - num + 6
   result = colorize("  ", num.uint8)
 
-proc densityPlot*(c: Compound, gamma: float, scheme: ColorScheme = csGrayScale) =
+proc densityPlot*(c: Compound, gamma: float,
+                  scheme: ColorScheme = csGrayScale) =
   ## Create a colored density plot of the base pairing probabilities in the
   ## Compound, in a terminal emulator compatible with ANSI-escapes.
   let toColorScheme = case scheme:
@@ -67,14 +53,16 @@ proc densityPlot*(c: Compound, gamma: float, scheme: ColorScheme = csGrayScale) 
     echo c.sequence[i], seqI
 
 # Read and write energy parameter files:
-proc readPars*(path: string) =
+proc readPars*(path: string) {. inline .} =
+  ## Reads an folding parameter file located at ``path``.
   readParameterFile(path.cstring)
-proc writePars*(path: string) =
+proc writePars*(path: string) {. inline .} =
+  ## Writes the current paramsters to a file at ``path``.
   writeParameterFile(path.cstring)
 
 # Utilities for DNA/RNA processing
 
-proc complement*(a: char): char =
+proc complement*(a: char): char {. inline .} =
   ## Returns the complement of a DNA base.
   case a
   of 'a', 'A':
@@ -103,19 +91,20 @@ proc complement*(a: char): char =
     result = 'N'
 
 proc randomDNA*(length: int): string =
-  ## Returns a random DNA of a given length.
+  ## Returns a random DNA of a given ``length``.
   result = newStringOfCap(length)
   for i in 0 ..< length:
     result.add ['G', 'A', 'T', 'C'].rand
 
-proc randomDNAofStructure*(struc: string): string =
-  ## Returns a random DNA with a certain projected secondary structure.
-  result = newString(struc.len)
+proc randomDNAofStructure*(structure: string): string =
+  ## Returns a random DNA with a certain projected
+  ## secondary ``structure``.
+  result = newString(structure.len)
   var
-    open = newSeqOfCap[int](int(struc.len / 2 + 1))
-    close = newSeqOfCap[int](int(struc.len / 2 + 1))
-  for idx in 0 ..< struc.len:
-    case struc[idx]
+    open = newSeqOfCap[int](int(structure.len div 2 + 1))
+    close = newSeqOfCap[int](int(structure.len div 2 + 1))
+  for idx in 0 ..< structure.len:
+    case structure[idx]
     of '(':
       open.add(idx)
     of ')':

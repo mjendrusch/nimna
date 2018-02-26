@@ -15,10 +15,10 @@ type
     x*: cfloat
     y*: cfloat
 
-var rnaPlotType* {.importc: "rna_plot_type", dynlib: rnaLib.}: cint
+var rnaPlotType* {.importc: "rna_plot_type", importRna.}: cint
 
 proc simpleXyCoordinates*(pairTable: ptr cshort; x: ptr cfloat; y: ptr cfloat): cint {.
-    cdecl, importc: "simple_xy_coordinates", dynlib: rnaLib.}
+    cdecl, importc: "simple_xy_coordinates", importRna.}
 
 proc simpleCircplotCoordinates*(pairTable: ptr cshort; x: ptr cfloat; y: ptr cfloat): cint {.
-    cdecl, importc: "simple_circplot_coordinates", dynlib: rnaLib.}
+    cdecl, importc: "simple_circplot_coordinates", importRna.}

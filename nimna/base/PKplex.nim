@@ -6,16 +6,16 @@
 # For more information see LICENSE.
 
 var
-  plexHits* {.importc: "PlexHits", dynlib: rnaLib.}: ptr DupVar
-  plexHitsArrayLength* {.importc: "PlexHitsArrayLength", dynlib: rnaLib.}: cint
-  numberOfHits* {.importc: "NumberOfHits", dynlib: rnaLib.}: cint
-  verbose* {.importc: "verbose", dynlib: rnaLib.}: cint
+  plexHits* {.importc: "PlexHits", importRna.}: ptr DupVar
+  plexHitsArrayLength* {.importc: "PlexHitsArrayLength", importRna.}: cint
+  numberOfHits* {.importc: "NumberOfHits", importRna.}: cint
+  verbose* {.importc: "verbose", importRna.}: cint
 
 
 proc pKLduplexfoldXS*(s1: cstring; accessS1: ptr ptr cint; threshold: cint;
                      alignmentLength: cint; delta: cint): ptr ptr DupVar {.cdecl,
-    importc: "PKLduplexfold_XS", dynlib: rnaLib.}
+    importc: "PKLduplexfold_XS", importRna.}
 proc arraySize*(array: ptr ptr DuplexT): cint {.cdecl, importc: "arraySize",
-    dynlib: rnaLib.}
+    importRna.}
 proc freeDuplexT*(array: ptr ptr DuplexT) {.cdecl, importc: "freeDuplexT",
-                                       dynlib: rnaLib.}
+                                       importRna.}

@@ -11,22 +11,22 @@ const
   RNA_UP_MODE_3* = 4
 
 proc pfUnstru*(sequence: cstring; maxW: cint): ptr PuContrib {.cdecl,
-    importc: "pf_unstru", dynlib: rnaLib.}
+    importc: "pf_unstru", importRna.}
 
 proc pfInteract*(s1: cstring; s2: cstring; pC: ptr PuContrib; pC2: ptr PuContrib;
                 maxW: cint; cstruc: cstring; incr3: cint; incr5: cint): ptr interact {.
-    cdecl, importc: "pf_interact", dynlib: rnaLib.}
+    cdecl, importc: "pf_interact", importRna.}
 
-proc freeInteract*(pin: ptr interact) {.cdecl, importc: "free_interact", dynlib: rnaLib.}
+proc freeInteract*(pin: ptr interact) {.cdecl, importc: "free_interact", importRna.}
 
 proc upPlot*(pC: ptr PuContrib; pCSh: ptr PuContrib; pint: ptr interact; ofile: cstring;
             unpairedValues: ptr ptr cint; selectContrib: cstring; head: cstring;
-            mode: cuint): cint {.cdecl, importc: "Up_plot", dynlib: rnaLib.}
+            mode: cuint): cint {.cdecl, importc: "Up_plot", importRna.}
 
 proc getPuContribStruct*(n: cuint; w: cuint): ptr PuContrib {.cdecl,
-    importc: "get_pu_contrib_struct", dynlib: rnaLib.}
+    importc: "get_pu_contrib_struct", importRna.}
 
 proc freePuContribStruct*(pu: ptr PuContrib) {.cdecl,
-    importc: "free_pu_contrib_struct", dynlib: rnaLib.}
+    importc: "free_pu_contrib_struct", importRna.}
 proc freePuContrib*(pu: ptr PuContrib) {.cdecl, importc: "free_pu_contrib",
-                                     dynlib: rnaLib.}
+                                     importRna.}

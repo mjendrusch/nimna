@@ -6,18 +6,18 @@
 # For more information see LICENSE.
 
 var
-  mirnatog* {.importc: "mirnatog", dynlib: rnaLib.}: cint
-  f_monomer* {.importc: "F_monomer", dynlib: rnaLib.}: array[2, cdouble]
+  mirnatog* {.importc: "mirnatog", importRna.}: cint
+  f_monomer* {.importc: "F_monomer", importRna.}: array[2, cdouble]
 
 proc pfDimer*(vc: ptr VrnaFoldCompoundT; structure: ptr char): VrnaDimerPfT {.cdecl,
-    importc: "vrna_pf_dimer", dynlib: rnaLib.}
+    importc: "vrna_pf_dimer", importRna.}
 
 proc pfDimerProbs*(fab: cdouble; fa: cdouble; fb: cdouble; prAB: ptr VrnaPlistT;
                      prA: ptr VrnaPlistT; prB: ptr VrnaPlistT; alength: cint;
                      expParams: ptr VrnaExpParamT) {.cdecl,
-   importc: "vrna_pf_dimer_probs", dynlib: rnaLib.}
+   importc: "vrna_pf_dimer_probs", importRna.}
 
 proc pfDimerConcentrations*(fcAB: cdouble; fcAA: cdouble; fcBB: cdouble;
                               fea: cdouble; feb: cdouble; startconc: ptr cdouble;
                               expParams: ptr VrnaExpParamT): ptr VrnaDimerConcT {.
-   cdecl, importc: "vrna_pf_dimer_concentrations", dynlib: rnaLib.}
+   cdecl, importc: "vrna_pf_dimer_concentrations", importRna.}

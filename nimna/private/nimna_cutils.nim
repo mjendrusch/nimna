@@ -5,6 +5,8 @@
 # This library is licensed under the MIT license.
 # For more information see LICENSE.
 
+## .. include:: ../../docs/cutils.txt
+
 proc free*(p: pointer) {. importc: "free", nodecl .}
 proc calloc*(num, size: cuint): pointer {. importc: "calloc", nodecl .}
 template withRef*(x, y: untyped) =

@@ -5,14 +5,17 @@
 # This library is licensed under the MIT license.
 # For more information see LICENSE.
 
+## .. include:: ../../docs/alignment.txt
+
 import RNA
 import nimna_types, nimna_cutils
 
 template len*(al: Alignment): int =
+  ## Returns the number of sequences in an ``Alignment``.
   al.nSeqs
 
 proc freeAlignment(al: Alignment) =
-  # Have to use C's ``calloc`` and free, as it is used
+  # Have to use C's ``calloc`` and ``free``, as it is used
   # by ViennaRNA, and I am not sure if it would be wise
   # to try using different allocators on one piece of memory.
   for idx in 0 ..< al.len:
@@ -39,7 +42,7 @@ proc alignment*(path: string): Alignment =
   ).int
 
 proc alignment*(sequences, names: openarray[string]): Alignment =
-  ## Creates an Alignment from a set of prealigned sequences and sequence names.
+  ## Creates an ``Alignment`` from a set of prealigned sequences and sequence names.
   new result, freeAlignment
   doAssert sequences.len == names.len,
     "Arrays or seqs of equal length need to be passed."
@@ -59,7 +62,7 @@ proc alignment*(sequences, names: openarray[string]): Alignment =
       (names[idx].len) * sizeof(char))
 
 proc sequence*(al: Alignment, idx: int): string =
-  ## Returns the sequence at the idx'th position in an Alignment.
+  ## Returns the sequence at the idx'th position in an ``Alignment``.
   doAssert idx < al.len,
     "The index of a sequence may not be greater or equal to the number of sequences present."
   doAssert idx >= 0,
@@ -67,7 +70,7 @@ proc sequence*(al: Alignment, idx: int): string =
   $al.algn[idx]
 
 proc name*(al: Alignment, idx: int): string =
-  ## Returns the name at the idx'th position in an Alignment.
+  ## Returns the name at the idx'th position in an ``Alignment``.
   doAssert idx < al.len,
     "The index of a name may not be greater or equal to the number of names present."
   doAssert idx >= 0,
@@ -75,16 +78,21 @@ proc name*(al: Alignment, idx: int): string =
   $al.cnames[idx]
 
 iterator sequences*(al: Alignment): string =
-  ## Iterates over sequences in an Alignment.
+  ## Iterates over sequences in an ``Alignment``.
   for idx in 0 ..< al.len:
     yield $al.algn[idx]
 
 iterator names*(al: Alignment): string =
-  ## Iterates over names in an Alignment.
+  ## Iterates over names in an ``Alignment``.
   for idx in 0 ..< al.len:
     yield $al.cnames[idx]
 
+iterator items*(al: Alignment): string =
+  ## Alias for sequences.
+  for sq in al.sequences:
+    yield sq
+
 iterator pairs*(al: Alignment): tuple[name, sequence: string] =
-  ## Iterates over pairs of sequences and sequence names in an Alignment.
+  ## Iterates over pairs of sequences and sequence names in an ``Alignment``.
   for idx in 0 ..< al.len:
     yield ($al.cnames[idx], $al.algn[idx])

@@ -1,0 +1,24 @@
+InteractionList
+===============
+
+This module implements procedures for the ``InteractionList`` and ``PairList``
+types, which allow to access interactions in a ``Compound``, with their types
+and probabilities. Such interactions can be base pairs or G-quadruplexes.
+It also implements maximum expected accuracy folding, based on an
+``InteractionList``.
+
+Example usage
+-------------
+
+We want to extract the maximum expectad accuracy fold of a ``Compound``.
+
+.. code-block :: nim
+  import nimna
+
+  var
+    c: Compound = ... # The Compound in quesion.
+    plist = c.pairList
+
+  let
+    # Do the folding:
+    (accuracy, structure) = plist.mea

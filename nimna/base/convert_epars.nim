@@ -31,4 +31,4 @@ const
 
 
 proc convertParameterFile*(iname: cstring; oname: cstring; options: cuint) {.cdecl,
-    importc: "convert_parameter_file", dynlib: rnaLib.}
+    importc: "convert_parameter_file", importRna.}

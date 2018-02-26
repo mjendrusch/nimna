@@ -20,54 +20,54 @@ const
   VRNA_INPUT_NOSKIP_COMMENTS* = 128
   VRNA_INPUT_COMMENT* = 8192
 
-proc vrnaAlloc*(size: cuint): pointer {.cdecl, importc: "vrna_alloc", dynlib: rnaLib.}
+proc vrnaAlloc*(size: cuint): pointer {.cdecl, importc: "vrna_alloc", importRna.}
 
 proc vrnaRealloc*(p: pointer; size: cuint): pointer {.cdecl, importc: "vrna_realloc",
-    dynlib: rnaLib.}
+    importRna.}
 
 proc vrnaMessageError*(format: cstring) {.varargs, cdecl,
                                        importc: "vrna_message_error",
-                                       dynlib: rnaLib.}
+                                       importRna.}
 
 # proc vrnaMessageVerror*(format: cstring; args: VaList) {.cdecl,
-#     importc: "vrna_message_verror", dynlib: rnaLib.}
+#     importc: "vrna_message_verror", importRna.}
 
 proc vrnaMessageWarning*(format: cstring) {.varargs, cdecl,
-    importc: "vrna_message_warning", dynlib: rnaLib.}
+    importc: "vrna_message_warning", importRna.}
 
 # proc vrnaMessageVwarning*(format: cstring; args: VaList) {.cdecl,
-#     importc: "vrna_message_vwarning", dynlib: rnaLib.}
+#     importc: "vrna_message_vwarning", importRna.}
 
 proc vrnaMessageInfo*(fp: ptr File; format: cstring) {.varargs, cdecl,
-    importc: "vrna_message_info", dynlib: rnaLib.}
+    importc: "vrna_message_info", importRna.}
 
 # proc vrnaMessageVinfo*(fp: ptr File; format: cstring; args: VaList) {.cdecl,
-#     importc: "vrna_message_vinfo", dynlib: rnaLib.}
+#     importc: "vrna_message_vinfo", importRna.}
 
-proc vrnaInitRand*() {.cdecl, importc: "vrna_init_rand", dynlib: rnaLib.}
+proc vrnaInitRand*() {.cdecl, importc: "vrna_init_rand", importRna.}
 
-var xsubi* {.importc: "xsubi", dynlib: rnaLib.}: array[3, cushort]
+var xsubi* {.importc: "xsubi", importRna.}: array[3, cushort]
 
 
-proc vrnaUrn*(): cdouble {.cdecl, importc: "vrna_urn", dynlib: rnaLib.}
+proc vrnaUrn*(): cdouble {.cdecl, importc: "vrna_urn", importRna.}
 
 proc vrnaIntUrn*(`from`: cint; to: cint): cint {.cdecl, importc: "vrna_int_urn",
-    dynlib: rnaLib.}
+    importRna.}
 
-proc vrnaTimeStamp*(): cstring {.cdecl, importc: "vrna_time_stamp", dynlib: rnaLib.}
+proc vrnaTimeStamp*(): cstring {.cdecl, importc: "vrna_time_stamp", importRna.}
 
 proc getInputLine*(string: cstringArray; options: cuint): cuint {.cdecl,
-    importc: "get_input_line", dynlib: rnaLib.}
+    importc: "get_input_line", importRna.}
 
 proc vrnaMessageInputSeqSimple*() {.cdecl,
                                   importc: "vrna_message_input_seq_simple",
-                                  dynlib: rnaLib.}
+                                  importRna.}
 
 proc vrnaMessageInputSeq*(s: cstring) {.cdecl, importc: "vrna_message_input_seq",
-                                     dynlib: rnaLib.}
+                                     importRna.}
 
 proc vrnaIdxRowWise*(length: cuint): ptr cint {.cdecl, importc: "vrna_idx_row_wise",
-    dynlib: rnaLib.}
+    importRna.}
 
 proc vrnaIdxColWise*(length: cuint): ptr cint {.cdecl, importc: "vrna_idx_col_wise",
-    dynlib: rnaLib.}
+    importRna.}

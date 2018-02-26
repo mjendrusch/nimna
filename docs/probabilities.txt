@@ -1,0 +1,26 @@
+Probabilities
+=============
+
+This module implements ``Probabilities``, an immutable view into a ``Compound's``
+probability matrix. It holds a reference to its parent ``Compound`` to make sure
+it does not outlive it. The module provides accessors and iterators, so the
+``Probability`` object handles just as an array would.
+
+Example usage
+-------------
+
+We have an RNA sequence and want to know the probabilities of base pairing for
+some base pairs.
+
+.. code-block :: nim
+  import strformat
+  import nimna
+
+  var
+    c: Compound = ... # The RNA sequence in question.
+    prob = c.probabilities
+
+  for idx in 0 ..< c.len div 2:
+    let
+      onStemProbability = prob[idx, c.len - idx]
+    echo fmt"Probability for base pair on diagonal: {onStemProbability}"

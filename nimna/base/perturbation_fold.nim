@@ -23,4 +23,4 @@ proc vrnaScMinimizePertubation*(vc: ptr VrnaFoldCompoundT;
                                minStepSize: cdouble; minImprovement: cdouble;
                                minimizerTolerance: cdouble;
                                callback: ProgressCallback) {.cdecl,
-    importc: "vrna_sc_minimize_pertubation", dynlib: rnaLib.}
+    importc: "vrna_sc_minimize_pertubation", importRna.}

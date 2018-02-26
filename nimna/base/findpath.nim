@@ -7,8 +7,8 @@
 
 proc vrnaPathFindpathSaddle*(vc: ptr VrnaFoldCompoundT; struc1: cstring;
                             struc2: cstring; max: cint): cint {.cdecl,
-    importc: "vrna_path_findpath_saddle", dynlib: rnaLib.}
+    importc: "vrna_path_findpath_saddle", importRna.}
 
 proc vrnaPathFindpath*(vc: ptr VrnaFoldCompoundT; s1: cstring; s2: cstring;
                       maxkeep: cint): ptr VrnaPathT {.cdecl,
-    importc: "vrna_path_findpath", dynlib: rnaLib.}
+    importc: "vrna_path_findpath", importRna.}

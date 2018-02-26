@@ -8,9 +8,9 @@
 proc aliLduplexfold*(s1: ptr cstring; s2: ptr cstring; threshold: cint;
                     extensionCost: cint; alignmentLength: cint; delta: cint;
                     fast: cint; ilA: cint; ilB: cint; bA: cint; bB: cint): ptr ptr DuplexT {.
-    cdecl, importc: "aliLduplexfold", dynlib: rnaLib.}
+    cdecl, importc: "aliLduplexfold", importRna.}
 
 proc aliLduplexfoldXS*(s1: ptr cstring; s2: ptr cstring; accessS1: ptr ptr cint;
                       accessS2: ptr ptr cint; threshold: cint; alignmentLength: cint;
                       delta: cint; fast: cint; ilA: cint; ilB: cint; bA: cint; bB: cint): ptr ptr DuplexT {.
-    cdecl, importc: "aliLduplexfold_XS", dynlib: rnaLib.}
+    cdecl, importc: "aliLduplexfold_XS", importRna.}

@@ -6,7 +6,7 @@
 # For more information see LICENSE.
 
 proc profileAln*(t1: ptr cfloat; seq1: cstring; t2: ptr cfloat; seq2: cstring): cfloat {.
-    cdecl, importc: "profile_aln", dynlib: rnaLib.}
+    cdecl, importc: "profile_aln", importRna.}
 proc setPalnParams*(gapOpen: cdouble; gapExt: cdouble; seqweight: cdouble;
                    freeEnds: cint): cint {.cdecl, importc: "set_paln_params",
-                                        dynlib: rnaLib.}
+                                        importRna.}

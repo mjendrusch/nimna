@@ -1,0 +1,7 @@
+Constraints
+===========
+
+This module imports and reexports the `Hard <nimna_constraints_hard.html>`_,
+`Soft <nimna_constraints_soft.html>`_ and
+`Motif <nimna_constraints_motif.html>`_ constraints. All those kinds of
+constraints may be used in combination.

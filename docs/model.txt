@@ -1,0 +1,20 @@
+Settings
+========
+
+This module implements facilities to set a ``Compound's`` folding parameters.
+To that end, it provides the ``settings`` macro, which allows to declaratively
+set any folding parameters desired.
+
+Example usage
+--------------
+
+Here, we apply settings to a ``Compound``, setting the temperature to `37 °C`
+and forbidding ``G --- U`` base pairs.
+
+.. code-block :: nim
+  let
+    opts = settings(
+      temperature = 37.0, # Set the temperature.
+      noGU = 1 # Forbid G --- U base pairs.
+    )
+   rnaOfInterest = compound"... the sequence ...".update(opts)

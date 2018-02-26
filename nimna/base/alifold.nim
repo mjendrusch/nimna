@@ -6,15 +6,15 @@
 # For more information see LICENSE.
 
 proc vrnaAlifold*(sequences: cstringArray; structure: cstring): cfloat {.cdecl,
-    importc: "vrna_alifold", dynlib: rnaLib.}
+    importc: "vrna_alifold", importRna.}
 
 proc vrnaCircalifold*(sequences: cstringArray; structure: cstring): cfloat {.cdecl,
-    importc: "vrna_circalifold", dynlib: rnaLib.}
+    importc: "vrna_circalifold", importRna.}
 
 proc vrnaPfAlifold*(sequences: cstringArray; structure: cstring;
                    pl: ptr ptr VrnaPlistT): cfloat {.cdecl,
-    importc: "vrna_pf_alifold", dynlib: rnaLib.}
+    importc: "vrna_pf_alifold", importRna.}
 
 proc vrnaPfCircalifold*(sequences: cstringArray; structure: cstring;
                        pl: ptr ptr VrnaPlistT): cfloat {.cdecl,
-    importc: "vrna_pf_circalifold", dynlib: rnaLib.}
+    importc: "vrna_pf_circalifold", importRna.}

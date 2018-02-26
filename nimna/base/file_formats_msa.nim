@@ -19,12 +19,12 @@ const
 proc vrnaFileMsaRead*(filename: cstring; names: ptr cstringArray;
                      aln: ptr cstringArray; id: ptr cstring;
                      structure: ptr cstring; options: cuint): cint {.cdecl,
-    importc: "vrna_file_msa_read", dynlib: rnaLib.}
+    importc: "vrna_file_msa_read", importRna.}
 
 proc vrnaFileMsaReadRecord*(fp: ptr File; names: ptr cstringArray;
                            aln: ptr cstringArray; id: ptr cstring;
                            structure: ptr cstring; options: cuint): cint {.cdecl,
-    importc: "vrna_file_msa_read_record", dynlib: rnaLib.}
+    importc: "vrna_file_msa_read_record", importRna.}
 
 proc vrnaFileMsaDetectFormat*(filename: cstring; options: cuint): cuint {.cdecl,
-    importc: "vrna_file_msa_detect_format", dynlib: rnaLib.}
+    importc: "vrna_file_msa_detect_format", importRna.}

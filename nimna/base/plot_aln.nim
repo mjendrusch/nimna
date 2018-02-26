@@ -7,8 +7,8 @@
 
 proc psColorAln*(structure: cstring; filename: cstring; seqs: ptr cstring;
                  names: ptr cstring): cint {.cdecl, importc: "PS_color_aln",
-    dynlib: rnaLib.}
+    importRna.}
 
 proc aliPsColorAln*(structure: cstring; filename: cstring; seqs: ptr cstring;
                     names: ptr cstring): cint {.cdecl, importc: "aliPS_color_aln",
-    dynlib: rnaLib.}
+    importRna.}

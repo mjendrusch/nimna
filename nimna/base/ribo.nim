@@ -6,7 +6,7 @@
 # For more information see LICENSE.
 
 proc getRibosum*(alseq: cstringArray; nSeq: cint; length: cint): ptr ptr cfloat {.cdecl,
-    importc: "get_ribosum", dynlib: rnaLib.}
+    importc: "get_ribosum", importRna.}
 
 proc readribosum*(name: cstring): ptr ptr cfloat {.cdecl, importc: "readribosum",
-    dynlib: rnaLib.}
+    importRna.}

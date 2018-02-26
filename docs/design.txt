@@ -1,0 +1,69 @@
+Design
+======
+
+The ``design`` module provides facilities for nucleic acid design.
+It is currently based on an artificial immune system algorithm
+with naive sequence sampling. Future versions will include smarter
+sampling algorithms and arbitrary optimization drivers (think
+Ant-colony optimization, etc.).
+
+General usage
+-------------
+
+The basic usage of ``nimna.design`` relies on the definition of a
+fitness function, and a set of constraints on the sequence space
+to be searched. Those are then fed into a ``DesignEngine``, which
+performs the actual sequence optimization.
+
+Example
+````````
+
+.. code-block ::
+  We want the following fold and sequence constraint:
+                 N
+             N       N
+              N --- G
+              N --- G
+              N --- C
+   5' N N N N         N
+      | | | |          N
+   3' N U C C N       N
+                H ---- N
+                  H --- N
+                   H --- A
+                    G      A
+                        U
+
+Let's design such a sequence:
+
+.. code-block :: nim
+  import strformat
+  import nimna, nimna.design
+
+  const
+    structure =  "(((((((...)))...(((...))).))))"
+    constraint = "NNNNNNNNNNGGCNNNNNAAUGHHHNCCUN"
+    population = 100
+
+  let
+    opts = settings(temperature = 37.0)
+
+  proc fitness(c: Compound): float =
+    c.update(opts)
+    let
+      targetEnergy = c.eval(structure)
+      (ensembleEnergy, _) = c.pf
+    ## we want a sequence for which the target
+    ## structure dominates the ensemble.
+    result = targetEnergy - ensembleEnergy
+
+  var
+    engine = newEngine(100, fitness)
+
+  engine.pattern = constraint
+
+  for idx in 0 ..< 5:
+    engine.step(1000)
+    engine.mutationProbability = engine.mutationProbability - 0.1
+
+  echo fmt"Best candidate is {engine.best.sequence} with score {engine.score}"

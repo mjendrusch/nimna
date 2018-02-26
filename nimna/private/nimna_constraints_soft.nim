@@ -5,6 +5,8 @@
 # This library is licensed under the MIT license.
 # For more information see LICENSE.
 
+## .. include:: ../../docs/soft.txt
+
 import RNA
 import nimna_types, nimna_cutils, nimna_compound
 

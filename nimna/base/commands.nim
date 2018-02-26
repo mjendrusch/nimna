@@ -14,15 +14,15 @@ const
       vrna_Cmd_Parse_Ud or vrna_Cmd_Parse_Sd)
 
 proc vrnaFileCommandsRead*(filename: cstring; options: cuint): ptr VrnaCmdT {.cdecl,
-    importc: "vrna_file_commands_read", dynlib: rnaLib.}
+    importc: "vrna_file_commands_read", importRna.}
 
 proc vrnaFileCommandsApply*(vc: ptr VrnaFoldCompoundT; filename: cstring;
                            options: cuint): cint {.cdecl,
-    importc: "vrna_file_commands_apply", dynlib: rnaLib.}
+    importc: "vrna_file_commands_apply", importRna.}
 
 proc vrnaCommandsApply*(vc: ptr VrnaFoldCompoundT; commands: ptr VrnaCmdT;
                        options: cuint): cint {.cdecl,
-    importc: "vrna_commands_apply", dynlib: rnaLib.}
+    importc: "vrna_commands_apply", importRna.}
 
 proc vrnaCommandsFree*(commands: ptr VrnaCmdT) {.cdecl,
-    importc: "vrna_commands_free", dynlib: rnaLib.}
+    importc: "vrna_commands_free", importRna.}

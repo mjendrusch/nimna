@@ -5,6 +5,11 @@
 # This library is licensed under the MIT license.
 # For more information see LICENSE.
 
+## This module provides all ViennaRNA-wrapper functionality available in
+## ``nimna``.
+
+## .. include:: ./docs/main.txt
+
 import nimna/private/RNA
 export RNA
 

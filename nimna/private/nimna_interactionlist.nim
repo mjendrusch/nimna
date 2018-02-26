@@ -5,6 +5,8 @@
 # This library is licensed under the MIT license.
 # For more information see LICENSE.
 
+## .. include:: ../../docs/plist.txt
+
 import RNA
 import nimna_types, nimna_cutils, nimna_compound, nimna_fold
 
@@ -77,7 +79,6 @@ proc mea*(p: Probabilities, gamma: float = 1.0'f64):
   ## Computes the maximum accuracy structure of an Ensemble stored in
   ## a set of Probabilities.
   result = p.pairList.mea(gamma)
-
 
 iterator items*(pl: PairList): PairListItem =
   ## Iterates over PairListItems in a PairList.

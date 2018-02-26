@@ -5,18 +5,10 @@
 # This library is licensed under the MIT license.
 # For more information see LICENSE.
 
+## .. include:: ../../docs/motif.txt
+
 import RNA
 import nimna_types, nimna_cutils, nimna_compound
-
-const
-  vudExtLoop* = 1.UnstructuredOption
-  vudHpLoop* = 2.UnstructuredOption
-  vudIntLoop* = 4.UnstructuredOption
-  vudMbLoop* = 8.UnstructuredOption
-  vudMotif* = 16.UnstructuredOption
-  vudAllLoops* = (Vrna_Unstructured_Domain_Ext_Loop or
-      Vrna_Unstructured_Domain_Hp_Loop or Vrna_Unstructured_Domain_Int_Loop or
-      Vrna_Unstructured_Domain_Mb_Loop).UnstructuredOption
 
 template unstructuredOption*(x: varargs[UnstructuredOption]): UnstructuredOption =
   ## Merges a list of ``UnstructuredOptions`` into a single ``UnstructuredOption``

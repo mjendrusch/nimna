@@ -1,0 +1,46 @@
+Types
+=====
+
+This module provides the basic garbage-collected wrapper types used in ``nimna``.
+It contains the following important type definitions:
+
+``Compound`` (`Compound <nimna_compound.html>`_)
+  The core type of the ``nimna`` API. It represents a fully parameterized
+  nucleic acid sequence, to be folded and analysed using the procedures in
+  nimna. Internally, it stores a pointer to a ``vrna_fold_compound_t`` object
+  of the ViennaRNA API, as well as a set of flags, to track the object's status
+  to only perform necessary recomputations and return precomupted results
+  otherwise.
+
+``Compound2D`` (`Compound <nimna_compound.html>`_)
+  Same as ``Compound``, but used for two-dimensional folding, i.e. folding
+  with respect to two reference sequences.
+
+``CompoundComparative`` (`Compound <nimna_compound.html>`_)
+  Same as ``Compound``, but used for comparative folding of multiple sequences,
+  i.e. of a multiple sequence ``Alignment``.
+
+``Alignment`` (`Alignment <nimna_alignment.html>`_)
+  Represents a multiple sequence alignment, storing a list of sequences and
+  their identifying names, together with a consensus secondary structure.
+
+``Suboptimals`` (`Suboptimals <nimna_subopt.html>`_)
+  Represents a list of suboptimal folds of a sequence.
+
+``InteractionList`` (`InteractionList <nimna_interactionlist.html>`_)
+  Represents a list of base interactions, those being base pairings, or
+  G-quadruplexes.
+
+``Settings`` (`Settings <nimna_model.html>`_)
+  Represents a set of settings to be used for folding. For the set of available
+  parameters, see the `ViennaRNA documentation`_.
+
+``Probabilities`` (`Probabilities <nimna_probabilities.html>`_)
+  The a view into the base pair probability matrix of a ``Compound``, generated
+  using partition function folding. As long as it is alive, its parent
+  ``Compound`` may not be garbage collected. This is useful for assessing the
+  probability of certain base-pairs existing, for example for fitness functions
+  for nucleic acid design.
+
+
+.. `ViennaRNA documentation`: https://www.tbi.univie.ac.at/RNA/ViennaRNA/doc/html/group__model__details.html

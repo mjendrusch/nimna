@@ -5,15 +5,16 @@
 # This library is licensed under the MIT license.
 # For more information see LICENSE.
 
+## .. include:: ../../docs/probabilities.txt
+
 import RNA
 import nimna_types, nimna_cutils, nimna_compound, nimna_fold
 
-# proc pf*(c: Compound): tuple[E: float; struc: string]
-# proc pfDimer*(c: Compound): tuple[E: DimerEnergies; struc: string]
 template len*(p: Probabilities): int =
   p.parent.len
 
 proc `[]`*(p: Probabilities; i, j: int): float =
+  ## Bracket accessor for a set of ``Probabilities``.
   if i + 1 > p.parent.length.int or j + 1 > p.parent.length.int or
     i < 0 or j < 0:
     raise newException(IndexError, "index out of bounds!")

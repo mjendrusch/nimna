@@ -8,45 +8,45 @@
 const
   STRUC* = 2000
 
-proc b2HIT*(structure: cstring): cstring {.cdecl, importc: "b2HIT", dynlib: rnaLib.}
+proc b2HIT*(structure: cstring): cstring {.cdecl, importc: "b2HIT", importRna.}
 
-proc b2C*(structure: cstring): cstring {.cdecl, importc: "b2C", dynlib: rnaLib.}
+proc b2C*(structure: cstring): cstring {.cdecl, importc: "b2C", importRna.}
 
 proc b2Shapiro*(structure: cstring): cstring {.cdecl, importc: "b2Shapiro",
-    dynlib: rnaLib.}
+    importRna.}
 
-proc addRoot*(structure: cstring): cstring {.cdecl, importc: "add_root", dynlib: rnaLib.}
+proc addRoot*(structure: cstring): cstring {.cdecl, importc: "add_root", importRna.}
 
 proc expandShapiro*(coarse: cstring): cstring {.cdecl, importc: "expand_Shapiro",
-    dynlib: rnaLib.}
+    importRna.}
 
 proc expandFull*(structure: cstring): cstring {.cdecl, importc: "expand_Full",
-    dynlib: rnaLib.}
+    importRna.}
 
 proc unexpandFull*(ffull: cstring): cstring {.cdecl, importc: "unexpand_Full",
-    dynlib: rnaLib.}
+    importRna.}
 
-proc unweight*(wcoarse: cstring): cstring {.cdecl, importc: "unweight", dynlib: rnaLib.}
+proc unweight*(wcoarse: cstring): cstring {.cdecl, importc: "unweight", importRna.}
 
 proc unexpandAlignedF*(align: array[2, cstring]) {.cdecl,
-    importc: "unexpand_aligned_F", dynlib: rnaLib.}
+    importc: "unexpand_aligned_F", importRna.}
 
 proc parseStructure*(structure: cstring) {.cdecl, importc: "parse_structure",
-                                        dynlib: rnaLib.}
+                                        importRna.}
 
-var loopSize* {.importc: "loop_size", dynlib: rnaLib.}: array[Struc, cint]
-
-
-var helixSize* {.importc: "helix_size", dynlib: rnaLib.}: array[Struc, cint]
+var loopSize* {.importc: "loop_size", importRna.}: array[Struc, cint]
 
 
-var loopDegree* {.importc: "loop_degree", dynlib: rnaLib.}: array[Struc, cint]
+var helixSize* {.importc: "helix_size", importRna.}: array[Struc, cint]
 
 
-var loops* {.importc: "loops", dynlib: rnaLib.}: cint
+var loopDegree* {.importc: "loop_degree", importRna.}: array[Struc, cint]
 
 
-var unpaired* {.importc: "unpaired", dynlib: rnaLib.}: cint
+var loops* {.importc: "loops", importRna.}: cint
 
 
-var pairs* {.importc: "pairs", dynlib: rnaLib.}: cint
+var unpaired* {.importc: "unpaired", importRna.}: cint
+
+
+var pairs* {.importc: "pairs", importRna.}: cint

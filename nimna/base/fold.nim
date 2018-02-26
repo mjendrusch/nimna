@@ -6,7 +6,7 @@
 # For more information see LICENSE.
 
 proc vrnaFold*(sequence: cstring; structure: cstring): cfloat {.cdecl,
-    importc: "vrna_fold", dynlib: rnaLib.}
+    importc: "vrna_fold", importRna.}
 
 proc vrnaCircfold*(sequence: cstring; structure: cstring): cfloat {.cdecl,
-    importc: "vrna_circfold", dynlib: rnaLib.}
+    importc: "vrna_circfold", importRna.}

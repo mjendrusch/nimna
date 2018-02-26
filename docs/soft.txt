@@ -1,0 +1,30 @@
+Soft
+=====
+
+This module provides facilities to implement soft constraints into the folding
+process. It allows to assign energy advantages or penalties to given base
+pairings and secondary structures and to thus influence folding based on
+prior knowledge on folding energies adapted to specific experimental conditions.
+
+Example usage
+-------------
+
+We know that a specific set of base pairs is stabilized by interaction with
+the experimental environment (solvents, ligands, whatever else), with a free
+energy of :math:`-0.05 \frac{kcal}{mol}`. Thus, we use ``preferPaired`` with
+these base pairs.
+
+.. code-block :: nim
+  import nimna
+
+  const advantage = -0.05
+
+  var
+    # The list of affected base pairs.
+    affectedBasePairs: seq[tuple[i, j: int]] = ...
+    # A compound to be folded.
+    sequence: Compound = ...
+
+  # Give those base pairs an energy advantage.
+  for i, j in affectedBasePairs:
+    sequence.preferPaired(i, j, advantage)

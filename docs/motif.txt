@@ -1,0 +1,48 @@
+Motif
+=====
+
+This module implements structured and unstructured sequence-motif based
+constraints. It works just like soft constraints, by assigning a free energy
+to a sequence motif.
+
+Example usage
+-------------
+Let's say we have an RNA sequence containing an aptamer with known fold and
+free energy of binding. We want to add that aptamer as a motif constraint.
+
+The aptamer structure and sequence:
+
+.. code-block ::
+  structure ASCII art:
+
+    5'  3'
+    C---G
+    G---C
+   A    U C G G 5'
+  A    /  | | |
+   A  A   G C C 3'
+
+  sequence:
+           v
+  CGAAAAGCC&GGCUCG
+          ---
+  structure:
+           v
+  ((...((((&))))))
+          ---
+            \_ `&` indicates a sequence split.
+
+
+.. code-block :: nim
+  import nimna
+
+  # The aptamer's binding free energy.
+  const energy = -2.37 # kcal / mol
+
+  var
+    c: Compound = ... # The Compound.
+
+  # Set the constraint:
+  c.preferMotif("CGAAAAGCC&GGCUCG",
+                "((...((((&))))))",
+                energy)

@@ -36,33 +36,33 @@ const
       uint(Vrna_Constraint_Context_Mb_Loop_Enc))
 
 proc vrnaMessageConstraintOptions*(option: cuint) {.cdecl,
-    importc: "vrna_message_constraint_options", dynlib: rnaLib.}
+    importc: "vrna_message_constraint_options", importRna.}
 
 proc vrnaMessageConstraintOptionsAll*() {.cdecl, importc: "vrna_message_constraint_options_all",
-                                        dynlib: rnaLib.}
+                                        importRna.}
 
 proc vrnaHcInit*(vc: ptr VrnaFoldCompoundT) {.cdecl, importc: "vrna_hc_init",
-    dynlib: rnaLib.}
+    importRna.}
 
 proc vrnaHcAddUp*(vc: ptr VrnaFoldCompoundT; i: cint; option: char) {.cdecl,
-    importc: "vrna_hc_add_up", dynlib: rnaLib.}
+    importc: "vrna_hc_add_up", importRna.}
 
 proc vrnaHcAddUpBatch*(vc: ptr VrnaFoldCompoundT; constraints: ptr VrnaHcUpT): cint {.
-    cdecl, importc: "vrna_hc_add_up_batch", dynlib: rnaLib.}
+    cdecl, importc: "vrna_hc_add_up_batch", importRna.}
 
 proc vrnaHcAddBp*(vc: ptr VrnaFoldCompoundT; i: cint; j: cint; option: char) {.cdecl,
-    importc: "vrna_hc_add_bp", dynlib: rnaLib.}
+    importc: "vrna_hc_add_bp", importRna.}
 
 proc vrnaHcAddBpNonspecific*(vc: ptr VrnaFoldCompoundT; i: cint; d: cint; option: char) {.
-    cdecl, importc: "vrna_hc_add_bp_nonspecific", dynlib: rnaLib.}
+    cdecl, importc: "vrna_hc_add_bp_nonspecific", importRna.}
 
-proc vrnaHcFree*(hc: ptr VrnaHcT) {.cdecl, importc: "vrna_hc_free", dynlib: rnaLib.}
+proc vrnaHcFree*(hc: ptr VrnaHcT) {.cdecl, importc: "vrna_hc_free", importRna.}
 when defined(WITH_GEN_HC):
   proc vrnaHcAddF*(vc: ptr VrnaFoldCompoundT; f: ptr VrnaCallbackHcEvaluate) {.cdecl,
-      importc: "vrna_hc_add_f", dynlib: rnaLib.}
+      importc: "vrna_hc_add_f", importRna.}
   proc vrnaHcAddData*(vc: ptr VrnaFoldCompoundT; data: pointer;
                      f: ptr VrnaCallbackFreeAuxdata) {.cdecl,
-      importc: "vrna_hc_add_data", dynlib: rnaLib.}
+      importc: "vrna_hc_add_data", importRna.}
 
 proc vrnaHcAddFromDb*(vc: ptr VrnaFoldCompoundT; constraint: cstring; options: cuint): cint {.
-    cdecl, importc: "vrna_hc_add_from_db", dynlib: rnaLib.}
+    cdecl, importc: "vrna_hc_add_from_db", importRna.}

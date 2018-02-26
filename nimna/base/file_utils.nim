@@ -6,15 +6,15 @@
 # For more information see LICENSE.
 
 proc vrnaFileCopy*(`from`: ptr File; to: ptr File) {.cdecl, importc: "vrna_file_copy",
-    dynlib: rnaLib.}
+    importRna.}
 
 proc vrnaReadLine*(fp: ptr File): cstring {.cdecl, importc: "vrna_read_line",
-                                       dynlib: rnaLib.}
+                                       importRna.}
 
-proc vrnaMkdirP*(path: cstring): cint {.cdecl, importc: "vrna_mkdir_p", dynlib: rnaLib.}
+proc vrnaMkdirP*(path: cstring): cint {.cdecl, importc: "vrna_mkdir_p", importRna.}
 
 proc vrnaBasename*(path: cstring): cstring {.cdecl, importc: "vrna_basename",
-    dynlib: rnaLib.}
+    importRna.}
 
 proc vrnaDirname*(path: cstring): cstring {.cdecl, importc: "vrna_dirname",
-                                        dynlib: rnaLib.}
+                                        importRna.}

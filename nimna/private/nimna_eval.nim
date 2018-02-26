@@ -5,6 +5,8 @@
 # This library is licensed under the MIT license.
 # For more information see LICENSE.
 
+## .. include:: ../../docs/eval.txt
+
 import RNA
 import nimna_types, nimna_cutils, nimna_compound
 
@@ -18,7 +20,6 @@ proc eval*(c: CompoundComparative, structure: string): float =
   ## alignment of sequences.
   withRef c:
     result = vrnaEvalCovarStructure(c.vfc, structure.cstring).float
-
 
 proc evalAdd*(c: Compound; structure: string; a, b: Natural): float =
   ## Calculates the free energy associated with adding a base pair between bases
@@ -43,7 +44,6 @@ proc evalRemove*(c: Compound; structure: string; a, b: Natural): float =
       "`b` may not be greater than, or equal to the Compound's length.")
   withRef c:
     result = vrnaEvalMove(c.vfc, structure.cstring, -a.cint - 1, -b.cint - 1)
-
 
 proc evalMove*(c: Compound; structure: string; a, b: int): float {. inline .} =
   ## Calculates the free energy associated with adding or removing a base pair.

@@ -285,6 +285,7 @@ type
     typ*: VrnaFcTypeE
     length*: cuint
     cutpoint*: cint
+    strand_number*: ptr cuint
     hc*: ptr VrnaHcT
     matrices*: ptr VrnaMxMfeT
     expMatrices*: ptr VrnaMxPfT
@@ -723,24 +724,24 @@ const
   VRNA_OPTION_WINDOW* = 16
 
 proc foldCompound*(sequence: cstring; mdP: ptr VrnaMdT; options: cuint): ptr VrnaFoldCompoundT {.
-                   cdecl, importc: "vrna_fold_compound", dynlib: rnaLib.}
+                   cdecl, importc: "vrna_fold_compound", importRna.}
 
 proc foldCompoundComparative*(sequences: cstringArray; mdP: ptr VrnaMdT;
                               options: cuint): ptr VrnaFoldCompoundT {.cdecl,
-    importc: "vrna_fold_compound_comparative", dynlib: rnaLib.}
+    importc: "vrna_fold_compound_comparative", importRna.}
 proc foldCompoundTwoD*(sequence: cstring; s1: cstring; s2: cstring;
                        mdP: ptr VrnaMdT; options: cuint): ptr VrnaFoldCompoundT {.
-    cdecl, importc: "vrna_fold_compound_TwoD", dynlib: rnaLib.}
+    cdecl, importc: "vrna_fold_compound_TwoD", importRna.}
 proc foldCompoundPrepare*(vc: ptr VrnaFoldCompoundT; options: cuint): cint {.cdecl,
-    importc: "vrna_fold_compound_prepare", dynlib: rnaLib.}
+    importc: "vrna_fold_compound_prepare", importRna.}
 
 proc foldCompoundFree*(vc: ptr VrnaFoldCompoundT) {.cdecl,
-    importc: "vrna_fold_compound_free", dynlib: rnaLib.}
+    importc: "vrna_fold_compound_free", importRna.}
 
 proc foldCompoundAddAuxdata*(vc: ptr VrnaFoldCompoundT; data: pointer;
                                 f: ptr VrnaCallbackFreeAuxdata) {.cdecl,
-    importc: "vrna_fold_compound_add_auxdata", dynlib: rnaLib.}
+    importc: "vrna_fold_compound_add_auxdata", importRna.}
 
 proc foldCompoundAddCallback*(vc: ptr VrnaFoldCompoundT;
                                  f: ptr VrnaCallbackRecursionStatus) {.cdecl,
-    importc: "vrna_fold_compound_add_callback", dynlib: rnaLib.}
+    importc: "vrna_fold_compound_add_callback", importRna.}

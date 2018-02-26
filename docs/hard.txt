@@ -1,0 +1,30 @@
+Hard
+=====
+
+This module implements hard constraints for ``Compound`` folding, i.e. allows
+you to force given bases to pair.
+
+Example usage
+-------------
+
+We want part of a sequence to fold into a stem loop, and use hard constraints
+to accomplish that.
+
+.. code-block ::
+  sequence & structure:
+                 T
+             A       G
+              C --- G
+              G --- C
+              C --- G
+              G --- C
+  5' G A T C G        A A G 3'
+  constraint string: .....((((xxx))))...
+  'x' means base pairing is forbidden.
+
+.. code-block :: Nim
+  import nimna
+
+  var
+    c = compound"GATCGGCGCATGGCGCAAG"
+    (energy, structure) = c.constrain(".....((((xxx))))...").mfe

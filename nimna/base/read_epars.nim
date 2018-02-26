@@ -6,8 +6,8 @@
 # For more information see LICENSE.
 
 proc readParameterFile*(fname: cstring) {.cdecl, importc: "read_parameter_file",
-                                       dynlib: rnaLib.}
+                                       importRna.}
 proc writeParameterFile*(fname: cstring) {.cdecl, importc: "write_parameter_file",
-                                        dynlib: rnaLib.}
-proc gettype*(ident: cstring): Parset {.cdecl, importc: "gettype", dynlib: rnaLib.}
-proc settype*(s: Parset): cstring {.cdecl, importc: "settype", dynlib: rnaLib.}
+                                        importRna.}
+proc gettype*(ident: cstring): Parset {.cdecl, importc: "gettype", importRna.}
+proc settype*(s: Parset): cstring {.cdecl, importc: "settype", importRna.}

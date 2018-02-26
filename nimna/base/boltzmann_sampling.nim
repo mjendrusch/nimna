@@ -6,6 +6,6 @@
 # For more information see LICENSE.
 
 proc vrnaPbacktrack5*(vc: ptr VrnaFoldCompoundT; length: cint): cstring {.cdecl,
-    importc: "vrna_pbacktrack5", dynlib: rnaLib.}
+    importc: "vrna_pbacktrack5", importRna.}
 proc vrnaPbacktrack*(vc: ptr VrnaFoldCompoundT): cstring {.cdecl,
-    importc: "vrna_pbacktrack", dynlib: rnaLib.}
+    importc: "vrna_pbacktrack", importRna.}

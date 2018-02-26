@@ -5,13 +5,16 @@
 # This library is licensed under the MIT license.
 # For more information see LICENSE.
 
+## .. include:: ../../docs/subopt.txt
+
 import RNA
 import nimna_types, nimna_cutils, nimna_model
 
 proc freeSuboptimals(so: Suboptimals) =
   free(so.so)
 
-proc suboptimals*(c: Compound, delta: int = 10, sorted: bool = true): Suboptimals =
+proc suboptimals*(c: Compound, delta: int = 10,
+                  sorted: bool = true): Suboptimals =
   ## Generates suboptimal folds of the Compound, with distance of
   ## delta * 0.01 kcal / mol from the optimum. If sorted is set to true,
   ## those are sorted by ascending free energy.
@@ -29,9 +32,11 @@ proc suboptimals*(c: Compound, delta: int = 10, sorted: bool = true): Suboptimal
   result.len = length
 
 template E*(f: Fold): float =
+  ## Retrieves the energy of a ``Fold``.
   f.energy.float
 
 template struc*(f: Fold): string =
+  ## Retrieves the secondary structure of a ``Fold``.
   $f.structure
 
 proc `[]`*(so: Suboptimals, idx: int): tuple[E: float, struc: string] =
@@ -47,7 +52,9 @@ iterator items*(so: Suboptimals): tuple[E: float, struc: string] =
   for idx in 0 ..< so.len:
     yield (E: so[idx].E, struc: so[idx].struc)
 
-iterator pairs*(so: Suboptimals): tuple[key: int, val: tuple[E: float, struc: string]] =
+iterator pairs*(so: Suboptimals): tuple[key: int,
+                                        val: tuple[E: float,
+                                                   struc: string]] =
   ## Iterates over itens in a set of Suboptimals, as well as their position in
   ## the set.
   for idx in 0 ..< so.len:

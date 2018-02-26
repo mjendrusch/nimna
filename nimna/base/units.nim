@@ -16,8 +16,8 @@ type
     VRNA_UNIT_DEG_DE, VRNA_UNIT_DEG_RE, VRNA_UNIT_DEG_RO
 
 proc vrnaConvertEnergy*(energy: cdouble; `from`: VrnaUnitEnergyE; to: VrnaUnitEnergyE): cdouble {.
-    cdecl, importc: "vrna_convert_energy", dynlib: rnaLib.}
+    cdecl, importc: "vrna_convert_energy", importRna.}
 
 proc vrnaConvertTemperature*(temp: cdouble; `from`: VrnaUnitTemperatureE;
                             to: VrnaUnitTemperatureE): cdouble {.cdecl,
-    importc: "vrna_convert_temperature", dynlib: rnaLib.}
+    importc: "vrna_convert_temperature", importRna.}

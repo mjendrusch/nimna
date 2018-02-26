@@ -6,10 +6,10 @@
 # For more information see LICENSE.
 
 proc duplexfold*(s1: cstring; s2: cstring): DuplexT {.cdecl, importc: "duplexfold",
-    dynlib: rnaLib.}
+    importRna.}
 proc duplexSubopt*(s1: cstring; s2: cstring; delta: cint; w: cint): ptr DuplexT {.cdecl,
-    importc: "duplex_subopt", dynlib: rnaLib.}
+    importc: "duplex_subopt", importRna.}
 proc aliduplexfold*(s1: ptr cstring; s2: ptr cstring): DuplexT {.cdecl,
-    importc: "aliduplexfold", dynlib: rnaLib.}
+    importc: "aliduplexfold", importRna.}
 proc aliduplexSubopt*(s1: ptr cstring; s2: ptr cstring; delta: cint; w: cint): ptr DuplexT {.
-    cdecl, importc: "aliduplex_subopt", dynlib: rnaLib.}
+    cdecl, importc: "aliduplex_subopt", importRna.}

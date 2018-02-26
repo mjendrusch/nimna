@@ -31,161 +31,161 @@ const
   VRNA_MODEL_DEFAULT_ALI_NC_FACT* = 1.0
 
 proc vrnaMdSetDefault*(md: ptr VrnaMdT) {.cdecl, importc: "vrna_md_set_default",
-                                      dynlib: rnaLib.}
+                                      importRna.}
 
-proc vrnaMdUpdate*(md: ptr VrnaMdT) {.cdecl, importc: "vrna_md_update", dynlib: rnaLib.}
+proc vrnaMdUpdate*(md: ptr VrnaMdT) {.cdecl, importc: "vrna_md_update", importRna.}
 
 proc vrnaMdCopy*(mdTo: ptr VrnaMdT; mdFrom: ptr VrnaMdT): ptr VrnaMdT {.cdecl,
-    importc: "vrna_md_copy", dynlib: rnaLib.}
+    importc: "vrna_md_copy", importRna.}
 
 proc vrnaMdOptionString*(md: ptr VrnaMdT): cstring {.cdecl,
-    importc: "vrna_md_option_string", dynlib: rnaLib.}
+    importc: "vrna_md_option_string", importRna.}
 proc vrnaMdSetNonstandards*(md: ptr VrnaMdT; nsBases: cstring) {.cdecl,
-    importc: "vrna_md_set_nonstandards", dynlib: rnaLib.}
+    importc: "vrna_md_set_nonstandards", importRna.}
 
 proc vrnaMdDefaultsReset*(mdP: ptr VrnaMdT) {.cdecl,
-    importc: "vrna_md_defaults_reset", dynlib: rnaLib.}
+    importc: "vrna_md_defaults_reset", importRna.}
 
 proc vrnaMdDefaultsTemperature*(t: cdouble) {.cdecl,
-    importc: "vrna_md_defaults_temperature", dynlib: rnaLib.}
+    importc: "vrna_md_defaults_temperature", importRna.}
 
 proc vrnaMdDefaultsTemperatureGet*(): cdouble {.cdecl,
-    importc: "vrna_md_defaults_temperature_get", dynlib: rnaLib.}
+    importc: "vrna_md_defaults_temperature_get", importRna.}
 
 proc vrnaMdDefaultsBetaScale*(b: cdouble) {.cdecl,
-    importc: "vrna_md_defaults_betaScale", dynlib: rnaLib.}
+    importc: "vrna_md_defaults_betaScale", importRna.}
 
 proc vrnaMdDefaultsBetaScaleGet*(): cdouble {.cdecl,
-    importc: "vrna_md_defaults_betaScale_get", dynlib: rnaLib.}
+    importc: "vrna_md_defaults_betaScale_get", importRna.}
 
 proc vrnaMdDefaultsDangles*(d: cint) {.cdecl, importc: "vrna_md_defaults_dangles",
-                                    dynlib: rnaLib.}
+                                    importRna.}
 
 proc vrnaMdDefaultsDanglesGet*(): cint {.cdecl,
                                       importc: "vrna_md_defaults_dangles_get",
-                                      dynlib: rnaLib.}
+                                      importRna.}
 
 proc vrnaMdDefaultsSpecialHp*(flag: cint) {.cdecl,
-    importc: "vrna_md_defaults_special_hp", dynlib: rnaLib.}
+    importc: "vrna_md_defaults_special_hp", importRna.}
 
 proc vrnaMdDefaultsSpecialHpGet*(): cint {.cdecl, importc: "vrna_md_defaults_special_hp_get",
-                                        dynlib: rnaLib.}
+                                        importRna.}
 
 proc vrnaMdDefaultsNoLP*(flag: cint) {.cdecl, importc: "vrna_md_defaults_noLP",
-                                    dynlib: rnaLib.}
+                                    importRna.}
 
 proc vrnaMdDefaultsNoLP_get*(): cint {.cdecl, importc: "vrna_md_defaults_noLP_get",
-                                    dynlib: rnaLib.}
+                                    importRna.}
 
 proc vrnaMdDefaultsNoGU*(flag: cint) {.cdecl, importc: "vrna_md_defaults_noGU",
-                                    dynlib: rnaLib.}
+                                    importRna.}
 
 proc vrnaMdDefaultsNoGU_get*(): cint {.cdecl, importc: "vrna_md_defaults_noGU_get",
-                                    dynlib: rnaLib.}
+                                    importRna.}
 
 proc vrnaMdDefaultsNoGUclosure*(flag: cint) {.cdecl,
-    importc: "vrna_md_defaults_noGUclosure", dynlib: rnaLib.}
+    importc: "vrna_md_defaults_noGUclosure", importRna.}
 
 proc vrnaMdDefaultsNoGUclosureGet*(): cint {.cdecl,
-    importc: "vrna_md_defaults_noGUclosure_get", dynlib: rnaLib.}
+    importc: "vrna_md_defaults_noGUclosure_get", importRna.}
 
 proc vrnaMdDefaultsLogML*(flag: cint) {.cdecl, importc: "vrna_md_defaults_logML",
-                                     dynlib: rnaLib.}
+                                     importRna.}
 
 proc vrnaMdDefaultsLogML_get*(): cint {.cdecl,
                                      importc: "vrna_md_defaults_logML_get",
-                                     dynlib: rnaLib.}
+                                     importRna.}
 
 proc vrnaMdDefaultsCirc*(flag: cint) {.cdecl, importc: "vrna_md_defaults_circ",
-                                    dynlib: rnaLib.}
+                                    importRna.}
 
 proc vrnaMdDefaultsCircGet*(): cint {.cdecl, importc: "vrna_md_defaults_circ_get",
-                                   dynlib: rnaLib.}
+                                   importRna.}
 
 proc vrnaMdDefaultsGquad*(flag: cint) {.cdecl, importc: "vrna_md_defaults_gquad",
-                                     dynlib: rnaLib.}
+                                     importRna.}
 
 proc vrnaMdDefaultsGquadGet*(): cint {.cdecl, importc: "vrna_md_defaults_gquad_get",
-                                    dynlib: rnaLib.}
+                                    importRna.}
 
 proc vrnaMdDefaultsUniqML*(flag: cint) {.cdecl, importc: "vrna_md_defaults_uniq_ML",
-                                      dynlib: rnaLib.}
+                                      importRna.}
 
 proc vrnaMdDefaultsUniqML_get*(): cint {.cdecl,
                                       importc: "vrna_md_defaults_uniq_ML_get",
-                                      dynlib: rnaLib.}
+                                      importRna.}
 
 proc vrnaMdDefaultsEnergySet*(e: cint) {.cdecl,
                                       importc: "vrna_md_defaults_energy_set",
-                                      dynlib: rnaLib.}
+                                      importRna.}
 
 proc vrnaMdDefaultsEnergySetGet*(): cint {.cdecl, importc: "vrna_md_defaults_energy_set_get",
-                                        dynlib: rnaLib.}
+                                        importRna.}
 
 proc vrnaMdDefaultsBacktrack*(flag: cint) {.cdecl,
-    importc: "vrna_md_defaults_backtrack", dynlib: rnaLib.}
+    importc: "vrna_md_defaults_backtrack", importRna.}
 
 proc vrnaMdDefaultsBacktrackGet*(): cint {.cdecl, importc: "vrna_md_defaults_backtrack_get",
-                                        dynlib: rnaLib.}
+                                        importRna.}
 
 proc vrnaMdDefaultsBacktrackType*(t: char) {.cdecl,
-    importc: "vrna_md_defaults_backtrack_type", dynlib: rnaLib.}
+    importc: "vrna_md_defaults_backtrack_type", importRna.}
 
 proc vrnaMdDefaultsBacktrackTypeGet*(): char {.cdecl,
-    importc: "vrna_md_defaults_backtrack_type_get", dynlib: rnaLib.}
+    importc: "vrna_md_defaults_backtrack_type_get", importRna.}
 
 proc vrnaMdDefaultsComputeBpp*(flag: cint) {.cdecl,
-    importc: "vrna_md_defaults_compute_bpp", dynlib: rnaLib.}
+    importc: "vrna_md_defaults_compute_bpp", importRna.}
 
 proc vrnaMdDefaultsComputeBppGet*(): cint {.cdecl,
-    importc: "vrna_md_defaults_compute_bpp_get", dynlib: rnaLib.}
+    importc: "vrna_md_defaults_compute_bpp_get", importRna.}
 
 proc vrnaMdDefaultsMaxBpSpan*(span: cint) {.cdecl,
-    importc: "vrna_md_defaults_max_bp_span", dynlib: rnaLib.}
+    importc: "vrna_md_defaults_max_bp_span", importRna.}
 
 proc vrnaMdDefaultsMaxBpSpanGet*(): cint {.cdecl, importc: "vrna_md_defaults_max_bp_span_get",
-                                        dynlib: rnaLib.}
+                                        importRna.}
 
 proc vrnaMdDefaultsMinLoopSize*(size: cint) {.cdecl,
-    importc: "vrna_md_defaults_min_loop_size", dynlib: rnaLib.}
+    importc: "vrna_md_defaults_min_loop_size", importRna.}
 
 proc vrnaMdDefaultsMinLoopSizeGet*(): cint {.cdecl,
-    importc: "vrna_md_defaults_min_loop_size_get", dynlib: rnaLib.}
+    importc: "vrna_md_defaults_min_loop_size_get", importRna.}
 
 proc vrnaMdDefaultsWindowSize*(size: cint) {.cdecl,
-    importc: "vrna_md_defaults_window_size", dynlib: rnaLib.}
+    importc: "vrna_md_defaults_window_size", importRna.}
 
 proc vrnaMdDefaultsWindowSizeGet*(): cint {.cdecl,
-    importc: "vrna_md_defaults_window_size_get", dynlib: rnaLib.}
+    importc: "vrna_md_defaults_window_size_get", importRna.}
 
 proc vrnaMdDefaultsOldAliEn*(flag: cint) {.cdecl,
                                         importc: "vrna_md_defaults_oldAliEn",
-                                        dynlib: rnaLib.}
+                                        importRna.}
 
 proc vrnaMdDefaultsOldAliEnGet*(): cint {.cdecl, importc: "vrna_md_defaults_oldAliEn_get",
-                                       dynlib: rnaLib.}
+                                       importRna.}
 
 proc vrnaMdDefaultsRibo*(flag: cint) {.cdecl, importc: "vrna_md_defaults_ribo",
-                                    dynlib: rnaLib.}
+                                    importRna.}
 
 proc vrnaMdDefaultsRiboGet*(): cint {.cdecl, importc: "vrna_md_defaults_ribo_get",
-                                   dynlib: rnaLib.}
+                                   importRna.}
 
 proc vrnaMdDefaultsCvFact*(factor: cdouble) {.cdecl,
-    importc: "vrna_md_defaults_cv_fact", dynlib: rnaLib.}
+    importc: "vrna_md_defaults_cv_fact", importRna.}
 
 proc vrnaMdDefaultsCvFactGet*(): cdouble {.cdecl, importc: "vrna_md_defaults_cv_fact_get",
-                                        dynlib: rnaLib.}
+                                        importRna.}
 
 proc vrnaMdDefaultsNcFact*(factor: cdouble) {.cdecl,
-    importc: "vrna_md_defaults_nc_fact", dynlib: rnaLib.}
+    importc: "vrna_md_defaults_nc_fact", importRna.}
 
 proc vrnaMdDefaultsNcFactGet*(): cdouble {.cdecl, importc: "vrna_md_defaults_nc_fact_get",
-                                        dynlib: rnaLib.}
+                                        importRna.}
 
 proc vrnaMdDefaultsSfact*(factor: cdouble) {.cdecl,
-    importc: "vrna_md_defaults_sfact", dynlib: rnaLib.}
+    importc: "vrna_md_defaults_sfact", importRna.}
 
 proc vrnaMdDefaultsSfactGet*(): cdouble {.cdecl,
                                        importc: "vrna_md_defaults_sfact_get",
-                                       dynlib: rnaLib.}
+                                       importRna.}

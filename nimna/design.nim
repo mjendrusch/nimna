@@ -5,6 +5,8 @@
 # This library is licensed under the MIT license.
 # For more information see LICENSE.
 
+## .. include:: ../docs/design.txt
+
 import nimna
 import tables, random, algorithm, sequtils, sets
 
@@ -12,14 +14,14 @@ const
   concreteAlphabet* = {'A', 'a', 'C', 'c', 'G', 'g', 'T', 't', 'U', 'u'}
   abstractAlphabet* = {'N', 'n', 'B', 'b', 'D', 'd', 'H', 'h', 'V', 'v',
                        'W', 'w', 'S', 's', 'R', 'r', 'Y', 'y'}
-  skipNucleotides* = [('B', {'A', 'a'}), ('b', {'A', 'a'}), ('D', {'C', 'c'}),
-                      ('d', {'C', 'c'}), ('H', {'G', 'g'}), ('h', {'G', 'g'}),
-                      ('V', {'T', 't'}), ('v', {'T', 't'}),
-                      ('W', {'G', 'g', 'C', 'c'}), ('w', {'G', 'g', 'C', 'c'}),
-                      ('S', {'A', 'a', 'T', 't'}), ('s', {'A', 'a', 'T', 't'}),
-                      ('R', {'C', 'c', 'T', 't'}), ('r', {'C', 'c', 'T', 't'}),
-                      ('Y', {'A', 'a', 'G', 'g'}),
-                      ('y', {'A', 'a', 'G', 'g'})].toTable
+  skipNucleotides* = {'B': {'A', 'a'}, 'b': {'A', 'a'}, 'D': {'C', 'c'},
+                      'd': {'C', 'c'}, 'H': {'G', 'g'}, 'h': {'G', 'g'},
+                      'V': {'T', 't'}, 'v': {'T', 't'},
+                      'W': {'G', 'g', 'C', 'c'}, 'w': {'G', 'g', 'C', 'c'},
+                      'S': {'A', 'a', 'T', 't'}, 's': {'A', 'a', 'T', 't'},
+                      'R': {'C', 'c', 'T', 't'}, 'r': {'C', 'c', 'T', 't'},
+                      'Y': {'A', 'a', 'G', 'g'},
+                      'y': {'A', 'a', 'G', 'g'}}.toTable
 
 template skip*(constraint, nt: char): bool =
   (skipNucleotides.hasKey(constraint)) and (nt in skipNucleotides[constraint])
@@ -43,7 +45,7 @@ type
   DesignEngine* = ref object
     ## Object containing a population and scoring function for nucleic acid
     ## design.
-    population: seq[Compound]
+    population*: seq[Compound]
     populationSize: int
     best*: Compound
     score*: float
@@ -60,7 +62,7 @@ proc newEngine*(popSize: int, fitness: proc(c: Compound): float): DesignEngine =
   result.mutator.backgroundProbs = [('A', 0.25), ('T', 0.25),
                                     ('C', 0.25), ('G', 0.25)].toTable
   result.mutator.mutationProb = 0.5
-  result.mutator.consistentProb = 0.5
+  result.mutator.consistentProb = 0.0
   result.population = @[]
   result.settings = settings()
   result.mutator.stringLength = 0
@@ -127,7 +129,6 @@ proc addStructure*(eg: DesignEngine, structure: string) =
       newPc.add(eg.mutator.pairConstraints[idx])
   eg.mutator.freeConstraints = newFc
   eg.mutator.pairConstraints = newPc
-
 
 proc `structure=`*(eg: DesignEngine, structure: string) =
   ## Sets a structure for consistent mutation for the DesignEngine `eg`.

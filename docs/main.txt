@@ -1,0 +1,156 @@
+General usage
+=============
+
+This section describes the general usage of the ``nimna`` package.
+A large part of ``nimna`` is a high-level Nim wrapper of the ViennaRNA_ 2.x (`Lorenz et al. 2011`_)
+object-oriented API. As such, it provides all the functionality available in
+ViennaRNA behind an idiomatic Nim interface, while taking care of memory management
+using the Nim GC. It also provides nucleic acid design functionalities (currently
+based on an artificial immune system algorithm with naive sequence sampling)
+using the ``design`` submodule.
+
+Installation
+============
+
+Installation of ``nimna`` and its dependencies is automatically handled using
+``nimble install``. This tries to autodetect, whether a suitable dynamic library
+version of ``libRNA`` exists on your computer. If that is not the case, it pulls
+all files necessary for installation from the web and installs them. In case of
+Windows, the ViennaRNA installer is started and you may need to complete the
+some installation steps manually, while for \*nix ViennaRNA is built from source.
+As such, it suffices for most use-cases to just perform:
+
+::
+  $ nimble install nimna
+
+..
+  Should you wish to use ``nimna`` with ``emscripten``, or with the JavaScript
+  backend, you should also run:
+
+  ::
+    $ nimble buildjs
+
+  inside the ``nimna`` directory. This will compile the ViennaRNA sources to
+  JavaScript using ``emscripten`` (WARNING: using ``nimna`` with the JavaScript
+  backend is currently experimental. Depend on it at your own risk).
+
+Submodules and functionality
+============================
+
+The functionality of ``nimna`` is split amongst multiple modules which are not
+meant to be imported separately, but are exported from ``nimna.nim``. Those
+modules logically separate the functionality contained in ``nimna``.
+
+`RNA <nimna/private/RNA.html>`_
+-------------------------------
+
+The ``RNA`` module provides a bare-bones wrapper of ``libRNA`` functionality
+generated using ``c2nim``. All other modules (excluding ``design``) provide
+higher-level conveniences around this. Should you for some reason need to
+access ``libRNA`` functionality directly, you can import this module, though
+for most use-cases ``nimna`` should suffice.
+
+`nimna_types <nimna/private/nimna_types.html>`_
+-----------------------------------------------
+
+The module ``nimna_types`` provides all high-level wrapper types used in
+``nimna``, together with all the needed constants. It is included by every
+other submodule of ``nimna``.
+
+`nimna_cutils <nimna/private/nimna_cutils.html>`_
+-------------------------------------------------
+
+The module ``nimna_cutils`` provides a small set of utility templates for
+interfacing with ``libRNA``.
+
+`nimna_compound <nimna/private/nimna_compound.html>`_
+-----------------------------------------------------
+
+The module ``nimna_compound`` provides access to one of the core types in
+``nimna`` - the ``Compound``. A ``Compound`` object contains a sequence and
+all context required to fold that sequence, evaluate its energy, and all other
+things one can do with sequences in ``nimna``. The  module allows for the easy
+construction of ``Compounds`` from plain strings using the ``compound`` family
+of procs, as well as the ``dimer`` proc for multiple sequence folding.
+It also provides access to all fields of the underlying ``vrna_fold_compound_t``
+`via` the ``.`` and ``.=`` macros, should access to compound internals be
+required.
+
+`nimna_model <nimna/private/nimna_model.html>`_
+-----------------------------------------------
+
+The module ``nimna_model`` contains procedures to set parameters for folding,
+such as the temperature at which a compound should be folded. It also contains
+the ``update`` macro, which allows to easily update any number of parameters
+on a compound.
+
+`nimna_constraints <nimna/private/nimna_constraints.html>`_
+-----------------------------------------------------------
+
+The ``nimna_constraints`` module provides facilities to constrain nucleic acid
+folding. This can be done by either forcing certain bases to pair or remain
+unpaired (with ``forcePaired``, ``forceUnpaired``, ``constrain``, i.e hard constraints),
+or setting a free energy bonus for certain secondary structures (with
+``preferPaired``, ``preferUnpaired``, i.e. soft constraints) or motifs (with
+``preferMotif``).
+
+`nimna_alignment <nimna/private/nimna_alignment.html>`_
+-------------------------------------------------------
+
+The module ``nimna_alignment`` provides convenience for using the ``Alignment``
+data structure used to represent multiple sequence alignments in alignment folding.
+
+`nimna_fold <nimna/private/nimna_fold.html>`_
+---------------------------------------------
+
+The module ``nimna_fold`` contains all the folding functionality on ``Compounds``
+available in ViennaRNA. This includes minimum free energy folding (``mfe``),
+partition function folding (``pf``) and centroid folding (``centroid``).
+
+`nimna_eval <nimna/private/nimna_eval.html>`_
+---------------------------------------------
+
+The module ``nimna_eval`` includes procedures for evaluating the free energy of
+nucleic acid sequences folded into particular secondary structures (``eval``),
+as well as the energy differences induced by adding or removing a single
+base-pair. This is useful for defining fitness functions for nucleic acid design.
+
+`nimna_probabilities <nimna/private/nimna_probabilities.html>`_
+---------------------------------------------------------------
+
+The module ``nimna_probabilities`` provides the facilities for dealing with
+``Probabilities`` objects, which allow to inspect the base-pairing probabilities
+computed in partition function folding (obtained using ``prob``).
+
+`nimna_sample <nimna/private/nimna_sample.html>`_
+-------------------------------------------------
+
+Samples secondary structures from a ``Compound``, according to the
+Boltzmann-distribution of the ``Compound's`` ensemble.
+
+`nimna_subopt <nimna/private/nimna_subopt.html>`_
+-------------------------------------------------
+
+The module ``nimna_subopt`` allows to generate suboptimal foldings within a
+given energy range around the minimum free energy fold (using ``suboptimals``).
+
+`nimna_interactionlist <nimna/private/nimna_interactionlist.html>`_
+-------------------------------------------------------------------
+
+The module ``nimna_interactionlist`` contains procs and iterators for dealing
+with ``PairList`` objects, which describe the base-pairing within a nucleic acid
+sequence (e.g. ``pairList``). It further provides maximum expected accuracy
+folding on ``PairLists`` (using ``mea``).
+
+`nimna_misc <nimna/private/nimna_misc.html>`_
+---------------------------------------------
+
+The module ``nimna_misc`` provides miscellaneous utility functions.
+
+
+
+.. Citations
+.. _Lorenz et al. 2011: https://doi.org/10.1186/1748-7188-6-26
+
+.. Links
+.. _ViennaRNA: https://www.tbi.univie.ac.at/RNA/

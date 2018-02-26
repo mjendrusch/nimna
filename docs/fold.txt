@@ -1,0 +1,24 @@
+Fold
+=====
+
+This module contains all procedures for folding a ``Compound``. That is, minimum
+free energy folding, partition function folding and centroid folding, for monomers
+and dimers.
+
+Example usage
+-------------
+
+Those are a few variations on folding.
+
+.. code-block :: nim
+  import nimna
+
+  var
+    comp: Compound = compound"..."
+    dimer: Compound = dimer("...", "...")
+
+  # A few variations on folding.
+  let
+    (E, struc) = comp.mfe # Minimum free energy fold
+    (Epf, strucPf) = comp.pf # partition function fold
+    (distance, struc) = comp.centroid # ensemble centroid

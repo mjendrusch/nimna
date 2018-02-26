@@ -6,4 +6,4 @@
 # For more information see LICENSE.
 
 proc vrnaCofold*(sequence: cstring; structure: cstring): cfloat {.cdecl,
-    importc: "vrna_cofold", dynlib: rnaLib.}
+    importc: "vrna_cofold", importRna.}

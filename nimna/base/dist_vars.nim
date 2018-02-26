@@ -6,9 +6,9 @@
 # For more information see LICENSE.
 
 var
-  editBacktrack* {.importc: "edit_backtrack", dynlib: rnaLib.}: cint
-  alignedLine* {.importc: "aligned_line", dynlib: rnaLib.}: array[4, cstring]
-  costMatrix* {.importc: "cost_matrix", dynlib: rnaLib.}: cint
+  editBacktrack* {.importc: "edit_backtrack", importRna.}: cint
+  alignedLine* {.importc: "aligned_line", importRna.}: array[4, cstring]
+  costMatrix* {.importc: "cost_matrix", importRna.}: cint
 
 type
   PostorderList* = object

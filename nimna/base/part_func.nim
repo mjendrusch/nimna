@@ -6,13 +6,13 @@
 # For more information see LICENSE.
 
 proc pf*(vc: ptr VrnaFoldCompoundT; structure: ptr char): cfloat {.cdecl,
-    importc: "vrna_pf", dynlib: rnaLib.}
+    importc: "vrna_pf", importRna.}
 
 proc pfFold*(sequence: cstring; structure: ptr char; pl: ptr ptr VrnaPlistT): cfloat {.
-    cdecl, importc: "vrna_pf_fold", dynlib: rnaLib.}
+    cdecl, importc: "vrna_pf_fold", importRna.}
 
 proc pfCircfold*(sequence: cstring; structure: ptr char; pl: ptr ptr VrnaPlistT): cfloat {.
-    cdecl, importc: "vrna_pf_circfold", dynlib: rnaLib.}
+    cdecl, importc: "vrna_pf_circfold", importRna.}
 
 proc pfFloatPrecision*(): cint {.cdecl, importc: "vrna_pf_float_precision",
-                                  dynlib: rnaLib.}
+                                  importRna.}
