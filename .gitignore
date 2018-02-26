@@ -1,3 +1,5 @@
 deps
 nimcache
 tall
+*.html
+htmldocs
