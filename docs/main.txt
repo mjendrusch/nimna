@@ -7,7 +7,7 @@ object-oriented API. As such, it provides all the functionality available in
 ViennaRNA behind an idiomatic Nim interface, while taking care of memory management
 using the Nim GC. It also provides nucleic acid design functionalities (currently
 based on an artificial immune system algorithm with naive sequence sampling)
-using the `design <nimna/design.html>` submodule.
+using the `design <nimna/design.html>_` submodule.
 
 Installation
 ============
@@ -48,12 +48,12 @@ Nucleic acid design
 ===================
 
 Beyond ViennaRNA functionality, ``nimna`` currently provides a `module for
-general nucleic acid design <nimna/design.html>`, which currently implements an
+general nucleic acid design <nimna/design.html>`_, which currently implements an
 artificial immune system algorithm à la `CLONALG`_ (`Castro and Von Zuben 2002`_)
 coupled with user defined fitness functions ("affinity" in the lingo of the
 `CLONALG`_ paper), and naive random resampling of nucleic acid sequences.
 Using this module, the user can design sequences conforming to arbitrary
-sequence constraints in the `IUPAC notation <https://www.bioinformatics.org/sms/iupac.html>`,
+sequence constraints in the `IUPAC notation <https://www.bioinformatics.org/sms/iupac.html>`_,
 as well as arbitrary design targets, solely specified by a used-defined fitness
 function.
 
@@ -183,7 +183,7 @@ Here are some things off the top of my head, which should be done to improve
 
 Factor out the artificial immune system engine:
   While an artificial immune system algorithm seemed reasonable at the time I
-  wrote the `design <nimna/design.html>` module and still had its admittably
+  wrote the `design <nimna/design.html>`_ module and still had its admittably
   terrible Python predecessor ``JAWS`` of iGEM 2015 infamy in mind, it would
   certainly be better to have a separate package define an ``Optimizer`` concept
   which could then be implemented for a number of different optimization
@@ -219,7 +219,7 @@ Improve the installation experience:
   through the configuration process upon installation.
 
 Add preset fitness functions:
-  Currently, no preset fitness functions exist for the `design <nimna/design.html>`
+  Currently, no preset fitness functions exist for the `design <nimna/design.html>`_
   module, requiring the user to know exactly what they want to optimize.
   A few sane preset fitness functions would probably lower the barrier to
   effectively use that module.
