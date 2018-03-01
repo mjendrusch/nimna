@@ -40,19 +40,30 @@ else:
 
 after install:
   ## Currently untested.
+  ## Clean the install dir, should it still contain dependencies
+  ## from a previous install.
+  exec "cd $(nimble path nimna) && rm -rf deps"
   exec "cd $(nimble path nimna) && mkdir -p deps/lib"
   exec "cd $(nimble path nimna) && wget -O ./deps/vrna.tar.gz https://www.tbi.univie.ac.at/RNA/download/sourcecode/2_4_x/ViennaRNA-2.4.3.tar.gz"
   exec "cd $(nimble path nimna) && cd ./deps && tar -xzf vrna.tar.gz"
   ## Disable link-time optimization, linking takes ages otherwise.
   ## Disable C11 features.
   exec "cd $(nimble path nimna) && cd ./deps/ViennaRNA-2.4.3 && ./configure --prefix=$(readlink -f \"../\") --disable-c11 --disable-lto && make && make install"
+  exec "echo \"\" >> ~/.bashrc"
+  exec "echo \"# nimna dependencies:\" >> ~/.bashrc"
+  exec "echo \"export LIBRARY_PATH=$LIBRARY_PATH:$(nimble path nimna)/deps/lib/\" >> ~/.bashrc"
+  exec "echo \"export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$(nimble path nimna)/deps/lib/\" >> ~/.bashrc"
+  exec "echo \"alias nimnacleanup=\\\"cd $(nimble path nimna) && rm -rf deps && cd -\\\"\" >> ~/.bashrc
 
 after deps:
   when defined(windows):
     discard
   else:
-    exec "echo \"export LIBRARY_PATH=$LIBRARY_PATH:$(pwd)/deps/lib/\" >> ~/.bashrc"
-    exec "echo \"export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$(pwd)/deps/lib/\" >> ~/.bashrc"
+    exec "echo \"\" >> ~/.bashrc"
+    exec "echo \"# nimna dependencies:\" >> ~/.bashrc"
+    exec "echo \"export LIBRARY_PATH=$LIBRARY_PATH:$(nimble path nimna)/deps/lib/\" >> ~/.bashrc"
+    exec "echo \"export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$(nimble path nimna)/deps/lib/\" >> ~/.bashrc"
+    exec "echo \"alias nimnacleanup=\\\"cd $(nimble path nimna) && rm -rf deps && cd -\\\"\" >> ~/.bashrc"
 
 task docs, "build nimna docs":
   exec "mkdir -p htmldocs"
