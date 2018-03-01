@@ -7,7 +7,7 @@ object-oriented API. As such, it provides all the functionality available in
 ViennaRNA behind an idiomatic Nim interface, while taking care of memory management
 using the Nim GC. It also provides nucleic acid design functionalities (currently
 based on an artificial immune system algorithm with naive sequence sampling)
-using the `design <nimna/design.html>_` submodule.
+using the `design <nimna/design.html>`_ submodule.
 
 Installation
 ============
