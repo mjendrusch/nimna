@@ -7,7 +7,7 @@ object-oriented API. As such, it provides all the functionality available in
 ViennaRNA behind an idiomatic Nim interface, while taking care of memory management
 using the Nim GC. It also provides nucleic acid design functionalities (currently
 based on an artificial immune system algorithm with naive sequence sampling)
-using the ``design`` submodule.
+using the `design <nimna/design.html>` submodule.
 
 Installation
 ============
@@ -23,6 +23,16 @@ As such, it suffices for most use-cases to just perform:
 ::
   $ nimble install nimna
 
+As nimble currently does not allow ``uninstall`` hooks, ``nimna`` provides a
+command to clean up dependencies, should you want to uninstall ``nimna``:
+
+::
+  $ nimnacleanup
+
+This removes the dependency folder in the ``nimna`` package. If this is not
+done, nimble cannot fully remove ``nimna's`` package directory, leaving the
+deps folder to lie around.
+
 ..
   Should you wish to use ``nimna`` with ``emscripten``, or with the JavaScript
   backend, you should also run:
@@ -34,8 +44,21 @@ As such, it suffices for most use-cases to just perform:
   JavaScript using ``emscripten`` (WARNING: using ``nimna`` with the JavaScript
   backend is currently experimental. Depend on it at your own risk).
 
-Submodules and functionality
-============================
+Nucleic acid design
+===================
+
+Beyond ViennaRNA functionality, ``nimna`` currently provides a `module for
+general nucleic acid design <nimna/design.html>`, which currently implements an
+artificial immune system algorithm à la `CLONALG`_ (`Castro and Von Zuben 2002`_)
+coupled with user defined fitness functions ("affinity" in the lingo of the
+`CLONALG`_ paper), and naive random resampling of nucleic acid sequences.
+Using this module, the user can design sequences conforming to arbitrary
+sequence constraints in the `IUPAC notation <https://www.bioinformatics.org/sms/iupac.html>`,
+as well as arbitrary design targets, solely specified by a used-defined fitness
+function.
+
+Submodules and their functionality
+==================================
 
 The functionality of ``nimna`` is split amongst multiple modules which are not
 meant to be imported separately, but are exported from ``nimna.nim``. Those
@@ -147,10 +170,101 @@ folding on ``PairLists`` (using ``mea``).
 
 The module ``nimna_misc`` provides miscellaneous utility functions.
 
+Future directions
+=================
 
+Though ``nimna`` already provides basic functionalities for working with
+nucleic acids, there is still much work to do with regards to making it
+better, more in-sync with current research and more compatible with the Nim
+ecosystem.
+
+Here are some things off the top of my head, which should be done to improve
+``nimna``
+
+Factor out the artificial immune system engine:
+  While an artificial immune system algorithm seemed reasonable at the time I
+  wrote the `design <nimna/design.html>` module and still had its admittably
+  terrible Python predecessor ``JAWS`` of iGEM 2015 infamy in mind, it would
+  certainly be better to have a separate package define an ``Optimizer`` concept
+  which could then be implemented for a number of different optimization
+  algorithms a user could coose from.
+
+Factor out the nucleic acid random sampling:
+  Same as above. Just sampling nucleotides from a certain input distribution
+  is not optimal, as schemes such as `RNAblueprint`_ (`Hammer et al. 2017`_)
+  exist. Why not provide a concept to define what a random sampler should do,
+  implement a few options and let the user make that choice?
+
+Finally make all of ``nimna`` work with JavaScript:
+  This has been long in the works and fraught with quite a bit of frustration.
+  The ViennaRNA codebase is not exactly Emscripten friendly, and interfacing to
+  Emscripten from the JavaScript backend is painful, but possible. Furthermore,
+  some sane way to manage Emscripten-allocated resources from JavaScript needs
+  to be written. All in all, I still think this is a needed feature, but it will
+  probably take a while.
+
+Automate c2nim wrapper construction:
+  Currently, the low-level ViennaRNA wrapper is hand-modified c2nim output,
+  mostly to deal with type dependency issues. It would be nice, if we could
+  build that wrapper automatically from a fresh download of ViennaRNA sources,
+  adapted to a chosen set of build options, as ViennaRNA has a few ``#ifdef``
+  inside types, leading to different type layouts for different inputs to
+  ``configure``.
+
+Improve the installation experience:
+  Currently, ``nimble install nimna`` just downloads and builds the ViennaRNA
+  sources with a hardcoded set of sane configuration options. For some usecases
+  different options would be preferable, which is currently not supported by
+  ``nimnas`` ``.nimble`` file. It would be nice if the user were instead guided
+  through the configuration process upon installation.
+
+Add preset fitness functions:
+  Currently, no preset fitness functions exist for the `design <nimna/design.html>`
+  module, requiring the user to know exactly what they want to optimize.
+  A few sane preset fitness functions would probably lower the barrier to
+  effectively use that module.
+
+Non-goals
+=========
+
+Though ``nimna`` aims to be a library for nucleic acid folding and design, there
+are a few things it does not wish to be, which should be handled in separate
+packages.
+
+nucleic acids as genetic material:
+  ``nimna`` is not, and will not be a library dealing with sequencing data,
+  variant calling, or the like. It is meant for dealing with the `physical`
+  properties of nucleic acids, not their properties as a genetic material.
+
+primer / guide RNA / *insert my oligo here* design:
+  while I do encourage ``nimna`` to be ``used to power`` a library providing
+  primer / guide RNA / *other special oligo* design capabilities, that
+  functionality should not be baked into ``nimna``, as it encroaches on the
+  territory of `nucleic acids as genetic material`, which should be in a
+  separate package.
+
+directly involve molecular modeling and dynamics:
+  while ``nimna`` could at some point provide functionalities dealing with
+  nucleic acid tertiary structure and molecular dynamics, the underlying
+  molecular modeling and dynamics should be a separate package. ``nimna``
+  should only deal with nucleic acid structure, not be a molecular dynamics
+  engine.
+
+iGEM disclaimer
+===============
+
+``nimna`` is not a project of a Heidelberg iGEM team, future or past. Certainly,
+it was inspired by the work of the `Heidelberg iGEM team 2015`_ but it is its
+own project, which I work on, on my own time and which `will be maintained and
+supported`, in contrast to some iGEM code out there.
 
 .. Citations
 .. _Lorenz et al. 2011: https://doi.org/10.1186/1748-7188-6-26
+.. _CLONALG https://doi.org/10.1109/TEVC.2002.1011539
+.. _Castro and Von Zuben 2002: https://doi.org/10.1109/TEVC.2002.1011539
+.. _RNAbluepring: https://doi.org/10.1093/bioinformatics/btx263
+.. _Hammer et al. 2017: https://doi.org/10.1093/bioinformatics/btx263
 
 .. Links
 .. _ViennaRNA: https://www.tbi.univie.ac.at/RNA/
+.. _Heidelberg iGEM team 2015: http://2015.igem.org/Team:Heidelberg
