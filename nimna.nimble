@@ -53,7 +53,7 @@ after install:
   exec "echo \"# nimna dependencies:\" >> ~/.bashrc"
   exec "echo \"export LIBRARY_PATH=$LIBRARY_PATH:$(nimble path nimna)/deps/lib/\" >> ~/.bashrc"
   exec "echo \"export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$(nimble path nimna)/deps/lib/\" >> ~/.bashrc"
-  exec "echo \"alias nimnacleanup=\\\"cd $(nimble path nimna) && rm -rf deps && cd -\\\"\" >> ~/.bashrc
+  exec "echo \"alias nimnacleanup=\\\"cd $(nimble path nimna) && rm -rf deps && cd -\\\"\" >> ~/.bashrc"
 
 after deps:
   when defined(windows):
