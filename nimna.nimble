@@ -16,7 +16,6 @@ proc testConfig() =
   --linetrace: on
   --debuginfo
   --path: "."
-  --passL: "-lstdc++"
   --run
 
 proc exampleConfig() =

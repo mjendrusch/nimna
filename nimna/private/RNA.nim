@@ -18,6 +18,7 @@ when false:
 else:
   # {. passL: "$(nimble path nimna)/deps/lib/" .}
   {. passL: "-fopenmp -lRNA" .}
+  {. passL: "-lstdc++" .} # ViennaRNA links stuff which requires this.
   {. pragma: importRNA .}
 
 {. push warning[SmallLshouldNotBeUsed]: off .}
